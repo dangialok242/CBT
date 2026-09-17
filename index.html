@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TCS BPS Advanced Portal & Mock Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e3a8a 100%);
+            --accent: #06b6d4;
+            --accent-hover: #0891b2;
+            --panel-bg: #0f172a;
+            --text-main: #f8fafc;
+            --muted: #94a3b8;
+            --line: #334155;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        [data-theme="light"] {
+            --panel-bg: #ffffff;
+            --text-main: #1e293b;
+            --muted: #64748b;
+            --line: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Blue Starry Moving Background */
+        .starry-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: moveStars 40s linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes moveStars {
+            0% {
+                transform: translateY(0px) translateX(0px);
+            }
+
+            50% {
+                transform: translateY(-1000px) translateX(20px);
+            }
+
+            100% {
+                transform: translateY(-2000px) translateX(-20px);
+            }
+        }
+
+        .floating-graphics {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .float-icon {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.15;
+            animation: floatAnim 18s linear infinite;
+        }
+
+        @keyframes floatAnim {
+            0% {
+                transform: translateY(105vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+            }
+        }
+
+        #tcsApp {
+            width: 100%;
+            max-width: 1050px;
+            height: 88vh;
+            min-height: 600px;
+            background: var(--panel-bg);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .auth-container,
+        #welcomeScreen {
+            padding: 40px 30px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9));
+            color: white;
+            overflow-y: auto;
+        }
+
+        .auth-container h2,
+        #welcomeScreen h1 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+        }
+
+        #welcomeScreen .welcome-badge {
+            background: #0284c7;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        #welcomeScreen p,
+        .auth-container p {
+            color: #cbd5e1;
+            font-size: 15px;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .auth-container .form-group label {
+            color: #cbd5e1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .auth-container .form-control {
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+        }
+
+        .link-text {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+
+        .link-text span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: 750;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--line);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .user-dash-header,
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            background: #334155;
+            transition: transform 0.2s;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .dash-content,
+        .admin-content {
+            padding: 30px;
+            flex: 1;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        @media (min-width: 850px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .dash-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.2s;
+        }
+
+        .dash-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .dash-card h3 {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .admin-tab-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--line);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .admin-tab-btn.active-tab {
+            background: var(--accent);
+            color: #0f172a;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.03);
+            flex-wrap: wrap;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .sub-info {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .timer-box {
+            font-variant-numeric: tabular-nums;
+            background: #0f172a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .exam-section-bar {
+            display: flex;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(6, 182, 212, 0.08);
+            border-bottom: 1px solid var(--line);
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .sec-jump-btn {
+            background: var(--panel-bg);
+            border: 1px solid var(--line);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .sec-jump-btn.active-sec {
+            background: var(--accent);
+            color: #0f172a;
+            border-color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: var(--line);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .progress-container {
+            height: 6px;
+            background: var(--line);
+            width: 100%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.4s linear;
+        }
+
+        .exam-body {
+            padding: 25px 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 700;
+            margin-bottom: 22px;
+            color: var(--text-main);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            background: var(--panel-bg);
+            color: var(--text-main);
+            min-height: 48px;
+            transition: border-color 0.2s;
+        }
+
+        .option-item:hover {
+            border-color: var(--accent);
+        }
+
+        .option-item:has(input:checked) {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.12);
+        }
+
+        .option-item input {
+            accent-color: var(--accent);
+            transform: scale(1.2);
+            margin-top: 2px;
+        }
+
+        .exam-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--line);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .nav-palette {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            max-height: 90px;
+            overflow-y: auto;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.02);
+            border-top: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .nav-btn.done {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .nav-btn.current {
+            outline: 2px solid var(--accent);
+            outline-offset: 1px;
+        }
+
+        #resultScreen {
+            padding: 30px 20px;
+            text-align: center;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-display {
+            font-size: 44px;
+            font-weight: 900;
+            color: var(--accent);
+            margin: 10px 0;
+        }
+
+        .feedback-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px 18px;
+            border-radius: 8px;
+            text-align: left;
+            margin: 18px 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            width: 100%;
+            max-width: 650px;
+            color: var(--text-main);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-bg);
+        }
+
+        .stat-box b {
+            display: block;
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        #solutionScreen {
+            padding: 25px 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .sol-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .sol-q-num {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .sol-q-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .sol-options-list {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .sol-opt-row {
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sol-opt-row.correct-choice {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .sol-opt-row.wrong-choice {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .analysis-tag {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .analysis-tag.correct {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .analysis-tag.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .analysis-tag.unanswered {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--muted);
+        }
+
+        #thankYouScreen {
+            padding: 40px 20px;
+            text-align: center;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #thankYouScreen h1 {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        #thankYouScreen p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 480px;
+            line-height: 1.6;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--line);
+            color: var(--text-main);
+            vertical-align: top;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Separated & Animated Footer */
+        .footer-tag {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: #94a3b8;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            background: transparent;
+        }
+
+        .footer-tag:hover {
+            color: #38bdf8;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="starry-bg" id="starryBg"></div>
+    <div class="floating-graphics" id="floatingGraphics"></div>
+
+    <div id="tcsApp" data-theme="dark">
+
+        <!-- 1. LOGIN -->
+        <div id="loginScreen" class="auth-container">
+            <h2>🔐 Portal Login</h2>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="loginMobile" class="form-control"
+                    placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword"
+                    class="form-control" placeholder="Enter password"></div>
+            <div class="form-group"><label>Role</label><select id="loginRole" class="form-control"
+                    style="background:#0f172a; color:white;">
+                    <option value="user">Candidate / User</option>
+                    <option value="admin">Admin</option>
+                </select></div>
+            <button id="loginBtn" class="btn btn-primary" style="margin-top: 10px; width:100%; max-width:400px;">Login
+                🚀</button>
+            <div class="link-text" id="showSignup">Don't have an account? <span>Sign Up</span></div>
+        </div>
+
+        <!-- 2. SIGNUP -->
+        <div id="signupScreen" class="auth-container hidden">
+            <h2>📝 Create Account</h2>
+            <div class="form-group"><label>Username</label><input type="text" id="signupUser" class="form-control"
+                    placeholder="Enter name"></div>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="signupMobile"
+                    class="form-control" placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="signupPassword"
+                    class="form-control" placeholder="Password"></div>
+            <div class="form-group"><label>Register As</label><select id="signupRole" class="form-control"
+                    style="background:#0f172a; color:white;">
+                    <option value="user">Candidate / User</option>
+                    <option value="admin">Admin (Single Master)</option>
+                </select></div>
+            <button id="signupBtn" class="btn btn-primary"
+                style="margin-top: 10px; width:100%; max-width:400px;">Register 🚀</button>
+            <div class="link-text" id="showLogin">Already have an account? <span>Login</span></div>
+        </div>
+
+        <!-- 3. USER DASHBOARD -->
+        <div id="userDashScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="user-dash-header">
+                <div class="profile-box">
+                    <input type="file" id="photoInput" accept="image/*" class="hidden">
+                    <img id="userAvatar" class="profile-avatar" src="https://via.placeholder.com/150"
+                        title="Upload Photo" onclick="$('photoInput').click()">
+                    <div>
+                        <h3 id="dashUsername" style="color:#38bdf8; font-size:18px;">Candidate</h3>
+                        <span style="font-size:12px; color:var(--muted);" id="dashMobile"></span>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
+                    onclick="location.reload()">Logout</button>
+            </div>
+
+            <div class="dash-content">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+                    <h2 style="font-size:22px; color:var(--text-main);">Available Mock Tests</h2>
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                        <select id="testSelectDropdown" class="form-control"
+                            style="width:220px; padding:10px; margin:0;" onchange="checkTestCooldown()"></select>
+                        <button id="startFullBtn" class="btn btn-primary" style="width:auto; padding:10px 25px;">Start
+                            Test 🚀</button>
+                    </div>
+                </div>
+                <div id="cooldownNotice"
+                    style="margin-bottom:15px; font-size:13px; color:var(--danger); font-weight:700;"></div>
+
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <h3>📊 Attempt Performance & Pie Chart</h3>
+                        <div style="width:100%; max-height:220px; display:flex; justify-content:center;">
+                            <canvas id="performanceChart" style="max-height:200px;"></canvas>
+                        </div>
+                        <div id="attemptsHistoryList"
+                            style="margin-top:12px; font-size:12px; color:var(--muted); max-height:70px; overflow-y:auto;">
+                        </div>
+                    </div>
+
+                    <div class="dash-card">
+                        <h3>💬 Support & Query Hub</h3>
+                        <textarea id="userQueryInput" class="form-control" placeholder="Ask admin a doubt..."
+                            style="height:90px; resize:none; margin-bottom:10px;" onfocus="this.placeholder=''"
+                            onblur="this.placeholder='Ask admin a doubt...'"></textarea>
+                        <button id="sendQueryBtn" class="btn btn-primary"
+                            style="width:auto; padding:8px 18px; font-size:12px;">Submit Query</button>
+                        <div id="userQueriesList"
+                            style="margin-top:12px; max-height:100px; overflow-y:auto; font-size:12px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. ADMIN DASHBOARD -->
+        <div id="adminScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="admin-header">
+                <h2 style="color:#38bdf8; font-size:20px;">👑 Admin Master Control Dashboard</h2>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
+                    onclick="location.reload()">Logout</button>
+            </div>
+
+            <div class="admin-content">
+                <div class="admin-tab-container">
+                    <button id="tabBtnBuilder" class="admin-tab-btn active-tab" onclick="switchAdminTab('builder')">📝
+                        Mock Test Builder & Manager</button>
+                    <button id="tabBtnQueries" class="admin-tab-btn" onclick="switchAdminTab('queries')">👥 Candidate
+                        Scores & Query Resolution</button>
+                </div>
+
+                <div id="adminTabBuilderContent" class="dash-card" style="padding:30px;">
+                    <h3>Mock Test Builder & Manager</h3>
+                    <div class="form-group" style="max-width:100%;"><label>Mock Test Title</label><input type="text"
+                            id="adminTestTitle" class="form-control" placeholder="e.g. TCS BPS Advanced Paper 2"></div>
+                    <div class="form-group" style="max-width:100%;"><label>Question Text</label><textarea
+                            id="adminQText" class="form-control" placeholder="Type question description..."
+                            style="height:80px; resize:none;"></textarea></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
+                        <input type="text" id="optA" class="form-control" placeholder="Option A">
+                        <input type="text" id="optB" class="form-control" placeholder="Option B">
+                        <input type="text" id="optC" class="form-control" placeholder="Option C">
+                        <input type="text" id="optD" class="form-control" placeholder="Option D">
+                    </div>
+                    <div class="form-group" style="max-width:100%;"><label>Correct Answer Key</label><select
+                            id="adminCorrectOpt" class="form-control" style="padding:10px;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select></div>
+                    <div style="display:flex; gap:12px; margin-top:15px; flex-wrap:wrap;">
+                        <button id="addQBtn" class="btn btn-secondary"
+                            style="width:auto; padding:10px 20px; font-size:13px;">+ Add Question to Draft</button>
+                        <button id="publishTestBtn" class="btn btn-primary"
+                            style="width:auto; padding:10px 20px; font-size:13px;">Publish / Save Test 🚀</button>
+                    </div>
+                    <div id="addedCount"
+                        style="margin-top:12px; font-size:14px; color:var(--success); font-weight:700;">Questions in
+                        draft: 0</div>
+
+                    <div style="margin-top:30px; border-top:1px solid var(--line); padding-top:20px;">
+                        <h4 style="font-size:16px; color:var(--text-main); margin-bottom:12px;">📁 Created Mock Papers
+                            Manager</h4>
+                        <div id="existingTestsList"
+                            style="max-height:160px; overflow-y:auto; font-size:13px; color:var(--muted);"></div>
+                    </div>
+                </div>
+
+                <div id="adminTabQueriesContent" class="dash-card hidden" style="padding:30px;">
+                    <h3>Candidate Scores & Live Query Resolution</h3>
+                    <p style="font-size:13px; color:var(--muted); margin-bottom:15px;">Pending queries appear below with
+                        spacious reply boxes. Once replied, they move to history.</p>
+                    <div style="width: 100%; overflow-x: auto; max-height:500px;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidate Name & Mobile</th>
+                                    <th>Attempts Summary</th>
+                                    <th>Support Queries & Formatted Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 5. LIVE TEST SCREEN -->
+        <div id="testScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="top-header">
+                <div>
+                    <div class="brand-title" id="activeTestTitleHeader">TCS BPS Live Test</div>
+                    <span class="sub-info"><span id="qCounter"></span> • <span id="attempted"></span></span>
+                </div>
+                <div class="header-controls">
+                    <button id="themeToggle" class="theme-toggle" title="Toggle Light/Dark Mode">☀️</button>
+                    <div id="timer" class="timer-box">65:00</div>
+                </div>
+            </div>
+
+            <div class="exam-section-bar">
+                <button class="sec-jump-btn" id="jumpSec1">Section 1</button>
+                <button class="sec-jump-btn" id="jumpSec2">Section 2</button>
+                <button class="sec-jump-btn" id="jumpSec3">Section 3</button>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress" class="progress-fill"></div>
+            </div>
+
+            <div class="exam-body">
+                <div>
+                    <div id="section" class="section-tag"></div>
+                    <div id="qtext" class="question-text"></div>
+                    <div id="options" class="options-grid"></div>
+                </div>
+                <div class="exam-actions">
+                    <button id="prevBtn" class="btn btn-secondary" style="width: auto;">← Prev</button>
+                    <button id="nextBtn" class="btn btn-primary" style="width: auto;">Next →</button>
+                </div>
+            </div>
+            <div id="nav" class="nav-palette"></div>
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--line); background:rgba(0,0,0,0.01);">
+                <span class="sub-info" style="margin-top:0;">Submit safely. Do not switch tabs.</span>
+                <button id="submitBtn" class="btn btn-danger"
+                    style="width: auto; padding: 8px 18px; font-size: 13px; min-height:38px;">Submit Test</button>
+            </div>
+        </div>
+
+        <!-- 6. RESULT SCREEN -->
+        <div id="resultScreen" class="hidden"
+            style="padding: 30px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="section-tag">Exam Finished Successfully</div>
+            <div class="brand-title" style="font-size:22px;">Your Total Performance Score</div>
+            <div id="score" class="score-display">0/100</div>
+            <div id="feedbackBox" class="feedback-box">Analyzing response matrices...</div>
+            <div id="resultStats" class="stats-row"></div>
+            <button id="viewSolutionsBtn" class="btn btn-primary"
+                style="margin-top:5px; width:100%; max-width:650px;">View Step-by-Step Solution Review 🔍</button>
+        </div>
+
+        <!-- 7. SOLUTION REVIEW PAGE -->
+        <div id="solutionScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+            <div class="top-header" style="border-radius:10px; margin-bottom:12px; background:var(--panel-bg);">
+                <div>
+                    <div class="brand-title">Step-by-Step Solutions Review</div>
+                    <div class="sub-info" id="solCounter">Question 1</div>
+                </div>
+                <button id="finishReviewBtn" class="btn btn-danger"
+                    style="padding:6px 14px; font-size:12px; min-height:36px; width:auto;">Finish & Exit</button>
+            </div>
+
+            <div class="sol-card" style="overflow-y:auto; flex:1;">
+                <div id="solSection" class="sol-q-num"></div>
+                <div id="solQText" class="sol-q-title"></div>
+                <div id="solOptionsList" class="sol-options-list"></div>
+                <div style="margin-top:12px; border-top:1px solid var(--line); padding-top:12px;">
+                    <span id="solAnalysisTag" class="analysis-tag"></span>
+                </div>
+            </div>
+
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top: 1px solid var(--line);">
+                <button id="solPrevBtn" class="btn btn-secondary" style="width:auto;">← Prev</button>
+                <button id="solNextBtn" class="btn btn-primary" style="width:auto;">Next →</button>
+            </div>
+        </div>
+
+        <!-- 8. THANK YOU SCREEN -->
+        <div id="thankYouScreen" class="hidden"
+            style="padding: 40px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1>Thank You!</h1>
+            <p>Your assessment has been successfully completed, evaluated, and securely recorded.</p>
+        </div>
+
+    </div>
+
+    <div class="footer-tag">Developed by Dangi</div>
+
+    <script>
+        let currentUser = null;
+        let currentQuestions = [];
+        let currentAnswersKey = {};
+        let currentSelectedTestTitle = "Mock Paper 1";
+        let idx = 0, answers = {}, left = 3900, timerId = null, submitted = false, solIdx = 0;
+        let pieChartInstance = null;
+        const $ = id => document.getElementById(id);
+
+        const starContainer = document.getElementById('starryBg');
+        for (let i = 0; i < 80; i++) {
+            let star = document.createElement('div'); star.className = 'star';
+            star.style.top = Math.random() * 2000 + 'px'; star.style.left = Math.random() * 100 + '%';
+            star.style.animationDuration = (Math.random() * 25 + 15) + 's';
+            starContainer.appendChild(star);
+        }
+
+        const iconContainer = document.getElementById('floatingGraphics');
+        const icons = ['✏️', '✒️', '📐', '📏', '📚', '🎒', '🧮', '∑', '∫', '√', 'π'];
+        for (let i = 0; i < 15; i++) {
+            let div = document.createElement('div');
+            div.className = 'float-icon';
+            div.textContent = icons[Math.floor(Math.random() * icons.length)];
+            div.style.left = Math.random() * 100 + '%';
+            div.style.animationDuration = (Math.random() * 12 + 10) + 's';
+            div.style.animationDelay = (Math.random() * 5) + 's';
+            iconContainer.appendChild(div);
+        }
+
+        const root = document.getElementById('tcsApp');
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            let currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                root.setAttribute('data-theme', 'light');
+                root.style.setProperty('--panel-bg', '#ffffff');
+                themeToggleBtn.textContent = '🌙';
+            } else {
+                root.setAttribute('data-theme', 'dark');
+                root.style.setProperty('--panel-bg', '#0f172a');
+                themeToggleBtn.textContent = '☀️';
+            }
+        });
+
+        $('showSignup').addEventListener('click', () => { $('loginScreen').classList.add('hidden'); $('signupScreen').classList.remove('hidden'); });
+        $('showLogin').addEventListener('click', () => { $('signupScreen').classList.add('hidden'); $('loginScreen').classList.remove('hidden'); });
+
+        $('signupBtn').addEventListener('click', async () => {
+            const username = $('signupUser').value.trim();
+            const mobile = $('signupMobile').value.trim();
+            const password = $('signupPassword').value.trim();
+            const role = $('signupRole').value;
+            if (!username || !mobile || !password) return alert("Fill all fields!");
+
+            let res = await fetch('/api/signup', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, mobile, password, role })
+            });
+            let data = await res.json();
+            if (data.success) { alert("Registered successfully! Please login."); $('signupScreen').classList.add('hidden'); $('loginScreen').classList.remove('hidden'); }
+            else { alert(data.message); }
+        });
+
+        $('loginBtn').addEventListener('click', async () => {
+            const mobile = $('loginMobile').value.trim();
+            const password = $('loginPassword').value.trim();
+            const role = $('loginRole').value;
+            if (!mobile || !password) return alert("Fill credentials!");
+
+            let res = await fetch('/api/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile, password })
+            });
+            let data = await res.json();
+            if (data.success) {
+                currentUser = data.user;
+                if (currentUser.role !== role) {
+                    return alert(`Selected role is "${role}", but this account is registered as "${currentUser.role}".`);
+                }
+                $('loginScreen').classList.add('hidden');
+                if (currentUser.role === 'admin') { loadAdminDashboard(); }
+                else { loadUserDashboard(); }
+            } else { alert(data.message); }
+        });
+
+        $('photoInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async function (event) {
+                    const base64Image = event.target.result;
+                    $('userAvatar').src = base64Image;
+                    currentUser.photo = base64Image;
+                    await fetch('/api/update-photo', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: currentUser._id, photo: base64Image })
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function loadUserDashboard() {
+            $('userDashScreen').classList.remove('hidden');
+            $('dashUsername').textContent = currentUser.username;
+            $('dashMobile').textContent = `Mobile: ${currentUser.mobile}`;
+            if (currentUser.photo) $('userAvatar').src = currentUser.photo;
+
+            let res = await fetch('/api/tests');
+            let data = await res.json();
+            let tests = ['Mock Paper 1', ...(data.success ? data.tests : [])];
+            let optionsHtml = tests.map(t => `<option value="${t}">${t}</option>`).join('');
+            $('testSelectDropdown').innerHTML = optionsHtml;
+
+            checkTestCooldown();
+            renderPerformanceChart();
+            renderUserQueries();
+        }
+
+        window.checkTestCooldown = function () {
+            const selectedTest = $('testSelectDropdown').value;
+            let lastAttempt = currentUser.attempts.slice().reverse().find(a => a.testTitle === selectedTest);
+
+            if (lastAttempt) {
+                let lastTime = new Date(lastAttempt.date).getTime();
+                let now = new Date().getTime();
+                let diffHours = (now - lastTime) / (1000 * 60 * 60);
+                if (diffHours < 8) {
+                    let remainingHrs = (8 - diffHours).toFixed(1);
+                    $('cooldownNotice').textContent = `⏳ Locked: You can re-attempt "${selectedTest}" in ${remainingHrs} hours.`;
+                    $('startFullBtn').disabled = true;
+                    $('startFullBtn').style.opacity = 0.5;
+                    return;
+                }
+            }
+            $('cooldownNotice').textContent = '';
+            $('startFullBtn').disabled = false;
+            $('startFullBtn').style.opacity = 1;
+        };
+
+        function renderPerformanceChart() {
+            const ctx = $('performanceChart').getContext('2d');
+            if (pieChartInstance) pieChartInstance.destroy();
+
+            let labels = currentUser.attempts.map((a, i) => `${a.testTitle || 'Test'} #${i + 1}`);
+            let scores = currentUser.attempts.map(a => a.score);
+            let historyHtml = currentUser.attempts.map((a, i) => `<div style="margin-bottom:4px;">${a.testTitle}: <b style="color:var(--accent);">${a.score}/100</b></div>`).join('');
+            $('attemptsHistoryList').innerHTML = historyHtml || "No attempts yet. Take your first mock test!";
+
+            if (scores.length === 0) { labels = ['No Attempts']; scores = [100]; }
+
+            pieChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: scores,
+                        backgroundColor: ['#06b6d4', '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        $('sendQueryBtn').addEventListener('click', async () => {
+            const question = $('userQueryInput').value.trim();
+            if (!question) return alert("Please type a query!");
+
+            let res = await fetch('/api/submit-query', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: currentUser._id, question })
+            });
+            let data = await res.json();
+            if (data.success) {
+                currentUser = data.user;
+                $('userQueryInput').value = '';
+                renderUserQueries();
+                alert("Query submitted to Admin successfully!");
+            }
+        });
+
+        function renderUserQueries() {
+            let html = '';
+            if (currentUser.queries && currentUser.queries.length > 0) {
+                currentUser.queries.slice().reverse().forEach(q => {
+                    let statusColor = q.status === 'Resolved' ? 'var(--success)' : 'var(--danger)';
+                    html += `<div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:8px;">
+        <div><b>Q:</b> ${q.question}</div>
+        ${q.status === 'Resolved' ? `<div style="color:var(--accent); margin-top:4px;"><b>Admin Reply:</b> ${q.answer}</div>` : ''}
+        <div style="font-size:10px; color:${statusColor}; margin-top:4px; font-weight:700;">Status: ${q.status}</div>
+      </div>`;
+                });
+            } else { html = `<span style="color:var(--muted);">No queries asked yet.</span>`; }
+            $('userQueriesList').innerHTML = html;
+        }
+
+        window.switchAdminTab = function (tabName) {
+            if (tabName === 'builder') {
+                $('adminTabBuilderContent').classList.remove('hidden');
+                $('adminTabQueriesContent').classList.add('hidden');
+                $('tabBtnBuilder').classList.add('active-tab');
+                $('tabBtnQueries').classList.remove('active-tab');
+            } else {
+                $('adminTabBuilderContent').classList.add('hidden');
+                $('adminTabQueriesContent').classList.remove('hidden');
+                $('tabBtnBuilder').classList.remove('active-tab');
+                $('tabBtnQueries').classList.add('active-tab');
+            }
+        };
+
+        let draftQuestions = [];
+        $('addQBtn').addEventListener('click', () => {
+            const text = $('adminQText').value.trim();
+            const a = $('optA').value.trim();
+            const b = $('optB').value.trim();
+            const c = $('optC').value.trim();
+            const d = $('optD').value.trim();
+            const correctAnswer = $('adminCorrectOpt').value;
+
+            if (!text || !a || !b || !c || !d) return alert("Please fill question and all 4 options!");
+
+            draftQuestions.push({ text, options: [{ key: 'A', text: a }, { key: 'B', text: b }, { key: 'C', text: c }, { key: 'D', text: d }], correctAnswer });
+            $('adminQText').value = ''; $('optA').value = ''; $('optB').value = ''; $('optC').value = ''; $('optD').value = '';
+            $('addedCount').textContent = `Questions in draft: ${draftQuestions.length}`;
+        });
+
+        $('publishTestBtn').addEventListener('click', async () => {
+            const testTitle = $('adminTestTitle').value.trim();
+            if (!testTitle) return alert("Please enter a test title!");
+            if (draftQuestions.length === 0) return alert("Please add at least one question!");
+
+            let res = await fetch('/api/admin/create-test', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ testTitle, questions: draftQuestions })
+            });
+            let data = await res.json();
+            if (data.success) {
+                alert("Mock Test Published Successfully!");
+                draftQuestions = []; $('adminTestTitle').value = ''; $('addedCount').textContent = `Questions in draft: 0`;
+                loadAdminDashboard();
+            }
+        });
+
+        async function loadAdminDashboard() {
+            $('adminScreen').classList.remove('hidden');
+
+            let testRes = await fetch('/api/admin/tests-summary');
+            let testData = await testRes.json();
+            if (testData.success) {
+                let tHtml = '';
+                if (testData.tests.length === 0) tHtml = 'No custom mock papers created yet.';
+                testData.tests.forEach(t => {
+                    tHtml += `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:8px; margin-bottom:8px;">
+        <span><b>${t._id}</b> (${t.count} Qs)</span>
+        <button onclick="deleteMockTest('${t._id}')" style="background:var(--danger); color:white; border:0; padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer;">Delete Test</button>
+      </div>`;
+                });
+                $('existingTestsList').innerHTML = tHtml;
+            }
+
+            let res = await fetch('/api/admin/users');
+            let data = await res.json();
+            if (data.success) {
+                let html = '';
+                data.users.forEach(u => {
+                    let attemptsStr = '';
+                    if (u.attempts.length > 0) {
+                        u.attempts.forEach((a, i) => {
+                            attemptsStr += `<div style="margin-bottom:6px;"><span style="color:var(--accent); font-weight:700;">Attempt #${i + 1} (${a.testTitle})</span>: <b>${a.score}/100</b></div>`;
+                        });
+                    } else { attemptsStr = 'No attempts'; }
+
+                    let queriesStr = '';
+                    let pendingQueries = u.queries.filter(q => q.status === 'Pending');
+                    let resolvedQueries = u.queries.filter(q => q.status === 'Resolved');
+
+                    if (pendingQueries.length > 0) {
+                        pendingQueries.forEach(q => {
+                            queriesStr += `<div style="background:rgba(0,0,0,0.25); padding:12px; border-radius:10px; margin-bottom:10px; border-left:3px solid var(--accent);">
+            <div style="font-size:13px; margin-bottom:8px;"><b>Query:</b> ${q.question}</div>
+            <textarea id="ans_${q._id}" class="form-control" style="height:90px; font-size:13px; margin-bottom:8px; resize:vertical;" placeholder="Type reply here..." onfocus="this.placeholder=''" onblur="this.placeholder='Type reply here...'"></textarea>
+            <button onclick="resolveQuery('${u._id}', '${q._id}')" style="background:var(--success); color:white; border:0; padding:6px 14px; font-size:12px; border-radius:6px; cursor:pointer; font-weight:700;">Send Formatted Reply</button>
+          </div>`;
+                        });
+                    } else {
+                        queriesStr = '<span style="color:var(--muted);">All queries resolved</span>';
+                    }
+
+                    if (resolvedQueries.length > 0) {
+                        queriesStr += `<div style="margin-top:8px; font-size:11px; color:var(--success);">✅ ${resolvedQueries.length} query(s) resolved & moved to history</div>`;
+                    }
+
+                    html += `<tr>
+        <td><b>${u.username}</b><br><small style="color:var(--muted);">${u.mobile}</small></td>
+        <td>${attemptsStr}</td>
+        <td>${queriesStr}</td>
+      </tr>`;
+                });
+                $('adminTableBody').innerHTML = html;
+            }
+        }
+
+        window.deleteMockTest = async function (title) {
+            if (confirm(`Delete mock test "${title}" permanently?`)) {
+                let res = await fetch(`/api/admin/tests/${encodeURIComponent(title)}`, { method: 'DELETE' });
+                let data = await res.json();
+                if (data.success) { alert("Mock test deleted!"); loadAdminDashboard(); }
+            }
+        };
+
+        window.resolveQuery = async function (userId, queryId) {
+            const answer = $(`ans_${queryId}`).value.trim();
+            if (!answer) return alert("Please type a reply before sending!");
+            let res = await fetch('/api/admin/resolve-query', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, queryId, answer })
+            });
+            let data = await res.json();
+            if (data.success) { alert("Reply sent successfully! Query moved to history."); loadAdminDashboard(); }
+        };
+
+        // Default Mock Paper 1 Dataset (80 Questions)
+        const defaultQs = [
+            { "n": 1, "text": "What is the smallest 4-digit number exactly divisible by 12?", "options": [{ "key": "A", "text": "1000" }, { "key": "B", "text": "1004" }, { "key": "C", "text": "1008" }, { "key": "D", "text": "1012" }] },
+            { "n": 2, "text": "The sum of the digits of a 2-digit number is 11. If the digits are reversed, the new number is 45 more than the original number. Find the original number.", "options": [{ "key": "A", "text": "29" }, { "key": "B", "text": "38" }, { "key": "C", "text": "47" }, { "key": "D", "text": "56" }] },
+            { "n": 3, "text": "Which of the following numbers is divisible by 11?", "options": [{ "key": "A", "text": "2718" }, { "key": "B", "text": "2728" }, { "key": "C", "text": "2738" }, { "key": "D", "text": "2748" }] },
+            { "n": 4, "text": "A number is exactly divisible by both 8 and 9. By which number is it also always divisible?", "options": [{ "key": "A", "text": "12" }, { "key": "B", "text": "18" }, { "key": "C", "text": "36" }, { "key": "D", "text": "72" }] },
+            { "n": 5, "text": "How many prime numbers lie between 1 and 20?", "options": [{ "key": "A", "text": "6" }, { "key": "B", "text": "7" }, { "key": "C", "text": "8" }, { "key": "D", "text": "9" }] },
+            { "n": 6, "text": "Find the unit digit of 7^95.", "options": [{ "key": "A", "text": "1" }, { "key": "B", "text": "3" }, { "key": "C", "text": "7" }, { "key": "D", "text": "9" }] },
+            { "n": 7, "text": "Simplify: 15 + 6 ÷ 3 × 2 − 4", "options": [{ "key": "A", "text": "13" }, { "key": "B", "text": "15" }, { "key": "C", "text": "17" }, { "key": "D", "text": "19" }] },
+            { "n": 8, "text": "Simplify: (12 × 3 − 6) ÷ 6 + 5", "options": [{ "key": "A", "text": "8" }, { "key": "B", "text": "9" }, { "key": "C", "text": "10" }, { "key": "D", "text": "12" }] },
+            { "n": 9, "text": "Which of the following fractions is the largest?", "options": [{ "key": "A", "text": "5/8" }, { "key": "B", "text": "7/10" }, { "key": "C", "text": "3/4" }, { "key": "D", "text": "2/3" }] },
+            { "n": 10, "text": "Simplify: 2 1/3 + 1 3/4", "options": [{ "key": "A", "text": "3 11/12" }, { "key": "B", "text": "4 1/12" }, { "key": "C", "text": "4 1/4" }, { "key": "D", "text": "4 1/6" }] },
+            { "n": 11, "text": "What is 35% of 480?", "options": [{ "key": "A", "text": "148" }, { "key": "B", "text": "158" }, { "key": "C", "text": "168" }, { "key": "D", "text": "178" }] },
+            { "n": 12, "text": "If 40% of a number is 96, what is the number?", "options": [{ "key": "A", "text": "200" }, { "key": "B", "text": "220" }, { "key": "C", "text": "240" }, { "key": "D", "text": "260" }] },
+            { "n": 13, "text": "The price of an item increased from ₹250 to ₹300. What is the percentage increase?", "options": [{ "key": "A", "text": "10%" }, { "key": "B", "text": "15%" }, { "key": "C", "text": "20%" }, { "key": "D", "text": "25%" }] },
+            { "n": 14, "text": "A number is increased by 20% and then decreased by 20%. What is the net percentage change?", "options": [{ "key": "A", "text": "0%" }, { "key": "B", "text": "-2%" }, { "key": "C", "text": "-4%" }, { "key": "D", "text": "+4%" }] },
+            { "n": 15, "text": "Divide ₹1200 between A and B in the ratio 3 : 5. Find B's share.", "options": [{ "key": "A", "text": "₹650" }, { "key": "B", "text": "₹700" }, { "key": "C", "text": "₹750" }, { "key": "D", "text": "₹800" }] },
+            { "n": 16, "text": "If a : b = 2 : 3 and b : c = 4 : 5, find a : b : c.", "options": [{ "key": "A", "text": "2 : 3 : 5" }, { "key": "B", "text": "4 : 6 : 5" }, { "key": "C", "text": "8 : 10 : 15" }, { "key": "D", "text": "8 : 12 : 15" }] },
+            { "n": 17, "text": "If 8 workers can complete a task in 15 days, how many days will 12 workers take to complete the same task?", "options": [{ "key": "A", "text": "8" }, { "key": "B", "text": "9" }, { "key": "C", "text": "10" }, { "key": "D", "text": "12" }] },
+            { "n": 18, "text": "The average of 5 numbers is 42. If one number is excluded, the average of the remaining numbers becomes 40. Find the excluded number.", "options": [{ "key": "A", "text": "45" }, { "key": "B", "text": "48" }, { "key": "C", "text": "50" }, { "key": "D", "text": "52" }] },
+            { "n": 19, "text": "Find the average of the first 10 natural numbers.", "options": [{ "key": "A", "text": "5" }, { "key": "B", "text": "5.5" }, { "key": "C", "text": "6" }, { "key": "D", "text": "4.5" }] },
+            { "n": 20, "text": "A shopkeeper buys an article for ₹800 and sells it for ₹920. Find his profit percentage.", "options": [{ "key": "A", "text": "10%" }, { "key": "B", "text": "12%" }, { "key": "C", "text": "15%" }, { "key": "D", "text": "20%" }] },
+            { "n": 21, "text": "By selling an item for ₹450, a man loses 10%. What is the cost price of the item?", "options": [{ "key": "A", "text": "₹480" }, { "key": "B", "text": "₹490" }, { "key": "C", "text": "₹500" }, { "key": "D", "text": "₹510" }] },
+            { "n": 22, "text": "A shirt marked at ₹1000 is sold at a discount of 15%. Find the selling price.", "options": [{ "key": "A", "text": "₹800" }, { "key": "B", "text": "₹850" }, { "key": "C", "text": "₹870" }, { "key": "D", "text": "₹900" }] },
+            { "n": 23, "text": "Find the simple interest on ₹15,000 at 8% per annum for 3 years.", "options": [{ "key": "A", "text": "₹3200" }, { "key": "B", "text": "₹3600" }, { "key": "C", "text": "₹3800" }, { "key": "D", "text": "₹4000" }] },
+            { "n": 24, "text": "Find the compound interest on ₹10,000 at 10% per annum for 2 years, compounded annually.", "options": [{ "key": "A", "text": "₹2000" }, { "key": "B", "text": "₹2100" }, { "key": "C", "text": "₹2200" }, { "key": "D", "text": "₹2500" }] },
+            { "n": 25, "text": "The difference between the compound interest and simple interest on a sum for 2 years at 10% per annum is ₹50. Find the sum.", "options": [{ "key": "A", "text": "₹4000" }, { "key": "B", "text": "₹5000" }, { "key": "C", "text": "₹5500" }, { "key": "D", "text": "₹6000" }] },
+            { "n": 26, "text": "A can complete a piece of work in 12 days and B in 18 days. In how many days will they complete the work together?", "options": [{ "key": "A", "text": "7 days" }, { "key": "B", "text": "7.2 days" }, { "key": "C", "text": "7.5 days" }, { "key": "D", "text": "8 days" }] },
+            { "n": 27, "text": "A alone can do a piece of work in 20 days. He worked for 5 days and left. B finished the remaining work in 18 days. In how many days can B alone finish the whole work?", "options": [{ "key": "A", "text": "18" }, { "key": "B", "text": "20" }, { "key": "C", "text": "22" }, { "key": "D", "text": "24" }] },
+            { "n": 28, "text": "Pipe A can fill a tank in 10 hours and pipe B can empty it in 15 hours. If both pipes are opened together, in how many hours will the tank be filled?", "options": [{ "key": "A", "text": "20" }, { "key": "B", "text": "25" }, { "key": "C", "text": "30" }, { "key": "D", "text": "35" }] },
+            { "n": 29, "text": "Two numbers are in the ratio 4 : 5. If each number is increased by 10, the ratio becomes 6 : 7. Find the two numbers.", "options": [{ "key": "A", "text": "16 and 20" }, { "key": "B", "text": "20 and 25" }, { "key": "C", "text": "24 and 30" }, { "key": "D", "text": "12 and 15" }] },
+            { "n": 30, "text": "The average weight of 8 persons increases by 2.5 kg when a new person replaces one of them who weighs 65 kg. Find the weight of the new person.", "options": [{ "key": "A", "text": "75 kg" }, { "key": "B", "text": "80 kg" }, { "key": "C", "text": "85 kg" }, { "key": "D", "text": "90 kg" }] },
+            { "n": 31, "text": "If in a certain code CAT is written as DBU, how is DOG written in that code?", "options": [{ "key": "A", "text": "EPG" }, { "key": "B", "text": "EPH" }, { "key": "C", "text": "FPH" }, { "key": "D", "text": "DPH" }] },
+            { "n": 32, "text": "If PENCIL is coded as QFODJM, how is BOOK coded in the same language?", "options": [{ "key": "A", "text": "BPPL" }, { "key": "B", "text": "CPOL" }, { "key": "C", "text": "CPPK" }, { "key": "D", "text": "CPPL" }] },
+            { "n": 33, "text": "Doctor : Hospital :: Teacher : ?", "options": [{ "key": "A", "text": "Book" }, { "key": "B", "text": "Classroom" }, { "key": "C", "text": "School" }, { "key": "D", "text": "Student" }] },
+            { "n": 34, "text": "Pen : Write :: Knife : ?", "options": [{ "key": "A", "text": "Blade" }, { "key": "B", "text": "Cut" }, { "key": "C", "text": "Kitchen" }, { "key": "D", "text": "Sharp" }] },
+            { "n": 35, "text": "Find the odd one out: Apple, Mango, Potato, Banana", "options": [{ "key": "A", "text": "Apple" }, { "key": "B", "text": "Mango" }, { "key": "C", "text": "Potato" }, { "key": "D", "text": "Banana" }] },
+            { "n": 36, "text": "Find the odd one out: Triangle, Square, Circle, Pyramid", "options": [{ "key": "A", "text": "Triangle" }, { "key": "B", "text": "Square" }, { "key": "C", "text": "Circle" }, { "key": "D", "text": "Pyramid" }] },
+            { "n": 37, "text": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?", "options": [{ "key": "A", "text": "Aunt" }, { "key": "B", "text": "Grandmother" }, { "key": "C", "text": "Mother" }, { "key": "D", "text": "Sister" }] },
+            { "n": 38, "text": "A is B's sister. C is B's mother. D is C's father. How is A related to D?", "options": [{ "key": "A", "text": "Daughter" }, { "key": "B", "text": "Granddaughter" }, { "key": "C", "text": "Niece" }, { "key": "D", "text": "Sister" }] },
+            { "n": 39, "text": "A man walks 5 km towards north, then turns right and walks 3 km, then turns right again and walks 5 km. How far is he from the starting point?", "options": [{ "key": "A", "text": "3 km" }, { "key": "B", "text": "5 km" }, { "key": "C", "text": "8 km" }, { "key": "D", "text": "13 km" }] },
+            { "n": 40, "text": "Ravi walks 10 m towards south, then turns left and walks 5 m, then turns left again and walks 10 m. In which direction is he from the starting point?", "options": [{ "key": "A", "text": "North" }, { "key": "B", "text": "South" }, { "key": "C", "text": "East" }, { "key": "D", "text": "West" }] },
+            { "n": 41, "text": "Find the next term in the series: B, D, F, H, ?", "options": [{ "key": "A", "text": "I" }, { "key": "B", "text": "J" }, { "key": "C", "text": "K" }, { "key": "D", "text": "L" }] },
+            { "n": 42, "text": "Find the missing letter: A, C, F, J, ?", "options": [{ "key": "A", "text": "M" }, { "key": "B", "text": "N" }, { "key": "C", "text": "O" }, { "key": "D", "text": "P" }] },
+            { "n": 43, "text": "Find the next number in the series: 2, 6, 12, 20, 30, ?", "options": [{ "key": "A", "text": "36" }, { "key": "B", "text": "40" }, { "key": "C", "text": "42" }, { "key": "D", "text": "44" }] },
+            { "n": 44, "text": "Find the next term in the series: Z, X, V, T, ?", "options": [{ "key": "A", "text": "P" }, { "key": "B", "text": "Q" }, { "key": "C", "text": "R" }, { "key": "D", "text": "S" }] },
+            { "n": 45, "text": "Introducing a boy, a girl said, 'He is the son of my mother's only daughter.' How is the girl related to the boy?", "options": [{ "key": "A", "text": "Aunt" }, { "key": "B", "text": "Cousin" }, { "key": "C", "text": "Mother" }, { "key": "D", "text": "Sister" }] },
+            { "n": 46, "text": "P is the husband of Q. R is the only son of Q. S is R's sister. How is S related to P?", "options": [{ "key": "A", "text": "Daughter" }, { "key": "B", "text": "Niece" }, { "key": "C", "text": "Sister" }, { "key": "D", "text": "Wife" }] },
+            { "n": 47, "text": "Statement: All pens are pencils. All pencils are erasers. Conclusion I: All pens are erasers. Conclusion II: All erasers are pens. Which conclusion(s) logically follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
+            { "n": 48, "text": "Find the missing number in the series: 5, 11, 23, 47, ?", "options": [{ "key": "A", "text": "93" }, { "key": "B", "text": "94" }, { "key": "C", "text": "95" }, { "key": "D", "text": "96" }] },
+            { "n": 49, "text": "If ROSE is coded as 6821, CHAIR as 73456, and PREACH as 961473, what is the code for SEARCH?", "options": [{ "key": "A", "text": "214673" }, { "key": "B", "text": "214763" }, { "key": "C", "text": "216473" }, { "key": "D", "text": "241673" }] },
+            { "n": 50, "text": "Five friends A, B, C, D, E sit in a row facing north. C is immediately to the left of D, and D is second from the left end. B is immediately to the right of A, and E sits at one of the ends. Who sits at the extreme right end?", "options": [{ "key": "A", "text": "A" }, { "key": "B", "text": "B" }, { "key": "C", "text": "D" }, { "key": "D", "text": "E" }] },
+            { "n": 51, "text": "Statements: All books are pens. Some pens are pencils. Conclusion I: Some books are pencils. Conclusion II: Some pencils are books. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
+            { "n": 52, "text": "Statements: No cat is a dog. All dogs are animals. Conclusion I: No cat is an animal. Conclusion II: Some animals are dogs. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
+            { "n": 53, "text": "What is Ram's age? Statement I: Ram is 5 years older than Shyam. Statement II: Shyam is 20 years old.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are needed" }, { "key": "D", "text": "Neither statement is sufficient" }] },
+            { "n": 54, "text": "Is x > 0? Statement I: x² = 16. Statement II: x is an even number.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are sufficient" }, { "key": "D", "text": "Even both statements together are not sufficient" }] },
+            { "n": 55, "text": "Eight people sit in a row facing north. M is fourth from the left end. There are exactly 3 people between M and N, and N is to the right of M. What is N's position from the left end?", "options": [{ "key": "A", "text": "6th" }, { "key": "B", "text": "7th" }, { "key": "C", "text": "8th" }, { "key": "D", "text": "5th" }] },
+            { "n": 56, "text": "Statement: All doctors are engineers. No engineer is a lawyer. Conclusion I: No doctor is a lawyer. Conclusion II: Some engineers are doctors. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both I and II follow" }, { "key": "D", "text": "Neither follows" }] },
+            { "n": 57, "text": "Find the part of the sentence that has an error: 'He don't like to play cricket.'", "options": [{ "key": "A", "text": "He" }, { "key": "B", "text": "don't like" }, { "key": "C", "text": "to play" }, { "key": "D", "text": "No error" }] },
+            { "n": 58, "text": "Find the part of the sentence that has an error: 'Neither of the answers are correct.'", "options": [{ "key": "A", "text": "Neither of the answers" }, { "key": "B", "text": "are correct" }, { "key": "C", "text": "No error" }, { "key": "D", "text": "Both A and B" }] },
+            { "n": 59, "text": "Choose the word most nearly SIMILAR in meaning to 'Abundant'.", "options": [{ "key": "A", "text": "Scarce" }, { "key": "B", "text": "Limited" }, { "key": "C", "text": "Plentiful" }, { "key": "D", "text": "Rare" }] },
+            { "n": 60, "text": "Choose the word most nearly SIMILAR in meaning to 'Candid'.", "options": [{ "key": "A", "text": "Frank" }, { "key": "B", "text": "Secretive" }, { "key": "C", "text": "Shy" }, { "key": "D", "text": "Dishonest" }] },
+            { "n": 61, "text": "Choose the word most nearly OPPOSITE in meaning to 'Benevolent'.", "options": [{ "key": "A", "text": "Kind" }, { "key": "B", "text": "Generous" }, { "key": "C", "text": "Charitable" }, { "key": "D", "text": "Malevolent" }] },
+            { "n": 62, "text": "Choose the word most nearly OPPOSITE in meaning to 'Optimistic'.", "options": [{ "key": "A", "text": "Hopeful" }, { "key": "B", "text": "Pessimistic" }, { "key": "C", "text": "Cheerful" }, { "key": "D", "text": "Confident" }] },
+            { "n": 63, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "She is going to the market since morning." }, { "key": "B", "text": "She has been going to the market since morning." }, { "key": "C", "text": "She has gone to the market since morning." }, { "key": "D", "text": "She go to the market since morning." }] },
+            { "n": 64, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "Each of the boys have done their work." }, { "key": "B", "text": "Each of the boys has done his work." }, { "key": "C", "text": "Each of the boys has done their work." }, { "key": "D", "text": "Each of the boys have done his work." }] },
+            { "n": 65, "text": "Choose the correctly spelled word.", "options": [{ "key": "A", "text": "Acommodate" }, { "key": "B", "text": "Accomodate" }, { "key": "C", "text": "Accommodate" }, { "key": "D", "text": "Acomodate" }] },
+            { "n": 66, "text": "Choose the correctly spelled word.", "options": [{ "key": "A", "text": "Recieve" }, { "key": "B", "text": "Receive" }, { "key": "C", "text": "Receeve" }, { "key": "D", "text": "Receve" }] },
+            { "n": 67, "text": "Find the part of the sentence that has an error: 'The number of students in the class have increased.'", "options": [{ "key": "A", "text": "The number of students" }, { "key": "B", "text": "in the class" }, { "key": "C", "text": "have increased" }, { "key": "D", "text": "No error" }] },
+            { "n": 68, "text": "A person who can speak many languages is called:", "options": [{ "key": "A", "text": "Linguist" }, { "key": "B", "text": "Bilingual" }, { "key": "C", "text": "Polyglot" }, { "key": "D", "text": "Orator" }] },
+            { "n": 69, "text": "A place where books are kept for reading is called:", "options": [{ "key": "A", "text": "Bookstore" }, { "key": "B", "text": "Library" }, { "key": "C", "text": "Archive" }, { "key": "D", "text": "Museum" }] },
+            { "n": 70, "text": "Improve the underlined part: 'She is one of the best singer in the group.'", "options": [{ "key": "A", "text": "one of best singer" }, { "key": "B", "text": "one of the best singers" }, { "key": "C", "text": "one of the better singer" }, { "key": "D", "text": "no improvement" }] },
+            { "n": 71, "text": "Choose the word most nearly OPPOSITE in meaning to 'Meticulous'.", "options": [{ "key": "A", "text": "Precise" }, { "key": "B", "text": "Thorough" }, { "key": "C", "text": "Detailed" }, { "key": "D", "text": "Careless" }] },
+            { "n": 72, "text": "The word 'Voracious' most nearly means:", "options": [{ "key": "A", "text": "Extremely hungry / eager" }, { "key": "B", "text": "Very tired" }, { "key": "C", "text": "Slightly angry" }, { "key": "D", "text": "Quietly calm" }] },
+            { "n": 73, "text": "The word 'Ephemeral' most nearly means:", "options": [{ "key": "A", "text": "Everlasting" }, { "key": "B", "text": "Short-lived" }, { "key": "C", "text": "Dangerous" }, { "key": "D", "text": "Bright" }] },
+            { "n": 74, "text": "Choose the correct meaning of the idiom: 'Once in a blue moon'", "options": [{ "key": "A", "text": "Very often" }, { "key": "B", "text": "Every month" }, { "key": "C", "text": "Very rarely" }, { "key": "D", "text": "Never" }] },
+            { "n": 75, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "If I was you, I would apologize." }, { "key": "B", "text": "If I were you, I would apologize." }, { "key": "C", "text": "If I am you, I would apologize." }, { "key": "D", "text": "If I would be you, I will apologize." }] },
+            { "n": 76, "text": "Choose the correct meaning of the idiom: 'To burn the midnight oil'", "options": [{ "key": "A", "text": "To waste time" }, { "key": "B", "text": "To work late into the night" }, { "key": "C", "text": "To cause a fire" }, { "key": "D", "text": "To relax at night" }] },
+            { "n": 77, "text": "Choose the correct meaning of the idiom: 'A blessing in disguise'", "options": [{ "key": "A", "text": "A gift that is hidden" }, { "key": "B", "text": "Something bad that stays bad" }, { "key": "C", "text": "Something good that initially seemed bad" }, { "key": "D", "text": "A secret blessing from God" }] },
+            { "n": 78, "text": "Improve the underlined part: 'Despite of his hard work, he failed the exam.'", "options": [{ "key": "A", "text": "Despite of his hard work" }, { "key": "B", "text": "In spite his hard work" }, { "key": "C", "text": "Despite his hard work" }, { "key": "D", "text": "No improvement needed" }] },
+            { "n": 79, "text": "Choose the word most nearly SIMILAR in meaning to 'Pragmatic'.", "options": [{ "key": "A", "text": "Practical" }, { "key": "B", "text": "Idealistic" }, { "key": "C", "text": "Emotional" }, { "key": "D", "text": "Theoretical" }] },
+            { "n": 80, "text": "Choose the correct meaning of the idiom: 'To let the cat out of the bag'", "options": [{ "key": "A", "text": "To adopt a pet" }, { "key": "B", "text": "To reveal a secret" }, { "key": "C", "text": "To create confusion" }, { "key": "D", "text": "To escape from trouble" }] }
+        ];
+
+        const defaultKey = { "1": "C", "2": "B", "3": "B", "4": "C", "5": "B", "6": "B", "7": "A", "8": "C", "9": "C", "10": "B", "11": "C", "12": "C", "13": "C", "14": "C", "15": "C", "16": "D", "17": "B", "18": "C", "19": "B", "20": "C", "21": "C", "22": "B", "23": "B", "24": "B", "25": "B", "26": "B", "27": "D", "28": "C", "29": "A", "30": "B", "31": "B", "32": "D", "33": "C", "34": "B", "35": "C", "36": "D", "37": "C", "38": "B", "39": "A", "40": "C", "41": "B", "42": "C", "43": "C", "44": "C", "45": "A", "46": "A", "47": "A", "48": "C", "49": "A", "50": "B", "51": "D", "52": "B", "53": "C", "54": "D", "55": "C", "56": "A", "57": "B", "58": "B", "59": "C", "60": "A", "61": "D", "62": "B", "63": "B", "64": "B", "65": "C", "66": "B", "67": "C", "68": "C", "69": "B", "70": "B", "71": "D", "72": "A", "73": "B", "74": "C", "75": "B", "76": "B", "77": "C", "78": "C", "79": "A", "80": "B" };
+
+        function getSectionName(n, total) {
+            if (total <= 30) return 'Assessment Module';
+            if (n <= Math.floor(total / 3)) return 'Numerical Ability Module';
+            if (n <= Math.floor(total * 2 / 3)) return 'Reasoning Ability Module';
+            return 'Verbal Ability Module';
+        }
+
+        function render() {
+            let q = currentQuestions[idx];
+            $('qCounter').textContent = `Q ${q.n} of ${currentQuestions.length}`;
+            $('attempted').textContent = `${Object.keys(answers).length} attempted`;
+            $('section').textContent = getSectionName(q.n, currentQuestions.length); $('qtext').textContent = q.text;
+            $('options').innerHTML = q.options.map(o => `
+    <label class="option-item">
+      <input type="radio" name="answer" value="${o.key}" ${answers[q.n] === o.key ? 'checked' : ''}> 
+      <span><b>(${o.key})</b> ${esc(o.text)}</span>
+    </label>
+  `).join('');
+            $('prevBtn').disabled = idx === 0;
+            $('nextBtn').textContent = idx === currentQuestions.length - 1 ? 'Finish' : 'Next →';
+
+            document.querySelectorAll('#nav .nav-btn').forEach((b, i) => {
+                b.classList.toggle('current', i === idx);
+                b.classList.toggle('done', !!answers[currentQuestions[i].n]);
+            });
+            $('progress').style.width = ((idx + 1) / currentQuestions.length * 100) + '%';
+        }
+
+        function buildNav() {
+            $('nav').innerHTML = currentQuestions.map((q, i) => `<button type="button" class="nav-btn" data-i="${i}">${q.n}</button>`).join('');
+        }
+
+        $('nav').addEventListener('click', e => {
+            let b = e.target.closest('.nav-btn');
+            if (b) { save(); idx = +b.dataset.i; render(); }
+        });
+
+        function save() {
+            let r = document.querySelector('input[name=answer]:checked');
+            if (r) answers[currentQuestions[idx].n] = r.value;
+        }
+
+        function clock() {
+            let m = Math.floor(left / 60), s = left % 60;
+            $('timer').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            if (left <= 0) { submitTest(true); return; }
+            left--;
+        }
+
+        function enterFullscreen() {
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => console.log(err)); }
+        }
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && !submitted && !document.getElementById('testScreen').classList.contains('hidden')) {
+                alert("⚠️ Warning: Tab switching detected! Test auto-submitted.");
+                submitTest(true);
+            }
+        });
+
+        async function submitTest(auto = false) {
+            if (submitted) return;
+            save();
+            submitted = true;
+            clearInterval(timerId);
+
+            if (document.fullscreenElement) { document.exitFullscreen().catch(err => console.log(err)); }
+
+            let score = 0, correct = 0, wrong = 0;
+            currentQuestions.forEach(q => {
+                let userAns = answers[q.n];
+                let correctAns = currentAnswersKey[q.n];
+                if (userAns) {
+                    if (userAns === correctAns) { correct++; score += 1; }
+                    else { wrong++; }
+                }
+            });
+
+            let finalScoreScaled = Math.round((correct / currentQuestions.length) * 100);
+            let unanswered = currentQuestions.length - (correct + wrong);
+
+            let res = await fetch('/api/submit-test', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: currentUser._id, testTitle: currentSelectedTestTitle, score: finalScoreScaled, correct, wrong, unanswered })
+            });
+            let data = await res.json();
+            if (data.success) { currentUser = data.user; }
+
+            $('testScreen').classList.add('hidden');
+            $('resultScreen').classList.remove('hidden'); $('score').textContent = `${finalScoreScaled} / 100`;
+
+            let feedback = '';
+            if (finalScoreScaled >= 90) feedback = `🌟 Outstanding! Phenomenal performance (${finalScoreScaled}/100). You are fully ready!`;
+            else if (finalScoreScaled >= 80) feedback = `👏 Excellent Work! (${finalScoreScaled}/100). Strong conceptual clarity.`;
+            else if (finalScoreScaled >= 70) feedback = `👍 Very Good! (${finalScoreScaled}/100). Solid preparation level.`;
+            else if (finalScoreScaled >= 60) feedback = `💡 Good Effort! (${finalScoreScaled}/100). Review solutions to lock down weak spots.`;
+            else if (finalScoreScaled >= 50) feedback = `📚 Fair Attempt (${finalScoreScaled}/100). More practice needed.`;
+            else feedback = `💪 Better luck next time! (${finalScoreScaled}/100). Analyze solutions below to improve.`;
+
+            if (auto) feedback = `⏰ Time Over / Violation! ` + feedback;
+
+            $('feedbackBox').textContent = feedback;
+            $('resultStats').innerHTML = `
+    <div class="stat-box"><b>${correct}</b>Correct</div>
+    <div class="stat-box"><b>${wrong}</b>Wrong</div>
+    <div class="stat-box"><b>${unanswered}</b>Unanswered</div>
+  `;
+        }
+
+        function renderSolution() {
+            let q = currentQuestions[solIdx];
+            let userAns = answers[q.n] || null;
+            let correctAns = currentAnswersKey[q.n];
+
+            $('solCounter').textContent = `Question ${q.n} of ${currentQuestions.length}`;
+            $('solSection').textContent = getSectionName(q.n, currentQuestions.length); $('solQText').textContent = q.text;
+
+            $('solOptionsList').innerHTML = q.options.map(o => {
+                let classes = 'sol-opt-row';
+                let labelExtra = '';
+                if (o.key === correctAns) { classes += ' correct-choice'; labelExtra = ' ✓ (Correct)'; }
+                if (o.key === userAns && o.key !== correctAns) { classes += ' wrong-choice'; labelExtra = ' ✗ (Your Answer)'; }
+                else if (o.key === userAns && o.key === correctAns) { labelExtra = ' ✓ (Your Answer & Correct)'; }
+                return `<div class="${classes}"><span><b>(${o.key})</b> ${esc(o.text)}</span><span>${labelExtra}</span></div>`;
+            }).join('');
+
+            let tag = $('solAnalysisTag');
+            if (!userAns) { tag.className = 'analysis-tag unanswered'; tag.textContent = `Unanswered (Correct was ${correctAns})`; }
+            else if (userAns === correctAns) { tag.className = 'analysis-tag correct'; tag.textContent = `Correct!`; }
+            else { tag.className = 'analysis-tag wrong'; tag.textContent = `Incorrect. Correct was (${correctAns})`; }
+
+            $('solPrevBtn').disabled = solIdx === 0;
+            $('solNextBtn').textContent = solIdx === currentQuestions.length - 1 ? 'Finish Review' : 'Next →';
+        }
+
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+        $('startFullBtn').addEventListener('click', async () => {
+            currentSelectedTestTitle = $('testSelectDropdown').value;
+
+            let lastAttempt = currentUser.attempts.slice().reverse().find(a => a.testTitle === currentSelectedTestTitle);
+            if (lastAttempt) {
+                let lastTime = new Date(lastAttempt.date).getTime();
+                let now = new Date().getTime();
+                let diffHours = (now - lastTime) / (1000 * 60 * 60);
+                if (diffHours < 8) {
+                    alert(`⏳ Cooldown active for "${currentSelectedTestTitle}"! Please wait ${(8 - diffHours).toFixed(1)} more hours before retaking.`);
+                    return;
+                }
+            }
+
+            if (currentSelectedTestTitle === 'Mock Paper 1') {
+                currentQuestions = defaultQs;
+                currentAnswersKey = defaultKey;
+            } else {
+                let res = await fetch(`/api/tests/${encodeURIComponent(currentSelectedTestTitle)}`);
+                let data = await res.json();
+                if (data.success && data.questions.length > 0) {
+                    currentQuestions = data.questions;
+                    currentAnswersKey = {};
+                    data.questions.forEach(q => { currentAnswersKey[q.n] = q.correctAnswer; });
+                } else {
+                    currentQuestions = defaultQs;
+                    currentAnswersKey = defaultKey;
+                }
+            }
+
+            enterFullscreen();
+            $('userDashScreen').classList.add('hidden'); $('testScreen').classList.remove('hidden');
+            idx = 0; answers = {}; submitted = false; left = currentQuestions.length * 50;
+            buildNav(); render();
+            timerId = setInterval(clock, 1000);
+        });
+
+        $('jumpSec1').addEventListener('click', () => { save(); idx = 0; render(); });
+        $('jumpSec2').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length / 3); render(); }); $('jumpSec3').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length * 2 / 3); render(); });
+
+        $('options').addEventListener('change', save); $('prevBtn').addEventListener('click', () => { save(); if (idx > 0) { idx--; render(); } });
+        $('nextBtn').addEventListener('click', () => { save(); if (idx < currentQuestions.length - 1) { idx++; render(); } else { if (confirm('Submit test now?')) submitTest(false); } }); $('submitBtn').addEventListener('click', () => { if (confirm('Submit paper now?')) submitTest(false); });
+
+        $('viewSolutionsBtn').addEventListener('click', () => {
+            $('resultScreen').classList.add('hidden'); $('solutionScreen').classList.remove('hidden');
+            solIdx = 0;
+            renderSolution();
+        });
+
+        $('solPrevBtn').addEventListener('click', () => { if (solIdx > 0) { solIdx--; renderSolution(); } }); $('solNextBtn').addEventListener('click', () => {
+            if (solIdx < currentQuestions.length - 1) {
+                solIdx++;
+                renderSolution();
+            } else {
+                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
+            }
+        });
+
+        $('finishReviewBtn').addEventListener('click', () => {
+            if (confirm('Exit review?')) {
+                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
