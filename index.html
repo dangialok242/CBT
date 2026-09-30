@@ -489,8 +489,7 @@
                     return;
                 }
             }
-            $('cooldownNotice').textContent = '';
-            $('startFullBtn').disabled = false;
+            $('cooldownNotice').textContent = '';$('startFullBtn').disabled = false;
             $('startFullBtn').style.opacity = 1;
         };
 
@@ -570,15 +569,11 @@
 
         window.switchAdminTab = function (tabName) {
             if (tabName === 'builder') {
-                $('adminTabBuilderContent').classList.remove('hidden');
-                $('adminTabQueriesContent').classList.add('hidden');
-                $('tabBtnBuilder').classList.add('active-tab');
-                $('tabBtnQueries').classList.remove('active-tab');
+                $('adminTabBuilderContent').classList.remove('hidden');$('adminTabQueriesContent').classList.add('hidden');
+                $('tabBtnBuilder').classList.add('active-tab');$('tabBtnQueries').classList.remove('active-tab');
             } else {
-                $('adminTabBuilderContent').classList.add('hidden');
-                $('adminTabQueriesContent').classList.remove('hidden');
-                $('tabBtnBuilder').classList.remove('active-tab');
-                $('tabBtnQueries').classList.add('active-tab');
+                $('adminTabBuilderContent').classList.add('hidden');$('adminTabQueriesContent').classList.remove('hidden');
+                $('tabBtnBuilder').classList.remove('active-tab');$('tabBtnQueries').classList.add('active-tab');
             }
         };
 
@@ -594,8 +589,7 @@
             if (!text || !a || !b || !c || !d) return alert("Please fill question and all 4 options!");
 
             draftQuestions.push({ text, options: [{ key: 'A', text: a }, { key: 'B', text: b }, { key: 'C', text: c }, { key: 'D', text: d }], correctAnswer });
-            $('adminQText').value = ''; $('optA').value = ''; $('optB').value = ''; $('optC').value = ''; $('optD').value = '';
-            $('addedCount').textContent = `Questions in draft: ${draftQuestions.length}`;
+            $('adminQText').value = '';$('optA').value = ''; $('optB').value = '';$('optC').value = ''; $('optD').value = '';$('addedCount').textContent = `Questions in draft: ${draftQuestions.length}`;
         });
 
         $('publishTestBtn').addEventListener('click', async () => {
@@ -610,7 +604,7 @@
             let data = await res.json();
             if (data.success) {
                 alert("Mock Test Published Successfully!");
-                draftQuestions = []; $('adminTestTitle').value = ''; $('addedCount').textContent = `Questions in draft: 0`;
+                draftQuestions = []; $('adminTestTitle').value = '';$('addedCount').textContent = `Questions in draft: 0`;
                 loadAdminDashboard();
             }
         });
@@ -673,8 +667,7 @@
         }
 
         window.viewAndEditTest = async function(title) {
-            $('questionEditorSection').classList.remove('hidden');
-            $('editingTestTitleLabel').textContent = `Editing Questions for: ${title}`;
+            $('questionEditorSection').classList.remove('hidden');$('editingTestTitleLabel').textContent = `Editing Questions for: ${title}`;
             let res = await fetch(`/api/admin/test-questions/${encodeURIComponent(title)}`);
             let data = await res.json();
             if(data.success) {
