@@ -162,6 +162,21 @@ app.get('/api/admin/users', async (req, res) => {
   }
 });
 
+// New API to delete/reset a specific user attempt
+app.delete('/api/admin/user-attempt/:userId/:attemptId', async (req, res) => {
+  try {
+    const { userId, attemptId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+    
+    user.attempts.id(attemptId).deleteOne();
+    await user.save();
+    res.json({ success: true, message: "Attempt deleted successfully!" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error deleting attempt" });
+  }
+});
+
 app.post('/api/admin/resolve-query', async (req, res) => {
   const { userId, queryId, answer } = req.body;
   try {

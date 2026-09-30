@@ -26,118 +26,651 @@
             --line: #cbd5e1;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
 
         .starry-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;
-            background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%); overflow: hidden;
-        }
-        .star {
-            position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%;
-            animation: moveStars 40s linear infinite; opacity: 0.9;
-        }
-        @keyframes moveStars {
-            0% { transform: translateY(0px) translateX(0px); }
-            50% { transform: translateY(-1000px) translateX(20px); }
-            100% { transform: translateY(-2000px) translateX(-20px); }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%);
+            overflow: hidden;
         }
 
-        .floating-graphics { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
-        .float-icon { position: absolute; font-size: 28px; opacity: 0.15; animation: floatAnim 18s linear infinite; }
-        @keyframes floatAnim { 0% { transform: translateY(105vh) rotate(0deg); } 100% { transform: translateY(-10vh) rotate(360deg); } }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: moveStars 40s linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes moveStars {
+            0% {
+                transform: translateY(0px) translateX(0px);
+            }
+
+            50% {
+                transform: translateY(-1000px) translateX(20px);
+            }
+
+            100% {
+                transform: translateY(-2000px) translateX(-20px);
+            }
+        }
+
+        .floating-graphics {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .float-icon {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.15;
+            animation: floatAnim 18s linear infinite;
+        }
+
+        @keyframes floatAnim {
+            0% {
+                transform: translateY(105vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+            }
+        }
 
         #tcsApp {
-            width: 100%; max-width: 1050px; height: 88vh; min-height: 600px; background: var(--panel-bg);
-            border-radius: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7); overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; position: relative;
+            width: 100%;
+            max-width: 1050px;
+            height: 88vh;
+            min-height: 600px;
+            background: var(--panel-bg);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
-        .auth-container, #welcomeScreen {
-            padding: 40px 30px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9)); color: white; overflow-y: auto;
+        .auth-container,
+        #welcomeScreen {
+            padding: 40px 30px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9));
+            color: white;
+            overflow-y: auto;
         }
-        .auth-container h2, #welcomeScreen h1 { font-size: 28px; font-weight: 900; margin-bottom: 12px; color: #38bdf8; text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4); }
 
-        .form-group { width: 100%; max-width: 400px; margin-bottom: 16px; text-align: left; }
-        .form-group label { font-size: 13px; color: var(--text-main); display: block; margin-bottom: 6px; font-weight: 600; }
-        .auth-container .form-group label { color: #cbd5e1; }
-        .form-control { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); font-size: 14px; outline: none; transition: 0.2s; }
-        .auth-container .form-control { background: rgba(255, 255, 255, 0.07); color: white; border-color: rgba(255, 255, 255, 0.2); }
-        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 12px rgba(6, 182, 212, 0.4); }
+        .auth-container h2,
+        #welcomeScreen h1 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #38bdf8;
+            text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+        }
 
-        .link-text { margin-top: 15px; font-size: 13px; color: #94a3b8; cursor: pointer; }
-        .link-text span { color: var(--accent); font-weight: 700; }
+        .form-group {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
 
-        .btn { border: 0; border-radius: 10px; padding: 12px 24px; font-weight: 750; cursor: pointer; font-size: 14px; transition: all 0.2s ease; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; z-index: 5; }
-        .btn-primary { background: var(--accent); color: #0f172a; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4); }
-        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-        .btn-secondary { background: var(--line); color: var(--text-main); }
-        .btn-danger { background: var(--danger); color: white; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+        .form-group label {
+            font-size: 13px;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
 
-        .user-dash-header, .admin-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background: rgba(0, 0, 0, 0.25); border-bottom: 1px solid var(--line); flex-shrink: 0; }
-        .profile-box { display: flex; align-items: center; gap: 15px; }
-        .profile-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); cursor: pointer; background: #334155; }
-        .dash-content, .admin-content { padding: 30px; flex: 1; overflow-y: auto; text-align: left; }
-        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 10px; }
-        @media (min-width: 850px) { .dashboard-grid { grid-template-columns: 1fr 1fr; } }
-        .dash-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
-        .dash-card h3 { font-size: 18px; color: var(--accent); margin-bottom: 15px; font-weight: 800; }
+        .auth-container .form-group label {
+            color: #cbd5e1;
+        }
 
-        .admin-tab-container { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
-        .admin-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); color: var(--text-main); padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-        .admin-tab-btn.active-tab { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
 
-        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--line); background: rgba(0, 0, 0, 0.03); flex-wrap: wrap; gap: 12px; flex-shrink: 0; }
-        .brand-title { font-size: 18px; font-weight: 800; color: var(--text-main); line-height: 1.3; }
-        .sub-info { font-size: 12px; color: var(--muted); margin-top: 2px; display: block; }
-        .header-controls { display: flex; align-items: center; gap: 12px; }
-        .timer-box { font-variant-numeric: tabular-nums; background: #0f172a; color: white; padding: 8px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; letter-spacing: 1px; }
+        .auth-container .form-control {
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
 
-        .exam-section-bar { display: flex; gap: 6px; padding: 10px 20px; background: rgba(6, 182, 212, 0.08); border-bottom: 1px solid var(--line); overflow-x: auto; white-space: nowrap; flex-shrink: 0; }
-        .sec-jump-btn { background: var(--panel-bg); border: 1px solid var(--line); color: var(--text-main); padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
-        .sec-jump-btn.active-sec { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+        }
 
-        .theme-toggle { background: var(--line); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .progress-container { height: 6px; background: var(--line); width: 100%; overflow: hidden; flex-shrink: 0; }
-        .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.4s linear; }
+        .link-text {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
 
-        .exam-body { padding: 25px 20px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; }
-        .section-tag { font-size: 12px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-        .question-text { font-size: 18px; line-height: 1.5; font-weight: 700; margin-bottom: 22px; color: var(--text-main); }
-        .options-grid { display: grid; gap: 12px; margin-bottom: 20px; }
-        .option-item { display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 14px; cursor: pointer; background: var(--panel-bg); color: var(--text-main); min-height: 48px; transition: border-color 0.2s; }
-        .option-item:hover { border-color: var(--accent); }
-        .option-item:has(input:checked) { border-color: var(--accent); background: rgba(6, 182, 212, 0.12); }
-        .option-item input { accent-color: var(--accent); transform: scale(1.2); margin-top: 2px; }
+        .link-text span {
+            color: var(--accent);
+            font-weight: 700;
+        }
 
-        .exam-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 15px; margin-top: 10px; }
-        .nav-palette { display: flex; gap: 5px; flex-wrap: wrap; max-height: 90px; overflow-y: auto; padding: 12px 20px; background: rgba(0, 0, 0, 0.02); border-top: 1px solid var(--line); flex-shrink: 0; }
-        .nav-btn { width: 34px; height: 34px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; }
-        .nav-btn.done { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: var(--success); }
-        .nav-btn.current { outline: 2px solid var(--accent); outline-offset: 1px; }
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: 750;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
 
-        .score-display { font-size: 44px; font-weight: 900; color: var(--accent); margin: 10px 0; }
-        .feedback-box { background: rgba(6, 182, 212, 0.1); border-left: 4px solid var(--accent); padding: 15px 18px; border-radius: 8px; text-align: left; margin: 18px 0; font-size: 14px; font-weight: 600; line-height: 1.5; width: 100%; max-width: 650px; color: var(--text-main); }
-        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 650px; margin-bottom: 25px; }
-        .stat-box { padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-bg); }
-        .stat-box b { display: block; font-size: 20px; color: var(--text-main); }
+        .btn-primary {
+            background: var(--accent);
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
 
-        .sol-card { background: var(--panel-bg); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 15px; text-align: left; }
-        .sol-opt-row { padding: 12px 14px; border-radius: 8px; font-size: 13px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .sol-opt-row.correct-choice { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: var(--success); font-weight: 700; }
-        .sol-opt-row.wrong-choice { background: rgba(239, 68, 68, 0.15); border-color: var(--danger); color: var(--danger); font-weight: 700; }
-        .analysis-tag { font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: inline-block; margin-top: 6px; }
-        .analysis-tag.correct { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-        .analysis-tag.wrong { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-        .analysis-tag.unanswered { background: rgba(100, 116, 139, 0.2); color: var(--muted); }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
 
-        .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; font-size: 13px; }
-        .admin-table th, .admin-table td { padding: 14px; border-bottom: 1px solid var(--line); color: var(--text-main); vertical-align: top; }
-        .hidden { display: none !important; }
+        .btn-secondary {
+            background: var(--line);
+            color: var(--text-main);
+        }
 
-        .footer-tag { text-align: center; font-size: 14px; font-weight: 800; color: #94a3b8; margin-top: 20px; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; padding: 10px; }
-        .footer-tag:hover { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.8); transform: scale(1.08); }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .user-dash-header,
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            background: #334155;
+        }
+
+        .dash-content,
+        .admin-content {
+            padding: 30px;
+            flex: 1;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        @media (min-width: 850px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .dash-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .dash-card h3 {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .admin-tab-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--line);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-tab-btn.active-tab {
+            background: var(--accent);
+            color: #0f172a;
+            border-color: var(--accent);
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.03);
+            flex-wrap: wrap;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .sub-info {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .timer-box {
+            font-variant-numeric: tabular-nums;
+            background: #0f172a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .exam-section-bar {
+            display: flex;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(6, 182, 212, 0.08);
+            border-bottom: 1px solid var(--line);
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .sec-jump-btn {
+            background: var(--panel-bg);
+            border: 1px solid var(--line);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .sec-jump-btn.active-sec {
+            background: var(--accent);
+            color: #0f172a;
+            border-color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: var(--line);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .progress-container {
+            height: 6px;
+            background: var(--line);
+            width: 100%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            transition: width 0.4s linear;
+        }
+
+        .exam-body {
+            padding: 25px 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 700;
+            margin-bottom: 22px;
+            color: var(--text-main);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            background: var(--panel-bg);
+            color: var(--text-main);
+            min-height: 48px;
+            transition: border-color 0.2s;
+        }
+
+        .option-item:hover {
+            border-color: var(--accent);
+        }
+
+        .option-item:has(input:checked) {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.12);
+        }
+
+        .option-item input {
+            accent-color: var(--accent);
+            transform: scale(1.2);
+            margin-top: 2px;
+        }
+
+        .exam-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--line);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .nav-palette {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            max-height: 90px;
+            overflow-y: auto;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.02);
+            border-top: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .nav-btn.done {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .nav-btn.current {
+            outline: 2px solid var(--accent);
+            outline-offset: 1px;
+        }
+
+        .score-display {
+            font-size: 44px;
+            font-weight: 900;
+            color: var(--accent);
+            margin: 10px 0;
+        }
+
+        .feedback-box {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px 18px;
+            border-radius: 8px;
+            text-align: left;
+            margin: 18px 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            width: 100%;
+            max-width: 650px;
+            color: var(--text-main);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-bg);
+        }
+
+        .stat-box b {
+            display: block;
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        .sol-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .sol-opt-row {
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            border: 1px solid var(--line);
+            background: var(--panel-bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .sol-opt-row.correct-choice {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .sol-opt-row.wrong-choice {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .analysis-tag {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .analysis-tag.correct {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .analysis-tag.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .analysis-tag.unanswered {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--muted);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--line);
+            color: var(--text-main);
+            vertical-align: top;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .footer-tag {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: #94a3b8;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+        }
+
+        .footer-tag:hover {
+            color: #38bdf8;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+            transform: scale(1.08);
+        }
     </style>
 </head>
 
@@ -151,21 +684,36 @@
         <!-- 1. LOGIN -->
         <div id="loginScreen" class="auth-container">
             <h2>🔐 Portal Login</h2>
-            <div class="form-group"><label>Mobile Number</label><input type="text" id="loginMobile" class="form-control" placeholder="Enter mobile"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" class="form-control" placeholder="Enter password"></div>
-            <div class="form-group"><label>Role</label><select id="loginRole" class="form-control" style="background:#0f172a; color:white;"><option value="user">Candidate / User</option><option value="admin">Admin</option></select></div>
-            <button id="loginBtn" type="button" class="btn btn-primary" style="margin-top: 10px; width:100%; max-width:400px;">Login 🚀</button>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="loginMobile" class="form-control"
+                    placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword"
+                    class="form-control" placeholder="Enter password"></div>
+            <div class="form-group"><label>Role</label><select id="loginRole" class="form-control"
+                    style="background:#0f172a; color:white;">
+                    <option value="user">Candidate / User</option>
+                    <option value="admin">Admin</option>
+                </select></div>
+            <button id="loginBtn" type="button" class="btn btn-primary"
+                style="margin-top: 10px; width:100%; max-width:400px;">Login 🚀</button>
             <div class="link-text" id="showSignup">Don't have an account? <span>Sign Up</span></div>
         </div>
 
         <!-- 2. SIGNUP -->
         <div id="signupScreen" class="auth-container hidden">
             <h2>📝 Create Account</h2>
-            <div class="form-group"><label>Username</label><input type="text" id="signupUser" class="form-control" placeholder="Enter name"></div>
-            <div class="form-group"><label>Mobile Number</label><input type="text" id="signupMobile" class="form-control" placeholder="Enter mobile"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="signupPassword" class="form-control" placeholder="Password"></div>
-            <div class="form-group"><label>Register As</label><select id="signupRole" class="form-control" style="background:#0f172a; color:white;"><option value="user">Candidate / User</option><option value="admin">Admin (Single Master)</option></select></div>
-            <button id="signupBtn" type="button" class="btn btn-primary" style="margin-top: 10px; width:100%; max-width:400px;">Register 🚀</button>
+            <div class="form-group"><label>Username</label><input type="text" id="signupUser" class="form-control"
+                    placeholder="Enter name"></div>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="signupMobile"
+                    class="form-control" placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="signupPassword"
+                    class="form-control" placeholder="Password"></div>
+            <div class="form-group"><label>Register As</label><select id="signupRole" class="form-control"
+                    style="background:#0f172a; color:white;">
+                    <option value="user">Candidate / User</option>
+                    <option value="admin">Admin (Single Master)</option>
+                </select></div>
+            <button id="signupBtn" type="button" class="btn btn-primary"
+                style="margin-top: 10px; width:100%; max-width:400px;">Register 🚀</button>
             <div class="link-text" id="showLogin">Already have an account? <span>Login</span></div>
         </div>
 
@@ -174,24 +722,30 @@
             <div class="user-dash-header">
                 <div class="profile-box">
                     <input type="file" id="photoInput" accept="image/*" class="hidden">
-                    <img id="userAvatar" class="profile-avatar" src="https://via.placeholder.com/150" title="Upload Photo" onclick="document.getElementById('photoInput').click()">
+                    <img id="userAvatar" class="profile-avatar" src="https://via.placeholder.com/150"
+                        title="Upload Photo" onclick="document.getElementById('photoInput').click()">
                     <div>
                         <h3 id="dashUsername" style="color:#38bdf8; font-size:18px;">Candidate</h3>
                         <span style="font-size:12px; color:var(--muted);" id="dashMobile"></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;" onclick="location.reload()">Logout</button>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
+                    onclick="location.reload()">Logout</button>
             </div>
 
             <div class="dash-content">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
                     <h2 style="font-size:22px; color:var(--text-main);">Available Mock Tests</h2>
                     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                        <select id="testSelectDropdown" class="form-control" style="width:220px; padding:10px; margin:0;" onchange="checkTestCooldown()"></select>
-                        <button id="startFullBtn" type="button" class="btn btn-primary" style="width:auto; padding:10px 25px;">Start Test 🚀</button>
+                        <select id="testSelectDropdown" class="form-control"
+                            style="width:220px; padding:10px; margin:0;" onchange="checkTestCooldown()"></select>
+                        <button id="startFullBtn" type="button" class="btn btn-primary"
+                            style="width:auto; padding:10px 25px;">Start Test 🚀</button>
                     </div>
                 </div>
-                <div id="cooldownNotice" style="margin-bottom:15px; font-size:13px; color:var(--danger); font-weight:700;"></div>
+                <div id="cooldownNotice"
+                    style="margin-bottom:15px; font-size:13px; color:var(--danger); font-weight:700;"></div>
 
                 <div class="dashboard-grid">
                     <div class="dash-card">
@@ -199,66 +753,99 @@
                         <div style="width:100%; max-height:220px; display:flex; justify-content:center;">
                             <canvas id="performanceChart" style="max-height:200px;"></canvas>
                         </div>
-                        <div id="attemptsHistoryList" style="margin-top:12px; font-size:12px; color:var(--muted); max-height:70px; overflow-y:auto;"></div>
+                        <div id="attemptsHistoryList"
+                            style="margin-top:12px; font-size:12px; color:var(--muted); max-height:70px; overflow-y:auto;">
+                        </div>
                     </div>
 
                     <div class="dash-card">
                         <h3>💬 Support & Query Hub</h3>
-                        <textarea id="userQueryInput" class="form-control" placeholder="Ask admin a doubt..." style="height:90px; resize:none; margin-bottom:10px;"></textarea>
-                        <button id="sendQueryBtn" type="button" class="btn btn-primary" style="width:auto; padding:8px 18px; font-size:12px;">Submit Query</button>
-                        <div id="userQueriesList" style="margin-top:12px; max-height:100px; overflow-y:auto; font-size:12px;"></div>
+                        <textarea id="userQueryInput" class="form-control" placeholder="Ask admin a doubt..."
+                            style="height:90px; resize:none; margin-bottom:10px;"></textarea>
+                        <button id="sendQueryBtn" type="button" class="btn btn-primary"
+                            style="width:auto; padding:8px 18px; font-size:12px;">Submit Query</button>
+                        <div id="userQueriesList"
+                            style="margin-top:12px; max-height:100px; overflow-y:auto; font-size:12px;"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 4. ADMIN DASHBOARD WITH QUESTION EDITOR -->
+        <!-- 4. ADMIN DASHBOARD WITH QUESTION EDITOR & ATTEMPT DELETE -->
         <div id="adminScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
             <div class="admin-header">
                 <h2 style="color:#38bdf8; font-size:20px;">👑 Admin Master Control Dashboard</h2>
-                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;" onclick="location.reload()">Logout</button>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
+                    onclick="location.reload()">Logout</button>
             </div>
 
             <div class="admin-content">
                 <div class="admin-tab-container">
-                    <button id="tabBtnBuilder" type="button" class="admin-tab-btn active-tab" onclick="switchAdminTab('builder')">📝 Mock Test Builder & Manager</button>
-                    <button id="tabBtnQueries" type="button" class="admin-tab-btn" onclick="switchAdminTab('queries')">👥 Candidate Scores & Queries</button>
+                    <button id="tabBtnBuilder" type="button" class="admin-tab-btn active-tab"
+                        onclick="switchAdminTab('builder')">📝 Mock Test Builder & Manager</button>
+                    <button id="tabBtnQueries" type="button" class="admin-tab-btn"
+                        onclick="switchAdminTab('queries')">👥 Candidate Scores & Queries</button>
                 </div>
 
                 <div id="adminTabBuilderContent" class="dash-card" style="padding:30px;">
                     <h3>Mock Test Builder & Manager</h3>
-                    <div class="form-group" style="max-width:100%;"><label>Mock Test Title</label><input type="text" id="adminTestTitle" class="form-control" placeholder="e.g. TCS BPS Custom Paper"></div>
-                    <div class="form-group" style="max-width:100%;"><label>Question Text</label><textarea id="adminQText" class="form-control" placeholder="Type question description..." style="height:80px; resize:none;"></textarea></div>
+                    <div class="form-group" style="max-width:100%;"><label>Mock Test Title</label><input type="text"
+                            id="adminTestTitle" class="form-control" placeholder="e.g. TCS BPS Custom Paper"></div>
+                    <div class="form-group" style="max-width:100%;"><label>Question Text</label><textarea
+                            id="adminQText" class="form-control" placeholder="Type question description..."
+                            style="height:80px; resize:none;"></textarea></div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
                         <input type="text" id="optA" class="form-control" placeholder="Option A">
                         <input type="text" id="optB" class="form-control" placeholder="Option B">
                         <input type="text" id="optC" class="form-control" placeholder="Option C">
                         <input type="text" id="optD" class="form-control" placeholder="Option D">
                     </div>
-                    <div class="form-group" style="max-width:100%;"><label>Correct Answer Key</label><select id="adminCorrectOpt" class="form-control" style="padding:10px;"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+                    <div class="form-group" style="max-width:100%;"><label>Correct Answer Key</label><select
+                            id="adminCorrectOpt" class="form-control" style="padding:10px;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select></div>
                     <div style="display:flex; gap:12px; margin-top:15px; flex-wrap:wrap;">
-                        <button id="addQBtn" type="button" class="btn btn-secondary" style="width:auto; padding:10px 20px; font-size:13px;">+ Add Question to Draft</button>
-                        <button id="publishTestBtn" type="button" class="btn btn-primary" style="width:auto; padding:10px 20px; font-size:13px;">Publish / Save Test 🚀</button>
+                        <button id="addQBtn" type="button" class="btn btn-secondary"
+                            style="width:auto; padding:10px 20px; font-size:13px;">+ Add Question to Draft</button>
+                        <button id="publishTestBtn" type="button" class="btn btn-primary"
+                            style="width:auto; padding:10px 20px; font-size:13px;">Publish / Save Test 🚀</button>
                     </div>
-                    <div id="addedCount" style="margin-top:12px; font-size:14px; color:var(--success); font-weight:700;">Questions in draft: 0</div>
+                    <div id="addedCount"
+                        style="margin-top:12px; font-size:14px; color:var(--success); font-weight:700;">Questions in
+                        draft: 0</div>
 
                     <div style="margin-top:30px; border-top:1px solid var(--line); padding-top:20px;">
-                        <h4 style="font-size:16px; color:var(--text-main); margin-bottom:12px;">📁 Created Mock Papers Manager & Question Editor (Including Mock Paper 1 & 2)</h4>
-                        <div id="existingTestsList" style="max-height:220px; overflow-y:auto; font-size:13px; color:var(--muted);"></div>
+                        <h4 style="font-size:16px; color:var(--text-main); margin-bottom:12px;">📁 Created Mock Papers
+                            Manager & Question Editor (Including Mock Paper 1 & 2)</h4>
+                        <div id="existingTestsList"
+                            style="max-height:220px; overflow-y:auto; font-size:13px; color:var(--muted);"></div>
                     </div>
 
                     <!-- Question Edit Area -->
-                    <div id="questionEditorSection" class="hidden" style="margin-top:25px; border-top:2px solid var(--accent); padding-top:20px;">
-                        <h4 style="color:var(--accent); margin-bottom:12px;" id="editingTestTitleLabel">Editing Questions</h4>
+                    <div id="questionEditorSection" class="hidden"
+                        style="margin-top:25px; border-top:2px solid var(--accent); padding-top:20px;">
+                        <h4 style="color:var(--accent); margin-bottom:12px;" id="editingTestTitleLabel">Editing
+                            Questions</h4>
                         <div id="questionsEditList" style="max-height:350px; overflow-y:auto;"></div>
                     </div>
                 </div>
 
                 <div id="adminTabQueriesContent" class="dash-card hidden" style="padding:30px;">
-                    <h3>Candidate Scores & Live Query Resolution</h3>
+                    <h3>Candidate Scores & User Attempts Management</h3>
+                    <p style="font-size:13px; color:var(--muted); margin-bottom:15px;">Admin can delete individual user
+                        test attempts or answer pending queries.</p>
                     <div style="width: 100%; overflow-x: auto; max-height:500px;">
                         <table class="admin-table">
-                            <thead><tr><th>Candidate Name & Mobile</th><th>Attempts Summary</th><th>Support Queries & Formatted Reply</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Candidate Name & Mobile</th>
+                                    <th>Attempts Summary & Delete Option</th>
+                                    <th>Support Queries & Formatted Reply</th>
+                                </tr>
+                            </thead>
                             <tbody id="adminTableBody"></tbody>
                         </table>
                     </div>
@@ -274,7 +861,8 @@
                     <span class="sub-info"><span id="qCounter"></span> • <span id="attempted"></span></span>
                 </div>
                 <div class="header-controls">
-                    <button id="themeToggle" type="button" class="theme-toggle" title="Toggle Light/Dark Mode">☀️</button>
+                    <button id="themeToggle" type="button" class="theme-toggle"
+                        title="Toggle Light/Dark Mode">☀️</button>
                     <div id="timer" class="timer-box">65:00</div>
                 </div>
             </div>
@@ -285,7 +873,9 @@
                 <button class="sec-jump-btn" type="button" id="jumpSec3">Section 3 (Verbal)</button>
             </div>
 
-            <div class="progress-container"><div id="progress" class="progress-fill"></div></div>
+            <div class="progress-container">
+                <div id="progress" class="progress-fill"></div>
+            </div>
 
             <div class="exam-body">
                 <div>
@@ -299,20 +889,24 @@
                 </div>
             </div>
             <div id="nav" class="nav-palette"></div>
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--line); background:rgba(0,0,0,0.01);">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--line); background:rgba(0,0,0,0.01);">
                 <span class="sub-info" style="margin-top:0;">Submit safely. Do not switch tabs.</span>
-                <button id="submitBtn" type="button" class="btn btn-danger" style="width: auto; padding: 8px 18px; font-size: 13px; min-height:38px;">Submit Test</button>
+                <button id="submitBtn" type="button" class="btn btn-danger"
+                    style="width: auto; padding: 8px 18px; font-size: 13px; min-height:38px;">Submit Test</button>
             </div>
         </div>
 
         <!-- 6. RESULT SCREEN -->
-        <div id="resultScreen" class="hidden" style="padding: 30px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div id="resultScreen" class="hidden"
+            style="padding: 30px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div class="section-tag">Exam Finished Successfully</div>
             <div class="brand-title" style="font-size:22px;">Your Total Performance Score</div>
             <div id="score" class="score-display">0/100</div>
             <div id="feedbackBox" class="feedback-box">Analyzing response matrices...</div>
             <div id="resultStats" class="stats-row"></div>
-            <button id="viewSolutionsBtn" type="button" class="btn btn-primary" style="margin-top:5px; width:100%; max-width:650px;">View Step-by-Step Solution Review 🔍</button>
+            <button id="viewSolutionsBtn" type="button" class="btn btn-primary"
+                style="margin-top:5px; width:100%; max-width:650px;">View Step-by-Step Solution Review 🔍</button>
         </div>
 
         <!-- 7. SOLUTION REVIEW PAGE -->
@@ -322,7 +916,8 @@
                     <div class="brand-title">Step-by-Step Solutions Review</div>
                     <div class="sub-info" id="solCounter">Question 1</div>
                 </div>
-                <button id="finishReviewBtn" type="button" class="btn btn-danger" style="padding:6px 14px; font-size:12px; min-height:36px; width:auto;">Finish & Exit</button>
+                <button id="finishReviewBtn" type="button" class="btn btn-danger"
+                    style="padding:6px 14px; font-size:12px; min-height:36px; width:auto;">Finish & Exit</button>
             </div>
 
             <div class="sol-card" style="overflow-y:auto; flex:1;">
@@ -334,14 +929,16 @@
                 </div>
             </div>
 
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top: 1px solid var(--line);">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top: 1px solid var(--line);">
                 <button id="solPrevBtn" type="button" class="btn btn-secondary" style="width:auto;">← Prev</button>
                 <button id="solNextBtn" type="button" class="btn btn-primary" style="width:auto;">Next →</button>
             </div>
         </div>
 
         <!-- 8. THANK YOU SCREEN -->
-        <div id="thankYouScreen" class="hidden" style="padding: 40px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div id="thankYouScreen" class="hidden"
+            style="padding: 40px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <h1>Thank You!</h1>
             <p>Your assessment has been successfully completed, evaluated, and securely recorded.</p>
         </div>
@@ -489,7 +1086,8 @@
                     return;
                 }
             }
-            $('cooldownNotice').textContent = '';$('startFullBtn').disabled = false;
+            $('cooldownNotice').textContent = '';
+            $('startFullBtn').disabled = false;
             $('startFullBtn').style.opacity = 1;
         };
 
@@ -525,7 +1123,7 @@
                     plugins: {
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return ` Correct Answers: ${context.raw}`;
                                 }
                             }
@@ -569,11 +1167,15 @@
 
         window.switchAdminTab = function (tabName) {
             if (tabName === 'builder') {
-                $('adminTabBuilderContent').classList.remove('hidden');$('adminTabQueriesContent').classList.add('hidden');
-                $('tabBtnBuilder').classList.add('active-tab');$('tabBtnQueries').classList.remove('active-tab');
+                $('adminTabBuilderContent').classList.remove('hidden');
+                $('adminTabQueriesContent').classList.add('hidden');
+                $('tabBtnBuilder').classList.add('active-tab');
+                $('tabBtnQueries').classList.remove('active-tab');
             } else {
-                $('adminTabBuilderContent').classList.add('hidden');$('adminTabQueriesContent').classList.remove('hidden');
-                $('tabBtnBuilder').classList.remove('active-tab');$('tabBtnQueries').classList.add('active-tab');
+                $('adminTabBuilderContent').classList.add('hidden');
+                $('adminTabQueriesContent').classList.remove('hidden');
+                $('tabBtnBuilder').classList.remove('active-tab');
+                $('tabBtnQueries').classList.add('active-tab');
             }
         };
 
@@ -589,7 +1191,8 @@
             if (!text || !a || !b || !c || !d) return alert("Please fill question and all 4 options!");
 
             draftQuestions.push({ text, options: [{ key: 'A', text: a }, { key: 'B', text: b }, { key: 'C', text: c }, { key: 'D', text: d }], correctAnswer });
-            $('adminQText').value = '';$('optA').value = ''; $('optB').value = '';$('optC').value = ''; $('optD').value = '';$('addedCount').textContent = `Questions in draft: ${draftQuestions.length}`;
+            $('adminQText').value = ''; $('optA').value = ''; $('optB').value = ''; $('optC').value = ''; $('optD').value = '';
+            $('addedCount').textContent = `Questions in draft: ${draftQuestions.length}`;
         });
 
         $('publishTestBtn').addEventListener('click', async () => {
@@ -604,7 +1207,7 @@
             let data = await res.json();
             if (data.success) {
                 alert("Mock Test Published Successfully!");
-                draftQuestions = []; $('adminTestTitle').value = '';$('addedCount').textContent = `Questions in draft: 0`;
+                draftQuestions = []; $('adminTestTitle').value = ''; $('addedCount').textContent = `Questions in draft: 0`;
                 loadAdminDashboard();
             }
         });
@@ -638,7 +1241,10 @@
                     let attemptsStr = '';
                     if (u.attempts.length > 0) {
                         u.attempts.forEach((a, i) => {
-                            attemptsStr += `<div style="margin-bottom:6px;"><span style="color:var(--accent); font-weight:700;">Attempt #${i + 1} (${a.testTitle})</span>: <b>${a.score}/100</b> (Math:${a.mathCorrect||0}, Reas:${a.reasoningCorrect||0}, Verb:${a.verbalCorrect||0})</div>`;
+                            attemptsStr += `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.2); padding:6px 10px; border-radius:6px; margin-bottom:6px;">
+                                <span><b>#${i + 1} (${a.testTitle})</b>: ${a.score}/100 (Math:${a.mathCorrect || 0}, Reas:${a.reasoningCorrect || 0}, Verb:${a.verbalCorrect || 0})</span>
+                                <button onclick="deleteUserAttempt('${u._id}', '${a._id}')" type="button" style="background:var(--danger); color:white; border:0; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Delete</button>
+                            </div>`;
                         });
                     } else { attemptsStr = 'No attempts'; }
 
@@ -666,11 +1272,25 @@
             }
         }
 
-        window.viewAndEditTest = async function(title) {
-            $('questionEditorSection').classList.remove('hidden');$('editingTestTitleLabel').textContent = `Editing Questions for: ${title}`;
+        window.deleteUserAttempt = async function (userId, attemptId) {
+            if (confirm("Are you sure you want to delete this test attempt?")) {
+                let res = await fetch(`/api/admin/user-attempt/${userId}/${attemptId}`, { method: 'DELETE' });
+                let data = await res.json();
+                if (data.success) {
+                    alert("Attempt deleted successfully!");
+                    loadAdminDashboard();
+                } else {
+                    alert("Error deleting attempt");
+                }
+            }
+        };
+
+        window.viewAndEditTest = async function (title) {
+            $('questionEditorSection').classList.remove('hidden');
+            $('editingTestTitleLabel').textContent = `Editing Questions for: ${title}`;
             let res = await fetch(`/api/admin/test-questions/${encodeURIComponent(title)}`);
             let data = await res.json();
-            if(data.success) {
+            if (data.success) {
                 let qHtml = '';
                 data.questions.forEach((q) => {
                     qHtml += `<div style="background:rgba(255,255,255,0.04); padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid var(--line);">
@@ -686,10 +1306,10 @@
                             <div>
                                 <label style="font-size:12px; color:var(--muted); display:inline;">Correct Answer:</label>
                                 <select id="correct_${q._id}" class="form-control" style="width:70px; display:inline-block; padding:4px;">
-                                    <option value="A" ${q.correctAnswer==='A'?'selected':''}>A</option>
-                                    <option value="B" ${q.correctAnswer==='B'?'selected':''}>B</option>
-                                    <option value="C" ${q.correctAnswer==='C'?'selected':''}>C</option>
-                                    <option value="D" ${q.correctAnswer==='D'?'selected':''}>D</option>
+                                    <option value="A" ${q.correctAnswer === 'A' ? 'selected' : ''}>A</option>
+                                    <option value="B" ${q.correctAnswer === 'B' ? 'selected' : ''}>B</option>
+                                    <option value="C" ${q.correctAnswer === 'C' ? 'selected' : ''}>C</option>
+                                    <option value="D" ${q.correctAnswer === 'D' ? 'selected' : ''}>D</option>
                                 </select>
                             </div>
                             <button onclick="saveEditedQuestion('${q._id}')" type="button" class="btn btn-primary" style="padding:6px 14px; font-size:12px;">Save Changes 💾</button>
@@ -700,7 +1320,7 @@
             }
         }
 
-        window.saveEditedQuestion = async function(qId) {
+        window.saveEditedQuestion = async function (qId) {
             const text = $(`qtext_${qId}`).value.trim();
             const a = $(`optA_${qId}`).value.trim();
             const b = $(`optB_${qId}`).value.trim();
@@ -710,10 +1330,10 @@
 
             let res = await fetch(`/api/admin/update-question/${qId}`, {
                 method: 'PUT', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, options: [{key:'A', text:a}, {key:'B', text:b}, {key:'C', text:c}, {key:'D', text:d}], correctAnswer })
+                body: JSON.stringify({ text, options: [{ key: 'A', text: a }, { key: 'B', text: b }, { key: 'C', text: c }, { key: 'D', text: d }], correctAnswer })
             });
             let data = await res.json();
-            if(data.success) { alert("Question updated successfully!"); }
+            if (data.success) { alert("Question updated successfully!"); }
         }
 
         window.deleteMockTest = async function (title) {
@@ -747,7 +1367,7 @@
             let q = currentQuestions[idx];
             $('qCounter').textContent = `Q ${q.n} of ${currentQuestions.length}`;
             $('attempted').textContent = `${Object.keys(answers).length} attempted`;
-            $('section').textContent = getSectionName(q.n, currentQuestions.length);$('qtext').textContent = q.text;
+            $('section').textContent = getSectionName(q.n, currentQuestions.length); $('qtext').textContent = q.text;
             $('options').innerHTML = q.options.map(o => `
                 <label class="option-item">
                     <input type="radio" name="answer" value="${o.key}" ${answers[q.n] === o.key ? 'checked' : ''}> 
@@ -831,10 +1451,10 @@
 
             let res = await fetch('/api/submit-test', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    userId: currentUser._id, 
-                    testTitle: currentSelectedTestTitle, 
-                    score: finalScoreScaled, 
+                body: JSON.stringify({
+                    userId: currentUser._id,
+                    testTitle: currentSelectedTestTitle,
+                    score: finalScoreScaled,
                     correct, wrong, unanswered,
                     mathCorrect: mathC,
                     reasoningCorrect: reasoningC,
@@ -845,7 +1465,7 @@
             if (data.success) { currentUser = data.user; }
 
             $('testScreen').classList.add('hidden');
-            $('resultScreen').classList.remove('hidden');$('score').textContent = `${finalScoreScaled} / 100`;
+            $('resultScreen').classList.remove('hidden'); $('score').textContent = `${finalScoreScaled} / 100`;
 
             let feedback = '';
             if (finalScoreScaled >= 90) feedback = `🌟 Outstanding! Phenomenal performance (${finalScoreScaled}/100). You are fully ready!`;
@@ -871,7 +1491,7 @@
             let correctAns = currentAnswersKey[q.n];
 
             $('solCounter').textContent = `Question ${q.n} of ${currentQuestions.length}`;
-            $('solSection').textContent = getSectionName(q.n, currentQuestions.length);$('solQText').textContent = q.text;
+            $('solSection').textContent = getSectionName(q.n, currentQuestions.length); $('solQText').textContent = q.text;
 
             $('solOptionsList').innerHTML = q.options.map(o => {
                 let classes = 'sol-opt-row';
@@ -919,36 +1539,36 @@
             }
 
             enterFullscreen();
-            $('userDashScreen').classList.add('hidden');$('testScreen').classList.remove('hidden');
+            $('userDashScreen').classList.add('hidden'); $('testScreen').classList.remove('hidden');
             idx = 0; answers = {}; submitted = false; left = currentQuestions.length * 50;
             buildNav(); render();
             timerId = setInterval(clock, 1000);
         });
 
         $('jumpSec1').addEventListener('click', () => { save(); idx = 0; render(); });
-        $('jumpSec2').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length / 3); render(); });$('jumpSec3').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length * 2 / 3); render(); });
+        $('jumpSec2').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length / 3); render(); }); $('jumpSec3').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length * 2 / 3); render(); });
 
-        $('options').addEventListener('change', save);$('prevBtn').addEventListener('click', () => { save(); if (idx > 0) { idx--; render(); } });
-        $('nextBtn').addEventListener('click', () => { save(); if (idx < currentQuestions.length - 1) { idx++; render(); } else { if (confirm('Submit test now?')) submitTest(false); } });$('submitBtn').addEventListener('click', () => { if (confirm('Submit paper now?')) submitTest(false); });
+        $('options').addEventListener('change', save); $('prevBtn').addEventListener('click', () => { save(); if (idx > 0) { idx--; render(); } });
+        $('nextBtn').addEventListener('click', () => { save(); if (idx < currentQuestions.length - 1) { idx++; render(); } else { if (confirm('Submit test now?')) submitTest(false); } }); $('submitBtn').addEventListener('click', () => { if (confirm('Submit paper now?')) submitTest(false); });
 
         $('viewSolutionsBtn').addEventListener('click', () => {
-            $('resultScreen').classList.add('hidden');$('solutionScreen').classList.remove('hidden');
+            $('resultScreen').classList.add('hidden'); $('solutionScreen').classList.remove('hidden');
             solIdx = 0;
             renderSolution();
         });
 
-        $('solPrevBtn').addEventListener('click', () => { if (solIdx > 0) { solIdx--; renderSolution(); } });$('solNextBtn').addEventListener('click', () => {
+        $('solPrevBtn').addEventListener('click', () => { if (solIdx > 0) { solIdx--; renderSolution(); } }); $('solNextBtn').addEventListener('click', () => {
             if (solIdx < currentQuestions.length - 1) {
                 solIdx++;
                 renderSolution();
             } else {
-                $('solutionScreen').classList.add('hidden');$('thankYouScreen').classList.remove('hidden');
+                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
             }
         });
 
         $('finishReviewBtn').addEventListener('click', () => {
             if (confirm('Exit review?')) {
-                $('solutionScreen').classList.add('hidden');$('thankYouScreen').classList.remove('hidden');
+                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
             }
         });
     </script>
