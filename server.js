@@ -7,9 +7,12 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 
-const MONGO_URI = "mongodb+srv://alokdangi2004_db_user:oqHZJjH94hKrtl3t@paytmdb.8kzyge5.mongodb.net/?appName=PaytmDB";
+const MONGO_URI = "mongodb+srv://alokdangi2004_db_user:oqHZJjH94hKtrl3t@paytmdb.8kzyge5.mongodb.net/?appName=PaytmDB";
 
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, {
+  serverSelectionTimeoutMS: 30000,
+  socketTimeoutMS: 45000,
+})
   .then(async () => {
     console.log("🚀 MongoDB Connected Successfully!");
     try { await mongoose.connection.collection('users').dropIndexes(); } catch (e) {}
@@ -74,17 +77,21 @@ app.post('/api/signup', async (req, res) => {
     await newUser.save();
     res.json({ success: true, message: "Registered successfully!" });
   } catch (err) {
-    res.status(400).json({ success: false, message: "Registration error!" });
+    res.status(500).json({ success: false, message: "Registration error: " + err.message });
   }
 });
 
 app.post('/api/login', async (req, res) => {
-  const { mobile, password } = req.body;
-  const user = await User.findOne({ mobile, password });
-  if (user) {
-    res.json({ success: true, user });
-  } else {
-    res.status(401).json({ success: false, message: "Invalid Mobile Number or Password!" });
+  try {
+    const { mobile, password } = req.body;
+    const user = await User.findOne({ mobile, password });
+    if (user) {
+      res.json({ success: true, user });
+    } else {
+      res.status(401).json({ success: false, message: "Invalid Mobile Number or Password!" });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server login error: " + err.message });
   }
 });
 
