@@ -26,651 +26,118 @@
             --line: #cbd5e1;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', system-ui, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            overflow-x: hidden;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease; }
 
         .starry-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%);
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;
+            background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%); overflow: hidden;
         }
-
         .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: moveStars 40s linear infinite;
-            opacity: 0.9;
+            position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%;
+            animation: moveStars 40s linear infinite; opacity: 0.9;
         }
-
         @keyframes moveStars {
-            0% {
-                transform: translateY(0px) translateX(0px);
-            }
-
-            50% {
-                transform: translateY(-1000px) translateX(20px);
-            }
-
-            100% {
-                transform: translateY(-2000px) translateX(-20px);
-            }
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-1000px) translateX(20px); }
+            100% { transform: translateY(-2000px) translateX(-20px); }
         }
 
-        .floating-graphics {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .float-icon {
-            position: absolute;
-            font-size: 28px;
-            opacity: 0.15;
-            animation: floatAnim 18s linear infinite;
-        }
-
-        @keyframes floatAnim {
-            0% {
-                transform: translateY(105vh) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(-10vh) rotate(360deg);
-            }
-        }
+        .floating-graphics { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+        .float-icon { position: absolute; font-size: 28px; opacity: 0.15; animation: floatAnim 18s linear infinite; }
+        @keyframes floatAnim { 0% { transform: translateY(105vh) rotate(0deg); } 100% { transform: translateY(-10vh) rotate(360deg); } }
 
         #tcsApp {
-            width: 100%;
-            max-width: 1050px;
-            height: 88vh;
-            min-height: 600px;
-            background: var(--panel-bg);
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .auth-container,
-        #welcomeScreen {
-            padding: 40px 30px;
-            text-align: center;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9));
-            color: white;
-            overflow-y: auto;
-        }
-
-        .auth-container h2,
-        #welcomeScreen h1 {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            color: #38bdf8;
-            text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
-        }
-
-        .form-group {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .form-group label {
-            font-size: 13px;
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .auth-container .form-group label {
-            color: #cbd5e1;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--line);
-            background: var(--panel-bg);
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-            transition: 0.2s;
-        }
-
-        .auth-container .form-control {
-            background: rgba(255, 255, 255, 0.07);
-            color: white;
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .form-control:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
-        }
-
-        .link-text {
-            margin-top: 15px;
-            font-size: 13px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-
-        .link-text span {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .btn {
-            border: 0;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-weight: 750;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s ease;
-            min-height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #0f172a;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: var(--line);
-            color: var(--text-main);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-        }
-
-        .user-dash-header,
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 25px;
-            background: rgba(0, 0, 0, 0.25);
-            border-bottom: 1px solid var(--line);
-            flex-shrink: 0;
-        }
-
-        .profile-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .profile-avatar {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent);
-            cursor: pointer;
-            background: #334155;
-        }
-
-        .dash-content,
-        .admin-content {
-            padding: 30px;
-            flex: 1;
-            overflow-y: auto;
-            text-align: left;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            margin-top: 10px;
-        }
-
-        @media (min-width: 850px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .dash-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dash-card h3 {
-            font-size: 18px;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .admin-tab-container {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .admin-tab-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--line);
-            color: var(--text-main);
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .admin-tab-btn.active-tab {
-            background: var(--accent);
-            color: #0f172a;
-            border-color: var(--accent);
-        }
-
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--line);
-            background: rgba(0, 0, 0, 0.03);
-            flex-wrap: wrap;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .brand-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-main);
-            line-height: 1.3;
-        }
-
-        .sub-info {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 2px;
-            display: block;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .timer-box {
-            font-variant-numeric: tabular-nums;
-            background: #0f172a;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .exam-section-bar {
-            display: flex;
-            gap: 6px;
-            padding: 10px 20px;
-            background: rgba(6, 182, 212, 0.08);
-            border-bottom: 1px solid var(--line);
-            overflow-x: auto;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .sec-jump-btn {
-            background: var(--panel-bg);
-            border: 1px solid var(--line);
-            color: var(--text-main);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .sec-jump-btn.active-sec {
-            background: var(--accent);
-            color: #0f172a;
-            border-color: var(--accent);
-        }
-
-        .theme-toggle {
-            background: var(--line);
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .progress-container {
-            height: 6px;
-            background: var(--line);
-            width: 100%;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--accent);
-            transition: width 0.4s linear;
-        }
-
-        .exam-body {
-            padding: 25px 20px;
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .section-tag {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 10px;
-        }
-
-        .question-text {
-            font-size: 18px;
-            line-height: 1.5;
-            font-weight: 700;
-            margin-bottom: 22px;
-            color: var(--text-main);
-        }
-
-        .options-grid {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 14px;
-            cursor: pointer;
-            background: var(--panel-bg);
-            color: var(--text-main);
-            min-height: 48px;
-            transition: border-color 0.2s;
-        }
-
-        .option-item:hover {
-            border-color: var(--accent);
-        }
-
-        .option-item:has(input:checked) {
-            border-color: var(--accent);
-            background: rgba(6, 182, 212, 0.12);
-        }
-
-        .option-item input {
-            accent-color: var(--accent);
-            transform: scale(1.2);
-            margin-top: 2px;
-        }
-
-        .exam-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--line);
-            padding-top: 15px;
-            margin-top: 10px;
-        }
-
-        .nav-palette {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            max-height: 90px;
-            overflow-y: auto;
-            padding: 12px 20px;
-            background: rgba(0, 0, 0, 0.02);
-            border-top: 1px solid var(--line);
-            flex-shrink: 0;
-        }
-
-        .nav-btn {
-            width: 34px;
-            height: 34px;
-            border: 1px solid var(--line);
-            background: var(--panel-bg);
-            color: var(--text-main);
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .nav-btn.done {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--success);
-            color: var(--success);
-        }
-
-        .nav-btn.current {
-            outline: 2px solid var(--accent);
-            outline-offset: 1px;
-        }
-
-        .score-display {
-            font-size: 44px;
-            font-weight: 900;
-            color: var(--accent);
-            margin: 10px 0;
-        }
-
-        .feedback-box {
-            background: rgba(6, 182, 212, 0.1);
-            border-left: 4px solid var(--accent);
-            padding: 15px 18px;
-            border-radius: 8px;
-            text-align: left;
-            margin: 18px 0;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.5;
-            width: 100%;
-            max-width: 650px;
-            color: var(--text-main);
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            width: 100%;
-            max-width: 650px;
-            margin-bottom: 25px;
-        }
-
-        .stat-box {
-            padding: 14px;
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            background: var(--panel-bg);
-        }
-
-        .stat-box b {
-            display: block;
-            font-size: 20px;
-            color: var(--text-main);
-        }
-
-        .sol-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        .sol-opt-row {
-            padding: 12px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            border: 1px solid var(--line);
-            background: var(--panel-bg);
-            color: var(--text-main);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .sol-opt-row.correct-choice {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: var(--success);
-            color: var(--success);
-            font-weight: 700;
-        }
-
-        .sol-opt-row.wrong-choice {
-            background: rgba(239, 68, 68, 0.15);
-            border-color: var(--danger);
-            color: var(--danger);
-            font-weight: 700;
-        }
-
-        .analysis-tag {
-            font-size: 13px;
-            font-weight: 700;
-            padding: 6px 12px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-top: 6px;
-        }
-
-        .analysis-tag.correct {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-        }
-
-        .analysis-tag.wrong {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-        }
-
-        .analysis-tag.unanswered {
-            background: rgba(100, 116, 139, 0.2);
-            color: var(--muted);
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        .admin-table th,
-        .admin-table td {
-            padding: 14px;
-            border-bottom: 1px solid var(--line);
-            color: var(--text-main);
-            vertical-align: top;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .footer-tag {
-            text-align: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: #94a3b8;
-            margin-top: 20px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 10px;
-        }
-
-        .footer-tag:hover {
-            color: #38bdf8;
-            text-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
-            transform: scale(1.08);
-        }
+            width: 100%; max-width: 1050px; height: 88vh; min-height: 600px; background: var(--panel-bg);
+            border-radius: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7); overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; position: relative;
+        }
+
+        .auth-container, #welcomeScreen {
+            padding: 40px 30px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9)); color: white; overflow-y: auto;
+        }
+        .auth-container h2, #welcomeScreen h1 { font-size: 28px; font-weight: 900; margin-bottom: 12px; color: #38bdf8; text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4); }
+
+        .form-group { width: 100%; max-width: 400px; margin-bottom: 16px; text-align: left; }
+        .form-group label { font-size: 13px; color: var(--text-main); display: block; margin-bottom: 6px; font-weight: 600; }
+        .auth-container .form-group label { color: #cbd5e1; }
+        .form-control { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); font-size: 14px; outline: none; transition: 0.2s; }
+        .auth-container .form-control { background: rgba(255, 255, 255, 0.07); color: white; border-color: rgba(255, 255, 255, 0.2); }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 12px rgba(6, 182, 212, 0.4); }
+
+        .link-text { margin-top: 15px; font-size: 13px; color: #94a3b8; cursor: pointer; }
+        .link-text span { color: var(--accent); font-weight: 700; }
+
+        .btn { border: 0; border-radius: 10px; padding: 12px 24px; font-weight: 750; cursor: pointer; font-size: 14px; transition: all 0.2s ease; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; z-index: 5; }
+        .btn-primary { background: var(--accent); color: #0f172a; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .btn-secondary { background: var(--line); color: var(--text-main); }
+        .btn-danger { background: var(--danger); color: white; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+
+        .user-dash-header, .admin-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background: rgba(0, 0, 0, 0.25); border-bottom: 1px solid var(--line); flex-shrink: 0; }
+        .profile-box { display: flex; align-items: center; gap: 15px; }
+        .profile-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); cursor: pointer; background: #334155; }
+        .dash-content, .admin-content { padding: 30px; flex: 1; overflow-y: auto; text-align: left; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 10px; }
+        @media (min-width: 850px) { .dashboard-grid { grid-template-columns: 1fr 1fr; } }
+        .dash-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); border-radius: 16px; padding: 25px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+        .dash-card h3 { font-size: 18px; color: var(--accent); margin-bottom: 15px; font-weight: 800; }
+
+        .admin-tab-container { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+        .admin-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); color: var(--text-main); padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .admin-tab-btn.active-tab { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--line); background: rgba(0, 0, 0, 0.03); flex-wrap: wrap; gap: 12px; flex-shrink: 0; }
+        .brand-title { font-size: 18px; font-weight: 800; color: var(--text-main); line-height: 1.3; }
+        .sub-info { font-size: 12px; color: var(--muted); margin-top: 2px; display: block; }
+        .header-controls { display: flex; align-items: center; gap: 12px; }
+        .timer-box { font-variant-numeric: tabular-nums; background: #0f172a; color: white; padding: 8px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; letter-spacing: 1px; }
+
+        .exam-section-bar { display: flex; gap: 6px; padding: 10px 20px; background: rgba(6, 182, 212, 0.08); border-bottom: 1px solid var(--line); overflow-x: auto; white-space: nowrap; flex-shrink: 0; }
+        .sec-jump-btn { background: var(--panel-bg); border: 1px solid var(--line); color: var(--text-main); padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+        .sec-jump-btn.active-sec { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+
+        .theme-toggle { background: var(--line); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .progress-container { height: 6px; background: var(--line); width: 100%; overflow: hidden; flex-shrink: 0; }
+        .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.4s linear; }
+
+        .exam-body { padding: 25px 20px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between; }
+        .section-tag { font-size: 12px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+        .question-text { font-size: 18px; line-height: 1.5; font-weight: 700; margin-bottom: 22px; color: var(--text-main); }
+        .options-grid { display: grid; gap: 12px; margin-bottom: 20px; }
+        .option-item { display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 14px; cursor: pointer; background: var(--panel-bg); color: var(--text-main); min-height: 48px; transition: border-color 0.2s; }
+        .option-item:hover { border-color: var(--accent); }
+        .option-item:has(input:checked) { border-color: var(--accent); background: rgba(6, 182, 212, 0.12); }
+        .option-item input { accent-color: var(--accent); transform: scale(1.2); margin-top: 2px; }
+
+        .exam-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 15px; margin-top: 10px; }
+        .nav-palette { display: flex; gap: 5px; flex-wrap: wrap; max-height: 90px; overflow-y: auto; padding: 12px 20px; background: rgba(0, 0, 0, 0.02); border-top: 1px solid var(--line); flex-shrink: 0; }
+        .nav-btn { width: 34px; height: 34px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; }
+        .nav-btn.done { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: var(--success); }
+        .nav-btn.current { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+        .score-display { font-size: 44px; font-weight: 900; color: var(--accent); margin: 10px 0; }
+        .feedback-box { background: rgba(6, 182, 212, 0.1); border-left: 4px solid var(--accent); padding: 15px 18px; border-radius: 8px; text-align: left; margin: 18px 0; font-size: 14px; font-weight: 600; line-height: 1.5; width: 100%; max-width: 650px; color: var(--text-main); }
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 650px; margin-bottom: 25px; }
+        .stat-box { padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-bg); }
+        .stat-box b { display: block; font-size: 20px; color: var(--text-main); }
+
+        .sol-card { background: var(--panel-bg); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 15px; text-align: left; }
+        .sol-opt-row { padding: 12px 14px; border-radius: 8px; font-size: 13px; border: 1px solid var(--line); background: var(--panel-bg); color: var(--text-main); display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .sol-opt-row.correct-choice { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: var(--success); font-weight: 700; }
+        .sol-opt-row.wrong-choice { background: rgba(239, 68, 68, 0.15); border-color: var(--danger); color: var(--danger); font-weight: 700; }
+        .analysis-tag { font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: inline-block; margin-top: 6px; }
+        .analysis-tag.correct { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .analysis-tag.wrong { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .analysis-tag.unanswered { background: rgba(100, 116, 139, 0.2); color: var(--muted); }
+
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; font-size: 13px; }
+        .admin-table th, .admin-table td { padding: 14px; border-bottom: 1px solid var(--line); color: var(--text-main); vertical-align: top; }
+        .hidden { display: none !important; }
+
+        .footer-tag { text-align: center; font-size: 14px; font-weight: 800; color: #94a3b8; margin-top: 20px; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; padding: 10px; }
+        .footer-tag:hover { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.8); transform: scale(1.08); }
     </style>
 </head>
 
@@ -684,36 +151,21 @@
         <!-- 1. LOGIN -->
         <div id="loginScreen" class="auth-container">
             <h2>🔐 Portal Login</h2>
-            <div class="form-group"><label>Mobile Number</label><input type="text" id="loginMobile" class="form-control"
-                    placeholder="Enter mobile"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="loginPassword"
-                    class="form-control" placeholder="Enter password"></div>
-            <div class="form-group"><label>Role</label><select id="loginRole" class="form-control"
-                    style="background:#0f172a; color:white;">
-                    <option value="user">Candidate / User</option>
-                    <option value="admin">Admin</option>
-                </select></div>
-            <button id="loginBtn" type="button" class="btn btn-primary"
-                style="margin-top: 10px; width:100%; max-width:400px;">Login 🚀</button>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="loginMobile" class="form-control" placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" class="form-control" placeholder="Enter password"></div>
+            <div class="form-group"><label>Role</label><select id="loginRole" class="form-control" style="background:#0f172a; color:white;"><option value="user">Candidate / User</option><option value="admin">Admin</option></select></div>
+            <button id="loginBtn" type="button" class="btn btn-primary" style="margin-top: 10px; width:100%; max-width:400px;">Login 🚀</button>
             <div class="link-text" id="showSignup">Don't have an account? <span>Sign Up</span></div>
         </div>
 
         <!-- 2. SIGNUP -->
         <div id="signupScreen" class="auth-container hidden">
             <h2>📝 Create Account</h2>
-            <div class="form-group"><label>Username</label><input type="text" id="signupUser" class="form-control"
-                    placeholder="Enter name"></div>
-            <div class="form-group"><label>Mobile Number</label><input type="text" id="signupMobile"
-                    class="form-control" placeholder="Enter mobile"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="signupPassword"
-                    class="form-control" placeholder="Password"></div>
-            <div class="form-group"><label>Register As</label><select id="signupRole" class="form-control"
-                    style="background:#0f172a; color:white;">
-                    <option value="user">Candidate / User</option>
-                    <option value="admin">Admin (Single Master)</option>
-                </select></div>
-            <button id="signupBtn" type="button" class="btn btn-primary"
-                style="margin-top: 10px; width:100%; max-width:400px;">Register 🚀</button>
+            <div class="form-group"><label>Username</label><input type="text" id="signupUser" class="form-control" placeholder="Enter name"></div>
+            <div class="form-group"><label>Mobile Number</label><input type="text" id="signupMobile" class="form-control" placeholder="Enter mobile"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="signupPassword" class="form-control" placeholder="Password"></div>
+            <div class="form-group"><label>Register As</label><select id="signupRole" class="form-control" style="background:#0f172a; color:white;"><option value="user">Candidate / User</option><option value="admin">Admin (Single Master)</option></select></div>
+            <button id="signupBtn" type="button" class="btn btn-primary" style="margin-top: 10px; width:100%; max-width:400px;">Register 🚀</button>
             <div class="link-text" id="showLogin">Already have an account? <span>Login</span></div>
         </div>
 
@@ -722,50 +174,39 @@
             <div class="user-dash-header">
                 <div class="profile-box">
                     <input type="file" id="photoInput" accept="image/*" class="hidden">
-                    <img id="userAvatar" class="profile-avatar" src="https://via.placeholder.com/150"
-                        title="Upload Photo" onclick="document.getElementById('photoInput').click()">
+                    <img id="userAvatar" class="profile-avatar" src="https://via.placeholder.com/150" title="Upload Photo" onclick="document.getElementById('photoInput').click()">
                     <div>
                         <h3 id="dashUsername" style="color:#38bdf8; font-size:18px;">Candidate</h3>
                         <span style="font-size:12px; color:var(--muted);" id="dashMobile"></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
-                    onclick="location.reload()">Logout</button>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;" onclick="location.reload()">Logout</button>
             </div>
 
             <div class="dash-content">
-                <div
-                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
                     <h2 style="font-size:22px; color:var(--text-main);">Available Mock Tests</h2>
                     <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                        <select id="testSelectDropdown" class="form-control"
-                            style="width:220px; padding:10px; margin:0;" onchange="checkTestCooldown()"></select>
-                        <button id="startFullBtn" type="button" class="btn btn-primary"
-                            style="width:auto; padding:10px 25px;">Start Test 🚀</button>
+                        <select id="testSelectDropdown" class="form-control" style="width:220px; padding:10px; margin:0;" onchange="checkTestCooldown()"></select>
+                        <button id="startFullBtn" type="button" class="btn btn-primary" style="width:auto; padding:10px 25px;">Start Test 🚀</button>
                     </div>
                 </div>
-                <div id="cooldownNotice"
-                    style="margin-bottom:15px; font-size:13px; color:var(--danger); font-weight:700;"></div>
+                <div id="cooldownNotice" style="margin-bottom:15px; font-size:13px; color:var(--danger); font-weight:700;"></div>
 
                 <div class="dashboard-grid">
                     <div class="dash-card">
-                        <h3>📊 Attempt Performance & Pie Chart</h3>
+                        <h3>📊 Section-wise Performance Bar Graph</h3>
                         <div style="width:100%; max-height:220px; display:flex; justify-content:center;">
                             <canvas id="performanceChart" style="max-height:200px;"></canvas>
                         </div>
-                        <div id="attemptsHistoryList"
-                            style="margin-top:12px; font-size:12px; color:var(--muted); max-height:70px; overflow-y:auto;">
-                        </div>
+                        <div id="attemptsHistoryList" style="margin-top:12px; font-size:12px; color:var(--muted); max-height:70px; overflow-y:auto;"></div>
                     </div>
 
                     <div class="dash-card">
                         <h3>💬 Support & Query Hub</h3>
-                        <textarea id="userQueryInput" class="form-control" placeholder="Ask admin a doubt..."
-                            style="height:90px; resize:none; margin-bottom:10px;"></textarea>
-                        <button id="sendQueryBtn" type="button" class="btn btn-primary"
-                            style="width:auto; padding:8px 18px; font-size:12px;">Submit Query</button>
-                        <div id="userQueriesList"
-                            style="margin-top:12px; max-height:100px; overflow-y:auto; font-size:12px;"></div>
+                        <textarea id="userQueryInput" class="form-control" placeholder="Ask admin a doubt..." style="height:90px; resize:none; margin-bottom:10px;"></textarea>
+                        <button id="sendQueryBtn" type="button" class="btn btn-primary" style="width:auto; padding:8px 18px; font-size:12px;">Submit Query</button>
+                        <div id="userQueriesList" style="margin-top:12px; max-height:100px; overflow-y:auto; font-size:12px;"></div>
                     </div>
                 </div>
             </div>
@@ -775,60 +216,40 @@
         <div id="adminScreen" class="hidden" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
             <div class="admin-header">
                 <h2 style="color:#38bdf8; font-size:20px;">👑 Admin Master Control Dashboard</h2>
-                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;"
-                    onclick="location.reload()">Logout</button>
+                <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:12px;" onclick="location.reload()">Logout</button>
             </div>
 
             <div class="admin-content">
                 <div class="admin-tab-container">
-                    <button id="tabBtnBuilder" type="button" class="admin-tab-btn active-tab"
-                        onclick="switchAdminTab('builder')">📝 Mock Test Builder & Manager</button>
-                    <button id="tabBtnQueries" type="button" class="admin-tab-btn"
-                        onclick="switchAdminTab('queries')">👥 Candidate Scores & Queries</button>
+                    <button id="tabBtnBuilder" type="button" class="admin-tab-btn active-tab" onclick="switchAdminTab('builder')">📝 Mock Test Builder & Manager</button>
+                    <button id="tabBtnQueries" type="button" class="admin-tab-btn" onclick="switchAdminTab('queries')">👥 Candidate Scores & Queries</button>
                 </div>
 
                 <div id="adminTabBuilderContent" class="dash-card" style="padding:30px;">
                     <h3>Mock Test Builder & Manager</h3>
-                    <div class="form-group" style="max-width:100%;"><label>Mock Test Title</label><input type="text"
-                            id="adminTestTitle" class="form-control" placeholder="e.g. TCS BPS Custom Paper"></div>
-                    <div class="form-group" style="max-width:100%;"><label>Question Text</label><textarea
-                            id="adminQText" class="form-control" placeholder="Type question description..."
-                            style="height:80px; resize:none;"></textarea></div>
+                    <div class="form-group" style="max-width:100%;"><label>Mock Test Title</label><input type="text" id="adminTestTitle" class="form-control" placeholder="e.g. TCS BPS Custom Paper"></div>
+                    <div class="form-group" style="max-width:100%;"><label>Question Text</label><textarea id="adminQText" class="form-control" placeholder="Type question description..." style="height:80px; resize:none;"></textarea></div>
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
                         <input type="text" id="optA" class="form-control" placeholder="Option A">
                         <input type="text" id="optB" class="form-control" placeholder="Option B">
                         <input type="text" id="optC" class="form-control" placeholder="Option C">
                         <input type="text" id="optD" class="form-control" placeholder="Option D">
                     </div>
-                    <div class="form-group" style="max-width:100%;"><label>Correct Answer Key</label><select
-                            id="adminCorrectOpt" class="form-control" style="padding:10px;">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                        </select></div>
+                    <div class="form-group" style="max-width:100%;"><label>Correct Answer Key</label><select id="adminCorrectOpt" class="form-control" style="padding:10px;"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
                     <div style="display:flex; gap:12px; margin-top:15px; flex-wrap:wrap;">
-                        <button id="addQBtn" type="button" class="btn btn-secondary"
-                            style="width:auto; padding:10px 20px; font-size:13px;">+ Add Question to Draft</button>
-                        <button id="publishTestBtn" type="button" class="btn btn-primary"
-                            style="width:auto; padding:10px 20px; font-size:13px;">Publish / Save Test 🚀</button>
+                        <button id="addQBtn" type="button" class="btn btn-secondary" style="width:auto; padding:10px 20px; font-size:13px;">+ Add Question to Draft</button>
+                        <button id="publishTestBtn" type="button" class="btn btn-primary" style="width:auto; padding:10px 20px; font-size:13px;">Publish / Save Test 🚀</button>
                     </div>
-                    <div id="addedCount"
-                        style="margin-top:12px; font-size:14px; color:var(--success); font-weight:700;">Questions in
-                        draft: 0</div>
+                    <div id="addedCount" style="margin-top:12px; font-size:14px; color:var(--success); font-weight:700;">Questions in draft: 0</div>
 
                     <div style="margin-top:30px; border-top:1px solid var(--line); padding-top:20px;">
-                        <h4 style="font-size:16px; color:var(--text-main); margin-bottom:12px;">📁 Created Mock Papers
-                            Manager & Question Editor</h4>
-                        <div id="existingTestsList"
-                            style="max-height:220px; overflow-y:auto; font-size:13px; color:var(--muted);"></div>
+                        <h4 style="font-size:16px; color:var(--text-main); margin-bottom:12px;">📁 Created Mock Papers Manager & Question Editor (Including Mock Paper 1 & 2)</h4>
+                        <div id="existingTestsList" style="max-height:220px; overflow-y:auto; font-size:13px; color:var(--muted);"></div>
                     </div>
 
                     <!-- Question Edit Area -->
-                    <div id="questionEditorSection" class="hidden"
-                        style="margin-top:25px; border-top:2px solid var(--accent); padding-top:20px;">
-                        <h4 style="color:var(--accent); margin-bottom:12px;" id="editingTestTitleLabel">Editing
-                            Questions</h4>
+                    <div id="questionEditorSection" class="hidden" style="margin-top:25px; border-top:2px solid var(--accent); padding-top:20px;">
+                        <h4 style="color:var(--accent); margin-bottom:12px;" id="editingTestTitleLabel">Editing Questions</h4>
                         <div id="questionsEditList" style="max-height:350px; overflow-y:auto;"></div>
                     </div>
                 </div>
@@ -837,13 +258,7 @@
                     <h3>Candidate Scores & Live Query Resolution</h3>
                     <div style="width: 100%; overflow-x: auto; max-height:500px;">
                         <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Candidate Name & Mobile</th>
-                                    <th>Attempts Summary</th>
-                                    <th>Support Queries & Formatted Reply</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>Candidate Name & Mobile</th><th>Attempts Summary</th><th>Support Queries & Formatted Reply</th></tr></thead>
                             <tbody id="adminTableBody"></tbody>
                         </table>
                     </div>
@@ -859,8 +274,7 @@
                     <span class="sub-info"><span id="qCounter"></span> • <span id="attempted"></span></span>
                 </div>
                 <div class="header-controls">
-                    <button id="themeToggle" type="button" class="theme-toggle"
-                        title="Toggle Light/Dark Mode">☀️</button>
+                    <button id="themeToggle" type="button" class="theme-toggle" title="Toggle Light/Dark Mode">☀️</button>
                     <div id="timer" class="timer-box">65:00</div>
                 </div>
             </div>
@@ -871,9 +285,7 @@
                 <button class="sec-jump-btn" type="button" id="jumpSec3">Section 3 (Verbal)</button>
             </div>
 
-            <div class="progress-container">
-                <div id="progress" class="progress-fill"></div>
-            </div>
+            <div class="progress-container"><div id="progress" class="progress-fill"></div></div>
 
             <div class="exam-body">
                 <div>
@@ -887,24 +299,20 @@
                 </div>
             </div>
             <div id="nav" class="nav-palette"></div>
-            <div
-                style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--line); background:rgba(0,0,0,0.01);">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--line); background:rgba(0,0,0,0.01);">
                 <span class="sub-info" style="margin-top:0;">Submit safely. Do not switch tabs.</span>
-                <button id="submitBtn" type="button" class="btn btn-danger"
-                    style="width: auto; padding: 8px 18px; font-size: 13px; min-height:38px;">Submit Test</button>
+                <button id="submitBtn" type="button" class="btn btn-danger" style="width: auto; padding: 8px 18px; font-size: 13px; min-height:38px;">Submit Test</button>
             </div>
         </div>
 
         <!-- 6. RESULT SCREEN -->
-        <div id="resultScreen" class="hidden"
-            style="padding: 30px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div id="resultScreen" class="hidden" style="padding: 30px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div class="section-tag">Exam Finished Successfully</div>
             <div class="brand-title" style="font-size:22px;">Your Total Performance Score</div>
             <div id="score" class="score-display">0/100</div>
             <div id="feedbackBox" class="feedback-box">Analyzing response matrices...</div>
             <div id="resultStats" class="stats-row"></div>
-            <button id="viewSolutionsBtn" type="button" class="btn btn-primary"
-                style="margin-top:5px; width:100%; max-width:650px;">View Step-by-Step Solution Review 🔍</button>
+            <button id="viewSolutionsBtn" type="button" class="btn btn-primary" style="margin-top:5px; width:100%; max-width:650px;">View Step-by-Step Solution Review 🔍</button>
         </div>
 
         <!-- 7. SOLUTION REVIEW PAGE -->
@@ -914,8 +322,7 @@
                     <div class="brand-title">Step-by-Step Solutions Review</div>
                     <div class="sub-info" id="solCounter">Question 1</div>
                 </div>
-                <button id="finishReviewBtn" type="button" class="btn btn-danger"
-                    style="padding:6px 14px; font-size:12px; min-height:36px; width:auto;">Finish & Exit</button>
+                <button id="finishReviewBtn" type="button" class="btn btn-danger" style="padding:6px 14px; font-size:12px; min-height:36px; width:auto;">Finish & Exit</button>
             </div>
 
             <div class="sol-card" style="overflow-y:auto; flex:1;">
@@ -927,16 +334,14 @@
                 </div>
             </div>
 
-            <div
-                style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top: 1px solid var(--line);">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top: 1px solid var(--line);">
                 <button id="solPrevBtn" type="button" class="btn btn-secondary" style="width:auto;">← Prev</button>
                 <button id="solNextBtn" type="button" class="btn btn-primary" style="width:auto;">Next →</button>
             </div>
         </div>
 
         <!-- 8. THANK YOU SCREEN -->
-        <div id="thankYouScreen" class="hidden"
-            style="padding: 40px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div id="thankYouScreen" class="hidden" style="padding: 40px 20px; text-align: center; flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <h1>Thank You!</h1>
             <p>Your assessment has been successfully completed, evaluated, and securely recorded.</p>
         </div>
@@ -951,7 +356,7 @@
         let currentAnswersKey = {};
         let currentSelectedTestTitle = "Mock Paper 1";
         let idx = 0, answers = {}, left = 3900, timerId = null, submitted = false, solIdx = 0;
-        let pieChartInstance = null;
+        let barChartInstance = null;
         const $ = id => document.getElementById(id);
 
         const starContainer = document.getElementById('starryBg');
@@ -1059,13 +464,12 @@
 
             let res = await fetch('/api/tests');
             let data = await res.json();
-            let customTests = data.success ? data.tests : [];
-            let tests = ['Mock Paper 1', 'Mock Paper 2', ...customTests.filter(t => t !== 'Mock Paper 1' && t !== 'Mock Paper 2')];
+            let tests = data.success ? data.tests : ['Mock Paper 1', 'Mock Paper 2'];
             let optionsHtml = tests.map(t => `<option value="${t}">${t}</option>`).join('');
             $('testSelectDropdown').innerHTML = optionsHtml;
 
             checkTestCooldown();
-            renderPerformanceChart();
+            renderPerformanceBarChart();
             renderUserQueries();
         }
 
@@ -1090,28 +494,36 @@
             $('startFullBtn').style.opacity = 1;
         };
 
-        function renderPerformanceChart() {
+        function renderPerformanceBarChart() {
             const ctx = $('performanceChart').getContext('2d');
-            if (pieChartInstance) pieChartInstance.destroy();
+            if (barChartInstance) barChartInstance.destroy();
 
-            let labels = currentUser.attempts.map((a, i) => `${a.testTitle || 'Test'} #${i + 1}`);
-            let scores = currentUser.attempts.map(a => a.score);
-            let historyHtml = currentUser.attempts.map((a, i) => `<div style="margin-bottom:4px;">${a.testTitle}: <b style="color:var(--accent);">${a.score}/100</b></div>`).join('');
+            let historyHtml = currentUser.attempts.map((a, i) => `<div style="margin-bottom:6px;">${a.testTitle} (#${i + 1}): Score <b style="color:var(--accent);">${a.score}/100</b> | Math: ${a.mathCorrect || 0}, Reasoning: ${a.reasoningCorrect || 0}, Verbal: ${a.verbalCorrect || 0}</div>`).join('');
             $('attemptsHistoryList').innerHTML = historyHtml || "No attempts yet. Take your first mock test!";
 
-            if (scores.length === 0) { labels = ['No Attempts']; scores = [100]; }
+            let latest = currentUser.attempts[currentUser.attempts.length - 1];
+            let mathC = latest ? (latest.mathCorrect || 0) : 0;
+            let reasoningC = latest ? (latest.reasoningCorrect || 0) : 0;
+            let verbalC = latest ? (latest.verbalCorrect || 0) : 0;
 
-            pieChartInstance = new Chart(ctx, {
-                type: 'pie',
+            barChartInstance = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: ['Mathematics', 'Reasoning', 'Verbal'],
                     datasets: [{
-                        data: scores,
-                        backgroundColor: ['#06b6d4', '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'],
+                        label: 'Correct Answers in Latest Attempt',
+                        data: [mathC, reasoningC, verbalC],
+                        backgroundColor: ['#06b6d4', '#10b981', '#3b82f6'],
                         borderWidth: 1
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 5 } }
+                    }
+                }
             });
         }
 
@@ -1201,13 +613,14 @@
             let testData = await testRes.json();
             if (testData.success) {
                 let tHtml = '';
-                if (testData.tests.length === 0) tHtml = 'No custom mock papers created yet.';
+                if (testData.tests.length === 0) tHtml = 'No mock papers available.';
                 testData.tests.forEach(t => {
+                    let isDefault = (t._id === 'Mock Paper 1' || t._id === 'Mock Paper 2');
                     tHtml += `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:8px; margin-bottom:8px;">
-        <span><b>${t._id}</b> (${t.count} Qs)</span>
+        <span><b>${t._id}</b> (${t.count} Qs) ${isDefault ? '<span style="color:var(--accent); font-size:11px;">[Default Paper]</span>' : ''}</span>
         <div style="display:flex; gap:8px;">
             <button onclick="viewAndEditTest('${t._id}')" type="button" style="background:var(--accent); color:#0f172a; border:0; padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer; font-weight:700;">View & Edit Qs</button>
-            <button onclick="deleteMockTest('${t._id}')" type="button" style="background:var(--danger); color:white; border:0; padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer;">Delete</button>
+            ${!isDefault ? `<button onclick="deleteMockTest('${t._id}')" type="button" style="background:var(--danger); color:white; border:0; padding:5px 12px; border-radius:6px; font-size:12px; cursor:pointer;">Delete</button>` : ''}
         </div>
       </div>`;
                 });
@@ -1222,7 +635,7 @@
                     let attemptsStr = '';
                     if (u.attempts.length > 0) {
                         u.attempts.forEach((a, i) => {
-                            attemptsStr += `<div style="margin-bottom:6px;"><span style="color:var(--accent); font-weight:700;">Attempt #${i + 1} (${a.testTitle})</span>: <b>${a.score}/100</b></div>`;
+                            attemptsStr += `<div style="margin-bottom:6px;"><span style="color:var(--accent); font-weight:700;">Attempt #${i + 1} (${a.testTitle})</span>: <b>${a.score}/100</b> (Math:${a.mathCorrect||0}, Reas:${a.reasoningCorrect||0}, Verb:${a.verbalCorrect||0})</div>`;
                         });
                     } else { attemptsStr = 'No attempts'; }
 
@@ -1250,14 +663,14 @@
             }
         }
 
-        window.viewAndEditTest = async function (title) {
+        window.viewAndEditTest = async function(title) {
             $('questionEditorSection').classList.remove('hidden');
             $('editingTestTitleLabel').textContent = `Editing Questions for: ${title}`;
             let res = await fetch(`/api/admin/test-questions/${encodeURIComponent(title)}`);
             let data = await res.json();
-            if (data.success) {
+            if(data.success) {
                 let qHtml = '';
-                data.questions.forEach((q, i) => {
+                data.questions.forEach((q) => {
                     qHtml += `<div style="background:rgba(255,255,255,0.04); padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid var(--line);">
                         <div style="font-weight:700; color:var(--accent); margin-bottom:6px;">Question #${q.n}</div>
                         <textarea id="qtext_${q._id}" class="form-control" style="margin-bottom:8px; height:60px;">${q.text}</textarea>
@@ -1271,10 +684,10 @@
                             <div>
                                 <label style="font-size:12px; color:var(--muted); display:inline;">Correct Answer:</label>
                                 <select id="correct_${q._id}" class="form-control" style="width:70px; display:inline-block; padding:4px;">
-                                    <option value="A" ${q.correctAnswer === 'A' ? 'selected' : ''}>A</option>
-                                    <option value="B" ${q.correctAnswer === 'B' ? 'selected' : ''}>B</option>
-                                    <option value="C" ${q.correctAnswer === 'C' ? 'selected' : ''}>C</option>
-                                    <option value="D" ${q.correctAnswer === 'D' ? 'selected' : ''}>D</option>
+                                    <option value="A" ${q.correctAnswer==='A'?'selected':''}>A</option>
+                                    <option value="B" ${q.correctAnswer==='B'?'selected':''}>B</option>
+                                    <option value="C" ${q.correctAnswer==='C'?'selected':''}>C</option>
+                                    <option value="D" ${q.correctAnswer==='D'?'selected':''}>D</option>
                                 </select>
                             </div>
                             <button onclick="saveEditedQuestion('${q._id}')" type="button" class="btn btn-primary" style="padding:6px 14px; font-size:12px;">Save Changes 💾</button>
@@ -1285,7 +698,7 @@
             }
         }
 
-        window.saveEditedQuestion = async function (qId) {
+        window.saveEditedQuestion = async function(qId) {
             const text = $(`qtext_${qId}`).value.trim();
             const a = $(`optA_${qId}`).value.trim();
             const b = $(`optB_${qId}`).value.trim();
@@ -1295,10 +708,10 @@
 
             let res = await fetch(`/api/admin/update-question/${qId}`, {
                 method: 'PUT', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, options: [{ key: 'A', text: a }, { key: 'B', text: b }, { key: 'C', text: c }, { key: 'D', text: d }], correctAnswer })
+                body: JSON.stringify({ text, options: [{key:'A', text:a}, {key:'B', text:b}, {key:'C', text:c}, {key:'D', text:d}], correctAnswer })
             });
             let data = await res.json();
-            if (data.success) { alert("Question updated successfully!"); }
+            if(data.success) { alert("Question updated successfully!"); }
         }
 
         window.deleteMockTest = async function (title) {
@@ -1306,6 +719,7 @@
                 let res = await fetch(`/api/admin/tests/${encodeURIComponent(title)}`, { method: 'DELETE' });
                 let data = await res.json();
                 if (data.success) { alert("Mock test deleted!"); loadAdminDashboard(); $('questionEditorSection').classList.add('hidden'); }
+                else { alert(data.message || "Error deleting test"); }
             }
         };
 
@@ -1320,183 +734,9 @@
             if (data.success) { alert("Reply sent successfully!"); loadAdminDashboard(); }
         };
 
-        // Standard 80 Questions for Mock Paper 1
-        const defaultQs = [
-            { "n": 1, "text": "What is the smallest 4-digit number exactly divisible by 12?", "options": [{ "key": "A", "text": "1000" }, { "key": "B", "text": "1004" }, { "key": "C", "text": "1008" }, { "key": "D", "text": "1012" }] },
-            { "n": 2, "text": "The sum of the digits of a 2-digit number is 11. If the digits are reversed, the new number is 45 more than the original number. Find the original number.", "options": [{ "key": "A", "text": "29" }, { "key": "B", "text": "38" }, { "key": "C", "text": "47" }, { "key": "D", "text": "56" }] },
-            { "n": 3, "text": "Which of the following numbers is divisible by 11?", "options": [{ "key": "A", "text": "2718" }, { "key": "B", "text": "2728" }, { "key": "C", "text": "2738" }, { "key": "D", "text": "2748" }] },
-            { "n": 4, "text": "A number is exactly divisible by both 8 and 9. By which number is it also always divisible?", "options": [{ "key": "A", "text": "12" }, { "key": "B", "text": "18" }, { "key": "C", "text": "36" }, { "key": "D", "text": "72" }] },
-            { "n": 5, "text": "How many prime numbers lie between 1 and 20?", "options": [{ "key": "A", "text": "6" }, { "key": "B", "text": "7" }, { "key": "C", "text": "8" }, { "key": "D", "text": "9" }] },
-            { "n": 6, "text": "Find the unit digit of 7^95.", "options": [{ "key": "A", "text": "1" }, { "key": "B", "text": "3" }, { "key": "C", "text": "7" }, { "key": "D", "text": "9" }] },
-            { "n": 7, "text": "Simplify: 15 + 6 ÷ 3 × 2 − 4", "options": [{ "key": "A", "text": "13" }, { "key": "B", "text": "15" }, { "key": "C", "text": "17" }, { "key": "D", "text": "19" }] },
-            { "n": 8, "text": "Simplify: (12 × 3 − 6) ÷ 6 + 5", "options": [{ "key": "A", "text": "8" }, { "key": "B", "text": "9" }, { "key": "C", "text": "10" }, { "key": "D", "text": "12" }] },
-            { "n": 9, "text": "Which of the following fractions is the largest?", "options": [{ "key": "A", "text": "5/8" }, { "key": "B", "text": "7/10" }, { "key": "C", "text": "3/4" }, { "key": "D", "text": "2/3" }] },
-            { "n": 10, "text": "Simplify: 2 1/3 + 1 3/4", "options": [{ "key": "A", "text": "3 11/12" }, { "key": "B", "text": "4 1/12" }, { "key": "C", "text": "4 1/4" }, { "key": "D", "text": "4 1/6" }] },
-            { "n": 11, "text": "What is 35% of 480?", "options": [{ "key": "A", "text": "148" }, { "key": "B", "text": "158" }, { "key": "C", "text": "168" }, { "key": "D", "text": "178" }] },
-            { "n": 12, "text": "If 40% of a number is 96, what is the number?", "options": [{ "key": "A", "text": "200" }, { "key": "B", "text": "220" }, { "key": "C", "text": "240" }, { "key": "D", "text": "260" }] },
-            { "n": 13, "text": "The price of an item increased from ₹250 to ₹300. What is the percentage increase?", "options": [{ "key": "A", "text": "10%" }, { "key": "B", "text": "15%" }, { "key": "C", "text": "20%" }, { "key": "D", "text": "25%" }] },
-            { "n": 14, "text": "A number is increased by 20% and then decreased by 20%. What is the net percentage change?", "options": [{ "key": "A", "text": "0%" }, { "key": "B", "text": "-2%" }, { "key": "C", "text": "-4%" }, { "key": "D", "text": "+4%" }] },
-            { "n": 15, "text": "Divide ₹1200 between A and B in the ratio 3 : 5. Find B's share.", "options": [{ "key": "A", "text": "₹650" }, { "key": "B", "text": "₹700" }, { "key": "C", "text": "₹750" }, { "key": "D", "text": "₹800" }] },
-            { "n": 16, "text": "If a : b = 2 : 3 and b : c = 4 : 5, find a : b : c.", "options": [{ "key": "A", "text": "2 : 3 : 5" }, { "key": "B", "text": "4 : 6 : 5" }, { "key": "C", "text": "8 : 10 : 15" }, { "key": "D", "text": "8 : 12 : 15" }] },
-            { "n": 17, "text": "If 8 workers can complete a task in 15 days, how many days will 12 workers take to complete the same task?", "options": [{ "key": "A", "text": "8" }, { "key": "B", "text": "9" }, { "key": "C", "text": "10" }, { "key": "D", "text": "12" }] },
-            { "n": 18, "text": "The average of 5 numbers is 42. If one number is excluded, the average of the remaining numbers becomes 40. Find the excluded number.", "options": [{ "key": "A", "text": "45" }, { "key": "B", "text": "48" }, { "key": "C", "text": "50" }, { "key": "D", "text": "52" }] },
-            { "n": 19, "text": "Find the average of the first 10 natural numbers.", "options": [{ "key": "A", "text": "5" }, { "key": "B", "text": "5.5" }, { "key": "C", "text": "6" }, { "key": "D", "text": "4.5" }] },
-            { "n": 20, "text": "A shopkeeper buys an article for ₹800 and sells it for ₹920. Find his profit percentage.", "options": [{ "key": "A", "text": "10%" }, { "key": "B", "text": "12%" }, { "key": "C", "text": "15%" }, { "key": "D", "text": "20%" }] },
-            { "n": 21, "text": "By selling an item for ₹450, a man loses 10%. What is the cost price of the item?", "options": [{ "key": "A", "text": "₹480" }, { "key": "B", "text": "₹490" }, { "key": "C", "text": "₹500" }, { "key": "D", "text": "₹510" }] },
-            { "n": 22, "text": "A shirt marked at ₹1000 is sold at a discount of 15%. Find the selling price.", "options": [{ "key": "A", "text": "₹800" }, { "key": "B", "text": "₹850" }, { "key": "C", "text": "₹870" }, { "key": "D", "text": "₹900" }] },
-            { "n": 23, "text": "Find the simple interest on ₹15,000 at 8% per annum for 3 years.", "options": [{ "key": "A", "text": "₹3200" }, { "key": "B", "text": "₹3600" }, { "key": "C", "text": "₹3800" }, { "key": "D", "text": "₹4000" }] },
-            { "n": 24, "text": "Find the compound interest on ₹10,000 at 10% per annum for 2 years, compounded annually.", "options": [{ "key": "A", "text": "₹2000" }, { "key": "B", "text": "₹2100" }, { "key": "C", "text": "₹2200" }, { "key": "D", "text": "₹2500" }] },
-            { "n": 25, "text": "The difference between the compound interest and simple interest on a sum for 2 years at 10% per annum is ₹50. Find the sum.", "options": [{ "key": "A", "text": "₹4000" }, { "key": "B", "text": "₹5000" }, { "key": "C", "text": "₹5500" }, { "key": "D", "text": "₹6000" }] },
-            { "n": 26, "text": "A can complete a piece of work in 12 days and B in 18 days. In how many days will they complete the work together?", "options": [{ "key": "A", "text": "7 days" }, { "key": "B", "text": "7.2 days" }, { "key": "C", "text": "7.5 days" }, { "key": "D", "text": "8 days" }] },
-            { "n": 27, "text": "A alone can do a piece of work in 20 days. He worked for 5 days and left. B finished the remaining work in 18 days. In how many days can B alone finish the whole work?", "options": [{ "key": "A", "text": "18" }, { "key": "B", "text": "20" }, { "key": "C", "text": "22" }, { "key": "D", "text": "24" }] },
-            { "n": 28, "text": "Pipe A can fill a tank in 10 hours and pipe B can empty it in 15 hours. If both pipes are opened together, in how many hours will the tank be filled?", "options": [{ "key": "A", "text": "20" }, { "key": "B", "text": "25" }, { "key": "C", "text": "30" }, { "key": "D", "text": "35" }] },
-            { "n": 29, "text": "Two numbers are in the ratio 4 : 5. If each number is increased by 10, the ratio becomes 6 : 7. Find the two numbers.", "options": [{ "key": "A", "text": "16 and 20" }, { "key": "B", "text": "20 and 25" }, { "key": "C", "text": "24 and 30" }, { "key": "D", "text": "12 and 15" }] },
-            { "n": 30, "text": "The average weight of 8 persons increases by 2.5 kg when a new person replaces one of them who weighs 65 kg. Find the weight of the new person.", "options": [{ "key": "A", "text": "75 kg" }, { "key": "B", "text": "80 kg" }, { "key": "C", "text": "85 kg" }, { "key": "D", "text": "90 kg" }] },
-            { "n": 31, "text": "If in a certain code CAT is written as DBU, how is DOG written in that code?", "options": [{ "key": "A", "text": "EPG" }, { "key": "B", "text": "EPH" }, { "key": "C", "text": "FPH" }, { "key": "D", "text": "DPH" }] },
-            { "n": 32, "text": "If PENCIL is coded as QFODJM, how is BOOK coded in the same language?", "options": [{ "key": "A", "text": "BPPL" }, { "key": "B", "text": "CPOL" }, { "key": "C", "text": "CPPK" }, { "key": "D", "text": "CPPL" }] },
-            { "n": 33, "text": "Doctor : Hospital :: Teacher : ?", "options": [{ "key": "A", "text": "Book" }, { "key": "B", "text": "Classroom" }, { "key": "C", "text": "School" }, { "key": "D", "text": "Student" }] },
-            { "n": 34, "text": "Pen : Write :: Knife : ?", "options": [{ "key": "A", "text": "Blade" }, { "key": "B", "text": "Cut" }, { "key": "C", "text": "Kitchen" }, { "key": "D", "text": "Sharp" }] },
-            { "n": 35, "text": "Find the odd one out: Apple, Mango, Potato, Banana", "options": [{ "key": "A", "text": "Apple" }, { "key": "B", "text": "Mango" }, { "key": "C", "text": "Potato" }, { "key": "D", "text": "Banana" }] },
-            { "n": 36, "text": "Find the odd one out: Triangle, Square, Circle, Pyramid", "options": [{ "key": "A", "text": "Triangle" }, { "key": "B", "text": "Square" }, { "key": "C", "text": "Circle" }, { "key": "D", "text": "Pyramid" }] },
-            { "n": 37, "text": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?", "options": [{ "key": "A", "text": "Aunt" }, { "key": "B", "text": "Grandmother" }, { "key": "C", "text": "Mother" }, { "key": "D", "text": "Sister" }] },
-            { "n": 38, "text": "A is B's sister. C is B's mother. D is C's father. How is A related to D?", "options": [{ "key": "A", "text": "Daughter" }, { "key": "B", "text": "Granddaughter" }, { "key": "C", "text": "Niece" }, { "key": "D", "text": "Sister" }] },
-            { "n": 39, "text": "A man walks 5 km towards north, then turns right and walks 3 km, then turns right again and walks 5 km. How far is he from the starting point?", "options": [{ "key": "A", "text": "3 km" }, { "key": "B", "text": "5 km" }, { "key": "C", "text": "8 km" }, { "key": "D", "text": "13 km" }] },
-            { "n": 40, "text": "Ravi walks 10 m towards south, then turns left and walks 5 m, then turns left again and walks 10 m. In which direction is he from the starting point?", "options": [{ "key": "A", "text": "North" }, { "key": "B", "text": "South" }, { "key": "C", "text": "East" }, { "key": "D", "text": "West" }] },
-            { "n": 41, "text": "Find the next term in the series: B, D, F, H, ?", "options": [{ "key": "A", "text": "I" }, { "key": "B", "text": "J" }, { "key": "C", "text": "K" }, { "key": "D", "text": "L" }] },
-            { "n": 42, "text": "Find the missing letter: A, C, F, J, ?", "options": [{ "key": "A", "text": "M" }, { "key": "B", "text": "N" }, { "key": "C", "text": "O" }, { "key": "D", "text": "P" }] },
-            { "n": 43, "text": "Find the next number in the series: 2, 6, 12, 20, 30, ?", "options": [{ "key": "A", "text": "36" }, { "key": "B", "text": "40" }, { "key": "C", "text": "42" }, { "key": "D", "text": "44" }] },
-            { "n": 44, "text": "Find the next term in the series: Z, X, V, T, ?", "options": [{ "key": "A", "text": "P" }, { "key": "B", "text": "Q" }, { "key": "C", "text": "R" }, { "key": "D", "text": "S" }] },
-            { "n": 45, "text": "Introducing a boy, a girl said, 'He is the son of my mother's only daughter.' How is the girl related to the boy?", "options": [{ "key": "A", "text": "Aunt" }, { "key": "B", "text": "Cousin" }, { "key": "C", "text": "Mother" }, { "key": "D", "text": "Sister" }] },
-            { "n": 46, "text": "P is the husband of Q. R is the only son of Q. S is R's sister. How is S related to P?", "options": [{ "key": "A", "text": "Daughter" }, { "key": "B", "text": "Niece" }, { "key": "C", "text": "Sister" }, { "key": "D", "text": "Wife" }] },
-            { "n": 47, "text": "Statement: All pens are pencils. All pencils are erasers. Conclusion I: All pens are erasers. Conclusion II: All erasers are pens. Which conclusion(s) logically follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
-            { "n": 48, "text": "Find the missing number in the series: 5, 11, 23, 47, ?", "options": [{ "key": "A", "text": "93" }, { "key": "B", "text": "94" }, { "key": "C", "text": "95" }, { "key": "D", "text": "96" }] },
-            { "n": 49, "text": "If ROSE is coded as 6821, CHAIR as 73456, and PREACH as 961473, what is the code for SEARCH?", "options": [{ "key": "A", "text": "214673" }, { "key": "B", "text": "214763" }, { "key": "C", "text": "216473" }, { "key": "D", "text": "241673" }] },
-            { "n": 50, "text": "Five friends A, B, C, D, E sit in a row facing north. C is immediately to the left of D, and D is second from the left end. B is immediately to the right of A, and E sits at one of the ends. Who sits at the extreme right end?", "options": [{ "key": "A", "text": "A" }, { "key": "B", "text": "B" }, { "key": "C", "text": "D" }, { "key": "D", "text": "E" }] },
-            { "n": 51, "text": "Statements: All books are pens. Some pens are pencils. Conclusion I: Some books are pencils. Conclusion II: Some pencils are books. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
-            { "n": 52, "text": "Statements: No cat is a dog. All dogs are animals. Conclusion I: No cat is an animal. Conclusion II: Some animals are dogs. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both follow" }, { "key": "D", "text": "Neither follows" }] },
-            { "n": 53, "text": "What is Ram's age? Statement I: Ram is 5 years older than Shyam. Statement II: Shyam is 20 years old.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are needed" }, { "key": "D", "text": "Neither statement is sufficient" }] },
-            { "n": 54, "text": "Is x > 0? Statement I: x² = 16. Statement II: x is an even number.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are sufficient" }, { "key": "D", "text": "Even both statements together are not sufficient" }] },
-            { "n": 55, "text": "Eight people sit in a row facing north. M is fourth from the left end. There are exactly 3 people between M and N, and N is to the right of M. What is N's position from the left end?", "options": [{ "key": "A", "text": "6th" }, { "key": "B", "text": "7th" }, { "key": "C", "text": "8th" }, { "key": "D", "text": "5th" }] },
-            { "n": 56, "text": "Statement: All doctors are engineers. No engineer is a lawyer. Conclusion I: No doctor is a lawyer. Conclusion II: Some engineers are doctors. Which conclusion(s) follow?", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both I and II follow" }, { "key": "D", "text": "Neither follows" }] },
-            { "n": 57, "text": "Find the part of the sentence that has an error: 'He don't like to play cricket.'", "options": [{ "key": "A", "text": "He" }, { "key": "B", "text": "don't like" }, { "key": "C", "text": "to play" }, { "key": "D", "text": "No error" }] },
-            { "n": 58, "text": "Find the part of the sentence that has an error: 'Neither of the answers are correct.'", "options": [{ "key": "A", "text": "Neither of the answers" }, { "key": "B", "text": "are correct" }, { "key": "C", "text": "No error" }, { "key": "D", "text": "Both A and B" }] },
-            { "n": 59, "text": "Choose the word most nearly SIMILAR in meaning to 'Abundant'.", "options": [{ "key": "A", "text": "Scarce" }, { "key": "B", "text": "Limited" }, { "key": "C", "text": "Plentiful" }, { "key": "D", "text": "Rare" }] },
-            { "n": 60, "text": "Choose the word most nearly SIMILAR in meaning to 'Candid'.", "options": [{ "key": "A", "text": "Frank" }, { "key": "B", "text": "Secretive" }, { "key": "C", "text": "Shy" }, { "key": "D", "text": "Dishonest" }] },
-            { "n": 61, "text": "Choose the word most nearly OPPOSITE in meaning to 'Benevolent'.", "options": [{ "key": "A", "text": "Kind" }, { "key": "B", "text": "Generous" }, { "key": "C", "text": "Charitable" }, { "key": "D", "text": "Malevolent" }] },
-            { "n": 62, "text": "Choose the word most nearly OPPOSITE in meaning to 'Optimistic'.", "options": [{ "key": "A", "text": "Hopeful" }, { "key": "B", "text": "Pessimistic" }, { "key": "C", "text": "Cheerful" }, { "key": "D", "text": "Confident" }] },
-            { "n": 63, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "She is going to the market since morning." }, { "key": "B", "text": "She has been going to the market since morning." }, { "key": "C", "text": "She has gone to the market since morning." }, { "key": "D", "text": "She go to the market since morning." }] },
-            { "n": 64, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "Each of the boys have done their work." }, { "key": "B", "text": "Each of the boys has done his work." }, { "key": "C", "text": "Each of the boys has done their work." }, { "key": "D", "text": "Each of the boys have done his work." }] },
-            { "n": 65, "text": "Choose the correctly spelled word.", "options": [{ "key": "A", "text": "Acommodate" }, { "key": "B", "text": "Accomodate" }, { "key": "C", "text": "Accommodate" }, { "key": "D", "text": "Acomodate" }] },
-            { "n": 66, "text": "Choose the correctly spelled word.", "options": [{ "key": "A", "text": "Recieve" }, { "key": "B", "text": "Receive" }, { "key": "C", "text": "Receeve" }, { "key": "D", "text": "Receve" }] },
-            { "n": 67, "text": "Find the part of the sentence that has an error: 'The number of students in the class have increased.'", "options": [{ "key": "A", "text": "The number of students" }, { "key": "B", "text": "in the class" }, { "key": "C", "text": "have increased" }, { "key": "D", "text": "No error" }] },
-            { "n": 68, "text": "A person who can speak many languages is called:", "options": [{ "key": "A", "text": "Linguist" }, { "key": "B", "text": "Bilingual" }, { "key": "C", "text": "Polyglot" }, { "key": "D", "text": "Orator" }] },
-            { "n": 69, "text": "A place where books are kept for reading is called:", "options": [{ "key": "A", "text": "Bookstore" }, { "key": "B", "text": "Library" }, { "key": "C", "text": "Archive" }, { "key": "D", "text": "Museum" }] },
-            { "n": 70, "text": "Improve the underlined part: 'She is one of the best singer in the group.'", "options": [{ "key": "A", "text": "one of best singer" }, { "key": "B", "text": "one of the best singers" }, { "key": "C", "text": "one of the better singer" }, { "key": "D", "text": "no improvement" }] },
-            { "n": 71, "text": "Choose the word most nearly OPPOSITE in meaning to 'Meticulous'.", "options": [{ "key": "A", "text": "Precise" }, { "key": "B", "text": "Thorough" }, { "key": "C", "text": "Detailed" }, { "key": "D", "text": "Careless" }] },
-            { "n": 72, "text": "The word 'Voracious' most nearly means:", "options": [{ "key": "A", "text": "Extremely hungry / eager" }, { "key": "B", "text": "Very tired" }, { "key": "C", "text": "Slightly angry" }, { "key": "D", "text": "Quietly calm" }] },
-            { "n": 73, "text": "The word 'Ephemeral' most nearly means:", "options": [{ "key": "A", "text": "Everlasting" }, { "key": "B", "text": "Short-lived" }, { "key": "C", "text": "Dangerous" }, { "key": "D", "text": "Bright" }] },
-            { "n": 74, "text": "Choose the correct meaning of the idiom: 'Once in a blue moon'", "options": [{ "key": "A", "text": "Very often" }, { "key": "B", "text": "Every month" }, { "key": "C", "text": "Very rarely" }, { "key": "D", "text": "Never" }] },
-            { "n": 75, "text": "Choose the grammatically correct sentence.", "options": [{ "key": "A", "text": "If I was you, I would apologize." }, { "key": "B", "text": "If I were you, I would apologize." }, { "key": "C", "text": "If I am you, I would apologize." }, { "key": "D", "text": "If I would be you, I will apologize." }] },
-            { "n": 76, "text": "Choose the correct meaning of the idiom: 'To burn the midnight oil'", "options": [{ "key": "A", "text": "To waste time" }, { "key": "B", "text": "To work late into the night" }, { "key": "C", "text": "To cause a fire" }, { "key": "D", "text": "To relax at night" }] },
-            { "n": 77, "text": "Choose the correct meaning of the idiom: 'A blessing in disguise'", "options": [{ "key": "A", "text": "A gift that is hidden" }, { "key": "B", "text": "Something bad that stays bad" }, { "key": "C", "text": "Something good that initially seemed bad" }, { "key": "D", "text": "A secret blessing from God" }] },
-            { "n": 78, "text": "Improve the underlined part: 'Despite of his hard work, he failed the exam.'", "options": [{ "key": "A", "text": "Despite of his hard work" }, { "key": "B", "text": "In spite his hard work" }, { "key": "C", "text": "Despite his hard work" }, { "key": "D", "text": "No improvement needed" }] },
-            { "n": 79, "text": "Choose the word most nearly SIMILAR in meaning to 'Pragmatic'.", "options": [{ "key": "A", "text": "Practical" }, { "key": "B", "text": "Idealistic" }, { "key": "C", "text": "Emotional" }, { "key": "D", "text": "Theoretical" }] },
-            { "n": 80, "text": "Choose the correct meaning of the idiom: 'To let the cat out of the bag'", "options": [{ "key": "A", "text": "To adopt a pet" }, { "key": "B", "text": "To reveal a secret" }, { "key": "C", "text": "To create confusion" }, { "key": "D", "text": "To escape from trouble" }] }
-        ];
-        const defaultKey = { "1": "C", "2": "B", "3": "B", "4": "C", "5": "B", "6": "B", "7": "A", "8": "C", "9": "C", "10": "B", "11": "C", "12": "C", "13": "C", "14": "C", "15": "C", "16": "D", "17": "B", "18": "C", "19": "B", "20": "C", "21": "C", "22": "B", "23": "B", "24": "B", "25": "B", "26": "B", "27": "D", "28": "C", "29": "A", "30": "B", "31": "B", "32": "D", "33": "C", "34": "B", "35": "C", "36": "D", "37": "C", "38": "B", "39": "A", "40": "C", "41": "B", "42": "C", "43": "C", "44": "C", "45": "A", "46": "A", "47": "A", "48": "C", "49": "A", "50": "B", "51": "D", "52": "B", "53": "C", "54": "D", "55": "C", "56": "A", "57": "B", "58": "B", "59": "C", "60": "A", "61": "D", "62": "B", "63": "B", "64": "B", "65": "C", "66": "B", "67": "C", "68": "C", "69": "B", "70": "B", "71": "D", "72": "A", "73": "B", "74": "C", "75": "B", "76": "B", "77": "C", "78": "C", "79": "A", "80": "B" };
-
-        // Mock Paper 2 Sorted Section-wise (Math 1-30, Reasoning 31-55, Verbal 56-80)
-        const mockPaper2Qs = [
-            { "n": 1, "text": "A town's population of 50,000 increases by 10% in the first year and by 10% in the second year. The population after 2 years is:", "options": [{ "key": "A", "text": "61,000" }, { "key": "B", "text": "60,500" }, { "key": "C", "text": "55,000" }, { "key": "D", "text": "60,000" }] },
-            { "n": 2, "text": "A boat's speed in still water is 10 km/h and the stream flows at 2 km/h. Time taken to go 48 km downstream is:", "options": [{ "key": "A", "text": "4.8 hours" }, { "key": "B", "text": "5 hours" }, { "key": "C", "text": "6 hours" }, { "key": "D", "text": "4 hours" }] },
-            { "n": 3, "text": "8 workers can complete a job in 15 days. How many days will 12 workers take to complete it?", "options": [{ "key": "A", "text": "20" }, { "key": "B", "text": "10" }, { "key": "C", "text": "8" }, { "key": "D", "text": "12" }] },
-            { "n": 4, "text": "Two successive discounts of 20% and 10% are equal to a single discount of:", "options": [{ "key": "A", "text": "28%" }, { "key": "B", "text": "25%" }, { "key": "C", "text": "32%" }, { "key": "D", "text": "30%" }] },
-            { "n": 5, "text": "A can complete a work in 12 days and B in 18 days. Working together, they will complete it in:", "options": [{ "key": "A", "text": "6 days" }, { "key": "B", "text": "8 days" }, { "key": "C", "text": "7.2 days" }, { "key": "D", "text": "9 days" }] },
-            { "n": 6, "text": "A man travels 30 km at 10 km/h and returns at 15 km/h. His average speed for the whole journey is:", "options": [{ "key": "A", "text": "11.5 km/h" }, { "key": "B", "text": "13 km/h" }, { "key": "C", "text": "12 km/h" }, { "key": "D", "text": "12.5 km/h" }] },
-            { "n": 7, "text": "The HCF of 36 and 84 is:", "options": [{ "key": "A", "text": "18" }, { "key": "B", "text": "12" }, { "key": "C", "text": "24" }, { "key": "D", "text": "6" }] },
-            { "n": 8, "text": "A and B invest Rs. 6000 and Rs. 9000 in a business. If the profit is Rs. 7500, A's share is:", "options": [{ "key": "A", "text": "Rs. 2500" }, { "key": "B", "text": "Rs. 3000" }, { "key": "C", "text": "Rs. 4500" }, { "key": "D", "text": "Rs. 3500" }] },
-            { "n": 9, "text": "A father's age is 3 times his son's age. After 12 years, he will be twice as old as his son. The son's present age is:", "options": [{ "key": "A", "text": "10 years" }, { "key": "B", "text": "14 years" }, { "key": "C", "text": "12 years" }, { "key": "D", "text": "16 years" }] },
-            { "n": 10, "text": "If 12 pens cost Rs. 96, the cost of 20 pens is:", "options": [{ "key": "A", "text": "Rs. 150" }, { "key": "B", "text": "Rs. 160" }, { "key": "C", "text": "Rs. 180" }, { "key": "D", "text": "Rs. 140" }] },
-            { "n": 11, "text": "In a class of 60 students, 35 play cricket, 30 play football and 10 play both games. How many students play neither game?", "options": [{ "key": "A", "text": "15" }, { "key": "B", "text": "10" }, { "key": "C", "text": "0" }, { "key": "D", "text": "5" }] },
-            { "n": 12, "text": "3/4 + 5/6 - 1/3 = ?", "options": [{ "key": "A", "text": "5/4" }, { "key": "B", "text": "4/3" }, { "key": "C", "text": "7/6" }, { "key": "D", "text": "11/12" }] },
-            { "n": 13, "text": "A 30-litre mixture contains milk and water in the ratio 2: 1. How much water must be added to make the ratio 1: 1?", "options": [{ "key": "A", "text": "15 litres" }, { "key": "B", "text": "5 litres" }, { "key": "C", "text": "10 litres" }, { "key": "D", "text": "20 litres" }] },
-            { "n": 14, "text": "Simplify: 18 + 12 ÷ 3 × 2 − 5", "options": [{ "key": "A", "text": "23" }, { "key": "B", "text": "21" }, { "key": "C", "text": "26" }, { "key": "D", "text": "15" }] },
-            { "n": 15, "text": "A and B can do a work in 10 days and 15 days respectively. They are paid Rs. 1500 in total. A's share is:", "options": [{ "key": "A", "text": "Rs. 600" }, { "key": "B", "text": "Rs. 750" }, { "key": "C", "text": "Rs. 1000" }, { "key": "D", "text": "Rs. 900" }] },
-            { "n": 16, "text": "Pipe A can fill a tank in 20 minutes and Pipe B in 30 minutes. If both are opened together, the tank will be full in:", "options": [{ "key": "A", "text": "25 minutes" }, { "key": "B", "text": "12 minutes" }, { "key": "C", "text": "10 minutes" }, { "key": "D", "text": "15 minutes" }] },
-            { "n": 17, "text": "0.6 + 0.06 + 0.006 = ?", "options": [{ "key": "A", "text": "0.0666" }, { "key": "B", "text": "0.606" }, { "key": "C", "text": "0.66" }, { "key": "D", "text": "0.666" }] },
-            { "n": 18, "text": "The price of an article is increased by 20% and then decreased by 20%. The net change in price is:", "options": [{ "key": "A", "text": "No change" }, { "key": "B", "text": "4% decrease" }, { "key": "C", "text": "4% increase" }, { "key": "D", "text": "2% decrease" }] },
-            { "n": 19, "text": "A 120 m long train crosses a pole in 6 seconds. Its speed in km/h is:", "options": [{ "key": "A", "text": "72" }, { "key": "B", "text": "90" }, { "key": "C", "text": "80" }, { "key": "D", "text": "60" }] },
-            { "n": 20, "text": "An article bought for Rs. 800 is sold for Rs. 920. The profit percentage is:", "options": [{ "key": "A", "text": "15%" }, { "key": "B", "text": "12%" }, { "key": "C", "text": "18%" }, { "key": "D", "text": "20%" }] },
-            { "n": 21, "text": "Simple interest on Rs. 2500 at 8% per annum for 3 years is:", "options": [{ "key": "A", "text": "Rs. 700" }, { "key": "B", "text": "Rs. 600" }, { "key": "C", "text": "Rs. 500" }, { "key": "D", "text": "Rs. 640" }] },
-            { "n": 22, "text": "25% of 480 + 15% of 200 = ?", "options": [{ "key": "A", "text": "150" }, { "key": "B", "text": "130" }, { "key": "C", "text": "140" }, { "key": "D", "text": "160" }] },
-            { "n": 23, "text": "The LCM of 12, 18 and 30 is:", "options": [{ "key": "A", "text": "540" }, { "key": "B", "text": "360" }, { "key": "C", "text": "90" }, { "key": "D", "text": "180" }] },
-            { "n": 24, "text": "The average of 5 numbers is 27. If one number is excluded, the average of the remaining numbers becomes 25. The excluded number is:", "options": [{ "key": "A", "text": "30" }, { "key": "B", "text": "45" }, { "key": "C", "text": "40" }, { "key": "D", "text": "35" }] },
-            { "n": 25, "text": "Compound interest on Rs. 10000 at 10% per annum for 2 years is:", "options": [{ "key": "A", "text": "Rs. 2100" }, { "key": "B", "text": "Rs. 2500" }, { "key": "C", "text": "Rs. 2000" }, { "key": "D", "text": "Rs. 2200" }] },
-            { "n": 26, "text": "An article marked at Rs. 1200 is sold at a discount of 15%. Its selling price is:", "options": [{ "key": "A", "text": "Rs. 1050" }, { "key": "B", "text": "Rs. 1000" }, { "key": "C", "text": "Rs. 1080" }, { "key": "D", "text": "Rs. 1020" }] },
-            { "n": 27, "text": "If A:B = 3:5 and B:C = 10:7, then A:C = ?", "options": [{ "key": "A", "text": "15:7" }, { "key": "B", "text": "5:7" }, { "key": "C", "text": "3:7" }, { "key": "D", "text": "6:7" }] },
-            { "n": 28, "text": "Two dice are thrown together. The probability that the sum is 8 is:", "options": [{ "key": "A", "text": "1/6" }, { "key": "B", "text": "7/36" }, { "key": "C", "text": "5/36" }, { "key": "D", "text": "1/9" }] },
-            { "n": 29, "text": "Which of the following numbers is divisible by 11?", "options": [{ "key": "A", "text": "4567" }, { "key": "B", "text": "2547" }, { "key": "C", "text": "5231" }, { "key": "D", "text": "3828" }] },
-            { "n": 30, "text": "In how many ways can a committee of 3 be chosen from 7 persons?", "options": [{ "key": "A", "text": "210" }, { "key": "B", "text": "42" }, { "key": "C", "text": "21" }, { "key": "D", "text": "35" }] },
-
-            // Reasoning Ability: 31 to 55
-            { "n": 31, "text": "Pointing to a man, a woman says, \"He is the son of my mother's only brother.\" How is the man related to the woman?", "options": [{ "key": "A", "text": "Uncle" }, { "key": "B", "text": "Cousin" }, { "key": "C", "text": "Nephew" }, { "key": "D", "text": "Brother" }] },
-            { "n": 32, "text": "Ravi is facing North. He turns 90 degrees clockwise and then 135 degrees anticlockwise. In which direction is he facing now?", "options": [{ "key": "A", "text": "South-West" }, { "key": "B", "text": "North-East" }, { "key": "C", "text": "North-West" }, { "key": "D", "text": "South-East" }] },
-            { "n": 33, "text": "If FRIEND is coded as GSJFOE, then how is CANDLE coded?", "options": [{ "key": "A", "text": "DCOEMF" }, { "key": "B", "text": "DBMEOF" }, { "key": "C", "text": "EBOEMF" }, { "key": "D", "text": "DBOEMF" }] },
-            { "n": 34, "text": "P is taller than Q but shorter than R. S is taller than R but shorter than T. Who is the shortest?", "options": [{ "key": "A", "text": "Q" }, { "key": "B", "text": "P" }, { "key": "C", "text": "R" }, { "key": "D", "text": "S" }] },
-            { "n": 35, "text": "Five friends A, B, C, D and E sit in a row facing north. A is at the extreme left. B sits immediately to the right of A. C is at the extreme right. E sits immediately to the left of C. Who sits in the middle?", "options": [{ "key": "A", "text": "A" }, { "key": "B", "text": "D" }, { "key": "C", "text": "B" }, { "key": "D", "text": "E" }] },
-            { "n": 36, "text": "Find the next number in the series: 2, 6, 12, 20, 30, ?", "options": [{ "key": "A", "text": "42" }, { "key": "B", "text": "44" }, { "key": "C", "text": "40" }, { "key": "D", "text": "36" }] },
-            { "n": 37, "text": "If A=1, B=2, C=3, ... and so on, what is the value of DOG?", "options": [{ "key": "A", "text": "26" }, { "key": "B", "text": "30" }, { "key": "C", "text": "24" }, { "key": "D", "text": "28" }] },
-            { "n": 38, "text": "Which word comes third when the following words are arranged in alphabetical order? Garden, Gentle, Gamble, Gather, Gauge", "options": [{ "key": "A", "text": "Gauge" }, { "key": "B", "text": "Gather" }, { "key": "C", "text": "Gentle" }, { "key": "D", "text": "Garden" }] },
-            { "n": 39, "text": "In how many ways can the letters of the word LEADER be arranged?", "options": [{ "key": "A", "text": "720" }, { "key": "B", "text": "360" }, { "key": "C", "text": "180" }, { "key": "D", "text": "120" }] },
-            { "n": 40, "text": "Question: Is the integer x even? I. x+3 is odd. II. x is a multiple of 3.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are sufficient" }, { "key": "D", "text": "Both statements together are not sufficient" }] },
-            { "n": 41, "text": "Find the next number in the series: 3, 7, 15, 31, 63, ?", "options": [{ "key": "A", "text": "115" }, { "key": "B", "text": "127" }, { "key": "C", "text": "131" }, { "key": "D", "text": "125" }] },
-            { "n": 42, "text": "Statements: All cats are dogs. All dogs are birds. Conclusions: I. All cats are birds. II. Some birds are cats.", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both I and II follow" }, { "key": "D", "text": "Neither I nor II follows" }] },
-            { "n": 43, "text": "Statements: Some doctors are teachers. All teachers are singers. Conclusions: I. Some doctors are singers. II. All singers are teachers.", "options": [{ "key": "A", "text": "Only I follows" }, { "key": "B", "text": "Only II follows" }, { "key": "C", "text": "Both I and II follow" }, { "key": "D", "text": "Neither I nor II follows" }] },
-            { "n": 44, "text": "Arrange sentences: P. Ravi was walking to the office. Q. Suddenly it started raining heavily. R. As he had no umbrella, he returned home. S. He took an umbrella and left again.", "options": [{ "key": "A", "text": "SRQP" }, { "key": "B", "text": "PRQS" }, { "key": "C", "text": "QPRS" }, { "key": "D", "text": "PQRS" }] },
-            { "n": 45, "text": "Find the next letter in the series: A, C, F, J, O, ?", "options": [{ "key": "A", "text": "T" }, { "key": "B", "text": "U" }, { "key": "C", "text": "S" }, { "key": "D", "text": "V" }] },
-            { "n": 46, "text": "Rearrange the parts: P. to school Q. every day R. she goes S. by bus", "options": [{ "key": "A", "text": "PRQS" }, { "key": "B", "text": "RQPS" }, { "key": "C", "text": "RPSQ" }, { "key": "D", "text": "SRPQ" }] },
-            { "n": 47, "text": "Find the missing number: 4, 9, 19, 39, ?, 159", "options": [{ "key": "A", "text": "78" }, { "key": "B", "text": "69" }, { "key": "C", "text": "89" }, { "key": "D", "text": "79" }] },
-            { "n": 48, "text": "Arrange in a meaningful order: 1. Flower 2. Seed 3. Fruit 4. Plant 5. Sapling", "options": [{ "key": "A", "text": "52413" }, { "key": "B", "text": "25413" }, { "key": "C", "text": "25143" }, { "key": "D", "text": "24513" }] },
-            { "n": 49, "text": "Choose the odd one out: 27, 64, 125, 100", "options": [{ "key": "A", "text": "125" }, { "key": "B", "text": "100" }, { "key": "C", "text": "27" }, { "key": "D", "text": "64" }] },
-            { "n": 50, "text": "A is B's sister. C is B's mother. D is C's father. How is A related to D?", "options": [{ "key": "A", "text": "Grandmother" }, { "key": "B", "text": "Niece" }, { "key": "C", "text": "Daughter" }, { "key": "D", "text": "Granddaughter" }] },
-            { "n": 51, "text": "8 : 64 :: 9 : ?", "options": [{ "key": "A", "text": "81" }, { "key": "B", "text": "99" }, { "key": "C", "text": "72" }, { "key": "D", "text": "27" }] },
-            { "n": 52, "text": "Statement: Should plastic bags be banned? Arguments: I. Yes, because they cause serious pollution. II. No, because they are cheap.", "options": [{ "key": "A", "text": "Only argument I is strong" }, { "key": "B", "text": "Only argument II is strong" }, { "key": "C", "text": "Both I and II are strong" }, { "key": "D", "text": "Neither I nor II is strong" }] },
-            { "n": 53, "text": "Book : Reading :: Fork : ?", "options": [{ "key": "A", "text": "Eating" }, { "key": "B", "text": "Cooking" }, { "key": "C", "text": "Cutting" }, { "key": "D", "text": "Serving" }] },
-            { "n": 54, "text": "In a certain code, 'red blue green' is written as 'ka la ma', 'blue green yellow' as 'la ma na', and 'red yellow white' as 'ka na pa'. What is the code for 'red'?", "options": [{ "key": "A", "text": "ma" }, { "key": "B", "text": "la" }, { "key": "C", "text": "ka" }, { "key": "D", "text": "na" }] },
-            { "n": 55, "text": "Find the next term: A1, C3, E5, G7, ?", "options": [{ "key": "A", "text": "J10" }, { "key": "B", "text": "H8" }, { "key": "C", "text": "I8" }, { "key": "D", "text": "I9" }] },
-
-            // Verbal Ability (English): 56 to 80
-            { "n": 56, "text": "Choose the word opposite in meaning to ABUNDANT:", "options": [{ "key": "A", "text": "Plentiful" }, { "key": "B", "text": "Rich" }, { "key": "C", "text": "Ample" }, { "key": "D", "text": "Scarce" }] },
-            { "n": 57, "text": "Choose the correctly spelt word:", "options": [{ "key": "A", "text": "Accomodation" }, { "key": "B", "text": "Accommodation" }, { "key": "C", "text": "Acommodation" }, { "key": "D", "text": "Acomodation" }] },
-            { "n": 58, "text": "Choose the word opposite in meaning to EXPAND:", "options": [{ "key": "A", "text": "Grow" }, { "key": "B", "text": "Spread" }, { "key": "C", "text": "Enlarge" }, { "key": "D", "text": "Contract" }] },
-            { "n": 59, "text": "What does the idiom \"To spill the beans\" mean?", "options": [{ "key": "A", "text": "To cook badly" }, { "key": "B", "text": "To reveal a secret" }, { "key": "C", "text": "To waste food" }, { "key": "D", "text": "To make a mess" }] },
-            { "n": 60, "text": "One word for: A person who can speak two languages", "options": [{ "key": "A", "text": "Linguist" }, { "key": "B", "text": "Orator" }, { "key": "C", "text": "Bilingual" }, { "key": "D", "text": "Polyglot" }] },
-            { "n": 61, "text": "Read the passage: Technology has changed communication. Earlier letters took days; now messages arrive in seconds. However, constant connectivity has reduced face-to-face interaction. Main idea?", "options": [{ "key": "A", "text": "Letters are better than messages" }, { "key": "B", "text": "Technology has changed communication, with both benefits and drawbacks" }, { "key": "C", "text": "Technology is completely harmful" }, { "key": "D", "text": "Face-to-face interaction has increased" }] },
-            { "n": 62, "text": "According to the passage, what has reduced due to constant connectivity?", "options": [{ "key": "A", "text": "Number of letters" }, { "key": "B", "text": "Speed of messages" }, { "key": "C", "text": "Face-to-face interaction" }, { "key": "D", "text": "Use of technology" }] },
-            { "n": 63, "text": "Change into passive voice: The teacher praised the student.", "options": [{ "key": "A", "text": "The student has been praised by the teacher." }, { "key": "B", "text": "The student was praised by the teacher." }, { "key": "C", "text": "The teacher was praised by the student." }, { "key": "D", "text": "The student is praised by the teacher." }] },
-            { "n": 64, "text": "Choose the word closest in meaning to OBSOLETE:", "options": [{ "key": "A", "text": "Useful" }, { "key": "B", "text": "Rare" }, { "key": "C", "text": "Outdated" }, { "key": "D", "text": "Modern" }] },
-            { "n": 65, "text": "What does the idiom \"Once in a blue moon\" mean?", "options": [{ "key": "A", "text": "Very rarely" }, { "key": "B", "text": "At night" }, { "key": "C", "text": "Never ever" }, { "key": "D", "text": "Very frequently" }] },
-            { "n": 66, "text": "The lawyer's arguments were so ___ that the judge was immediately convinced.", "options": [{ "key": "A", "text": "vague" }, { "key": "B", "text": "weak" }, { "key": "C", "text": "compelling" }, { "key": "D", "text": "feeble" }] },
-            { "n": 67, "text": "Improve the sentence: He is senior than me.", "options": [{ "key": "A", "text": "senior to me" }, { "key": "B", "text": "No improvement" }, { "key": "C", "text": "seniorer than me" }, { "key": "D", "text": "more senior than me" }] },
-            { "n": 68, "text": "One word for: The study of ancient societies through excavation of remains", "options": [{ "key": "A", "text": "Geology" }, { "key": "B", "text": "Zoology" }, { "key": "C", "text": "Anthropology" }, { "key": "D", "text": "Archaeology" }] },
-            { "n": 69, "text": "Choose the correct sentence:", "options": [{ "key": "A", "text": "He gone to school daily." }, { "key": "B", "text": "He go to school daily." }, { "key": "C", "text": "He goes to school daily." }, { "key": "D", "text": "He going to school daily." }] },
-            { "n": 70, "text": "Choose the word opposite in meaning to VERBOSE:", "options": [{ "key": "A", "text": "Concise" }, { "key": "B", "text": "Wordy" }, { "key": "C", "text": "Fluent" }, { "key": "D", "text": "Loud" }] },
-            { "n": 71, "text": "Choose the word closest in meaning to BENEVOLENT:", "options": [{ "key": "A", "text": "Kind" }, { "key": "B", "text": "Cruel" }, { "key": "C", "text": "Angry" }, { "key": "D", "text": "Stingy" }] },
-            { "n": 72, "text": "Choose the word closest in meaning to CANDID:", "options": [{ "key": "A", "text": "Rude" }, { "key": "B", "text": "Shy" }, { "key": "C", "text": "Secretive" }, { "key": "D", "text": "Frank" }] },
-            { "n": 73, "text": "Fill in the blank: She is very good ___ mathematics.", "options": [{ "key": "A", "text": "at" }, { "key": "B", "text": "in" }, { "key": "C", "text": "with" }, { "key": "D", "text": "on" }] },
-            { "n": 74, "text": "Fill in the blanks: The manager was ___ with the team for their ___ performance.", "options": [{ "key": "A", "text": "angry, excellent" }, { "key": "B", "text": "pleased, poor" }, { "key": "C", "text": "pleased, excellent" }, { "key": "D", "text": "angry, outstanding" }] },
-            { "n": 75, "text": "Change into passive voice: They are building a new bridge.", "options": [{ "key": "A", "text": "A new bridge has been built by them." }, { "key": "B", "text": "A new bridge was built by them." }, { "key": "C", "text": "A new bridge is built by them." }, { "key": "D", "text": "A new bridge is being built by them." }] },
-            { "n": 76, "text": "Find the part of the sentence that has an error: She (A) / don't like (B) / to play cricket. (C) / No error (D)", "options": [{ "key": "A", "text": "A" }, { "key": "B", "text": "B" }, { "key": "C", "text": "C" }, { "key": "D", "text": "D" }] },
-            { "n": 77, "text": "One word for: Government by the people", "options": [{ "key": "A", "text": "Monarchy" }, { "key": "B", "text": "Aristocracy" }, { "key": "C", "text": "Democracy" }, { "key": "D", "text": "Autocracy" }] },
-            { "n": 78, "text": "What does the idiom \"A piece of cake\" mean?", "options": [{ "key": "A", "text": "Something very easy" }, { "key": "B", "text": "A small portion" }, { "key": "C", "text": "A gift" }, { "key": "D", "text": "A dessert" }] },
-            { "n": 79, "text": "A man walks 5 km towards the north, turns right and walks 3 km, then turns right again and walks 5 km. How far and in which direction is he from his starting point?", "options": [{ "key": "A", "text": "5 km East" }, { "key": "B", "text": "13 km North" }, { "key": "C", "text": "3 km East" }, { "key": "D", "text": "3 km West" }] },
-            { "n": 80, "text": "What is Ravi's age? I. Ravi is 5 years older than Sita. II. Sita is 20 years old.", "options": [{ "key": "A", "text": "Statement I alone is sufficient" }, { "key": "B", "text": "Statement II alone is sufficient" }, { "key": "C", "text": "Both statements together are sufficient" }, { "key": "D", "text": "Both statements together are not sufficient" }] }
-        ];
-        const mockPaper2Key = { "1": "B", "2": "D", "3": "B", "4": "A", "5": "C", "6": "C", "7": "D", "8": "B", "9": "C", "10": "B", "11": "D", "12": "A", "13": "C", "14": "B", "15": "D", "16": "B", "17": "D", "18": "B", "19": "A", "20": "A", "21": "B", "22": "A", "23": "D", "24": "D", "25": "A", "26": "D", "27": "D", "28": "C", "29": "D", "30": "D", "31": "B", "32": "C", "33": "D", "34": "A", "35": "B", "36": "A", "37": "A", "38": "B", "39": "B", "40": "A", "41": "B", "42": "C", "43": "A", "44": "D", "45": "B", "46": "C", "47": "D", "48": "B", "49": "B", "50": "D", "51": "A", "52": "A", "53": "A", "54": "C", "55": "D", "56": "D", "57": "B", "58": "D", "59": "B", "60": "C", "61": "B", "62": "C", "63": "B", "64": "C", "65": "A", "66": "C", "67": "A", "68": "D", "69": "C", "70": "A", "71": "A", "72": "D", "73": "A", "74": "C", "75": "D", "76": "B", "77": "C", "78": "A", "79": "C", "80": "C" };
-
         function getSectionName(n, total) {
             if (total <= 30) return 'Assessment Module';
-            if (n <= Math.floor(total / 3)) return 'Numerical Ability Module';
+            if (n <= Math.floor(total / 3)) return 'Numerical Ability Module (Math)';
             if (n <= Math.floor(total * 2 / 3)) return 'Reasoning Ability Module';
             return 'Verbal Ability Module';
         }
@@ -1505,7 +745,7 @@
             let q = currentQuestions[idx];
             $('qCounter').textContent = `Q ${q.n} of ${currentQuestions.length}`;
             $('attempted').textContent = `${Object.keys(answers).length} attempted`;
-            $('section').textContent = getSectionName(q.n, currentQuestions.length); $('qtext').textContent = q.text;
+            $('section').textContent = getSectionName(q.n, currentQuestions.length);$('qtext').textContent = q.text;
             $('options').innerHTML = q.options.map(o => `
                 <label class="option-item">
                     <input type="radio" name="answer" value="${o.key}" ${answers[q.n] === o.key ? 'checked' : ''}> 
@@ -1563,28 +803,47 @@
 
             if (document.fullscreenElement) { document.exitFullscreen().catch(err => console.log(err)); }
 
-            let score = 0, correct = 0, wrong = 0;
+            let correct = 0, wrong = 0;
+            let mathC = 0, reasoningC = 0, verbalC = 0;
+            let total = currentQuestions.length;
+            let third = Math.floor(total / 3);
+            let twoThird = Math.floor(total * 2 / 3);
+
             currentQuestions.forEach(q => {
                 let userAns = answers[q.n];
                 let correctAns = currentAnswersKey[q.n];
                 if (userAns) {
-                    if (userAns === correctAns) { correct++; score += 1; }
-                    else { wrong++; }
+                    if (userAns === correctAns) {
+                        correct++;
+                        if (q.n <= third) mathC++;
+                        else if (q.n <= twoThird) reasoningC++;
+                        else verbalC++;
+                    } else {
+                        wrong++;
+                    }
                 }
             });
 
-            let finalScoreScaled = Math.round((correct / currentQuestions.length) * 100);
-            let unanswered = currentQuestions.length - (correct + wrong);
+            let finalScoreScaled = Math.round((correct / total) * 100);
+            let unanswered = total - (correct + wrong);
 
             let res = await fetch('/api/submit-test', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: currentUser._id, testTitle: currentSelectedTestTitle, score: finalScoreScaled, correct, wrong, unanswered })
+                body: JSON.stringify({ 
+                    userId: currentUser._id, 
+                    testTitle: currentSelectedTestTitle, 
+                    score: finalScoreScaled, 
+                    correct, wrong, unanswered,
+                    mathCorrect: mathC,
+                    reasoningCorrect: reasoningC,
+                    verbalCorrect: verbalC
+                })
             });
             let data = await res.json();
             if (data.success) { currentUser = data.user; }
 
             $('testScreen').classList.add('hidden');
-            $('resultScreen').classList.remove('hidden'); $('score').textContent = `${finalScoreScaled} / 100`;
+            $('resultScreen').classList.remove('hidden');$('score').textContent = `${finalScoreScaled} / 100`;
 
             let feedback = '';
             if (finalScoreScaled >= 90) feedback = `🌟 Outstanding! Phenomenal performance (${finalScoreScaled}/100). You are fully ready!`;
@@ -1610,7 +869,7 @@
             let correctAns = currentAnswersKey[q.n];
 
             $('solCounter').textContent = `Question ${q.n} of ${currentQuestions.length}`;
-            $('solSection').textContent = getSectionName(q.n, currentQuestions.length); $('solQText').textContent = q.text;
+            $('solSection').textContent = getSectionName(q.n, currentQuestions.length);$('solQText').textContent = q.text;
 
             $('solOptionsList').innerHTML = q.options.map(o => {
                 let classes = 'sol-opt-row';
@@ -1646,56 +905,48 @@
                 }
             }
 
-            if (currentSelectedTestTitle === 'Mock Paper 1') {
-                currentQuestions = defaultQs;
-                currentAnswersKey = defaultKey;
-            } else if (currentSelectedTestTitle === 'Mock Paper 2') {
-                currentQuestions = mockPaper2Qs;
-                currentAnswersKey = mockPaper2Key;
+            let res = await fetch(`/api/tests/${encodeURIComponent(currentSelectedTestTitle)}`);
+            let data = await res.json();
+            if (data.success && data.questions.length > 0) {
+                currentQuestions = data.questions;
+                currentAnswersKey = {};
+                data.questions.forEach(q => { currentAnswersKey[q.n] = q.correctAnswer; });
             } else {
-                let res = await fetch(`/api/tests/${encodeURIComponent(currentSelectedTestTitle)}`);
-                let data = await res.json();
-                if (data.success && data.questions.length > 0) {
-                    currentQuestions = data.questions;
-                    currentAnswersKey = {};
-                    data.questions.forEach(q => { currentAnswersKey[q.n] = q.correctAnswer; });
-                } else {
-                    currentQuestions = defaultQs;
-                    currentAnswersKey = defaultKey;
-                }
+                alert("Error loading test questions!");
+                return;
             }
 
             enterFullscreen();
-            $('userDashScreen').classList.add('hidden'); $('testScreen').classList.remove('hidden');
+            $('userDashScreen').classList.add('hidden');$('testScreen').classList.remove('hidden');
             idx = 0; answers = {}; submitted = false; left = currentQuestions.length * 50;
             buildNav(); render();
             timerId = setInterval(clock, 1000);
         });
 
         $('jumpSec1').addEventListener('click', () => { save(); idx = 0; render(); });
-        $('jumpSec2').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length / 3); render(); }); $('jumpSec3').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length * 2 / 3); render(); });
+        $('jumpSec2').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length / 3); render(); });$('jumpSec3').addEventListener('click', () => { save(); idx = Math.floor(currentQuestions.length * 2 / 3); render(); });
 
-        $('options').addEventListener('change', save); $('prevBtn').addEventListener('click', () => { save(); if (idx > 0) { idx--; render(); } });
-        $('nextBtn').addEventListener('click', () => { save(); if (idx < currentQuestions.length - 1) { idx++; render(); } else { if (confirm('Submit test now?')) submitTest(false); } }); $('submitBtn').addEventListener('click', () => { if (confirm('Submit paper now?')) submitTest(false); });
+        $('options').addEventListener('change', save);$('prevBtn').addEventListener('click', () => { save(); if (idx > 0) { idx--; render(); } });
+        $('nextBtn').addEventListener('click', () => { save(); if (idx < currentQuestions.length - 1) { idx++; render(); } else { if (confirm('Submit test now?')) submitTest(false); } });$('submitBtn').addEventListener('click', () => { if (confirm('Submit paper now?')) submitTest(false); });
 
         $('viewSolutionsBtn').addEventListener('click', () => {
-            $('resultScreen').classList.add('hidden'); $('solutionScreen').classList.remove('hidden');
+            $('resultScreen').classList.add('hidden');$('solutionScreen').classList.remove('hidden');
             solIdx = 0;
             renderSolution();
         });
 
-        $('solPrevBtn').addEventListener('click', () => { if (solIdx > 0) { solIdx--; renderSolution(); } }); $('solNextBtn').addEventListener('click', () => {
+        $('solPrevBtn').addEventListener('click', () => { if (solIdx > 0) { solIdx--; renderSolution(); } });$('solNextBtn').addEventListener('click', () => {
             if (solIdx < currentQuestions.length - 1) {
                 solIdx++;
                 renderSolution();
             } else {
-                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
+                $('solutionScreen').classList.add('hidden');$('thankYouScreen').classList.remove('hidden');
             }
         });
 
         $('finishReviewBtn').addEventListener('click', () => {
             if (confirm('Exit review?')) {
-                $('solutionScreen').classList.add('hidden'); $('thankYouScreen').classList.remove('hidden');
+                $('solutionScreen').classList.add('hidden');$('thankYouScreen').classList.remove('hidden');
             }
         });
     </script>
