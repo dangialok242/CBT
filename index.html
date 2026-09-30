@@ -511,7 +511,7 @@
                 data: {
                     labels: ['Mathematics', 'Reasoning', 'Verbal'],
                     datasets: [{
-                        label: 'Correct Answers in Latest Attempt',
+                        label: 'Correct Answers (Latest Attempt)',
                         data: [mathC, reasoningC, verbalC],
                         backgroundColor: ['#06b6d4', '#10b981', '#3b82f6'],
                         borderWidth: 1
@@ -522,6 +522,15 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: { beginAtZero: true, ticks: { stepSize: 5 } }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Correct Answers: ${context.raw}`;
+                                }
+                            }
+                        }
                     }
                 }
             });

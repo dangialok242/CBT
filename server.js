@@ -16,8 +16,6 @@ mongoose.connect(MONGO_URI, {
   .then(async () => {
     console.log("🚀 MongoDB Connected Successfully!");
     try { await mongoose.connection.collection('users').dropIndexes(); } catch (e) {}
-    
-    // Seed default Mock Paper 1 & Mock Paper 2 if not present
     await seedDefaultPapers();
   })
   .catch(err => console.log("Database Connection Error:", err));
@@ -262,7 +260,6 @@ app.get('/api/tests/:title', async (req, res) => {
   }
 });
 
-// Seed data arrays for backend initialization
 const defaultQsSeed = [
     {"n": 1, "text": "What is the smallest 4-digit number exactly divisible by 12?", "options": [{"key": "A", "text": "1000"}, {"key": "B", "text": "1004"}, {"key": "C", "text": "1008"}, {"key": "D", "text": "1012"}], "correctAnswer": "C"},
     {"n": 2, "text": "The sum of the digits of a 2-digit number is 11. If the digits are reversed, the new number is 45 more than the original number. Find the original number.", "options": [{"key": "A", "text": "29"}, {"key": "B", "text": "38"}, {"key": "C", "text": "47"}, {"key": "D", "text": "56"}], "correctAnswer": "B"},
