@@ -47,6 +47,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, default: 'user' },
   photo: { type: String, default: '' },
+  streak: { type: Number, default: 1 },
+  xp: { type: Number, default: 150 },
   attempts: [attemptSchema],
   queries: [querySchema]
 });
@@ -134,6 +136,8 @@ app.post('/api/submit-test', async (req, res) => {
       verbalCorrect: verbalCorrect || 0, 
       date: new Date() 
     });
+    user.xp = (user.xp || 150) + 100;
+    user.streak = (user.streak || 1) + 1;
     await user.save();
     res.json({ success: true, user });
   } catch (err) {
@@ -162,7 +166,6 @@ app.get('/api/admin/users', async (req, res) => {
   }
 });
 
-// New API to delete/reset a specific user attempt
 app.delete('/api/admin/user-attempt/:userId/:attemptId', async (req, res) => {
   try {
     const { userId, attemptId } = req.params;
