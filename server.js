@@ -7,8 +7,7 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 
-// ⚠️ APNA MONGODB ATLAS URL YAHAN DALEN
-const MONGO_URI = "mongodb+srv://alokdangi2004_db_user:oqHZJjH94hKtrl3t@paytmdb.8kzyge5.mongodb.net/?appName=PaytmDB";
+const MONGO_URI = "mongodb+srv://alokdangi2004_db_user:oqHZJjH94hKrtl3t@paytmdb.8kzyge5.mongodb.net/?appName=PaytmDB";
 
 mongoose.connect(MONGO_URI)
   .then(async () => {
@@ -17,7 +16,6 @@ mongoose.connect(MONGO_URI)
   })
   .catch(err => console.log("Database Connection Error:", err));
 
-// Database Schemas
 const attemptSchema = new mongoose.Schema({
   testTitle: String,
   score: Number,
@@ -179,21 +177,31 @@ app.get('/api/admin/tests-summary', async (req, res) => {
   }
 });
 
-app.delete('/api/admin/tests/:title', async (req, res) => {
+app.get('/api/admin/test-questions/:title', async (req, res) => {
   try {
     const title = decodeURIComponent(req.params.title);
-    await CustomQuestion.deleteMany({ testTitle: title });
-    res.json({ success: true, message: "Mock test deleted successfully!" });
+    const questions = await CustomQuestion.find({ testTitle: title });
+    res.json({ success: true, questions });
   } catch (err) {
     res.status(500).json({ success: false });
   }
 });
 
-app.post('/api/admin/unlock', async (req, res) => {
-  const { userId } = req.body;
+app.put('/api/admin/update-question/:id', async (req, res) => {
   try {
-    await User.findByIdAndUpdate(userId, { attempts: [] });
-    res.json({ success: true, message: "Attempts reset successfully!" });
+    const { text, options, correctAnswer } = req.body;
+    await CustomQuestion.findByIdAndUpdate(req.params.id, { text, options, correctAnswer });
+    res.json({ success: true, message: "Question updated successfully!" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Error updating question" });
+  }
+});
+
+app.delete('/api/admin/tests/:title', async (req, res) => {
+  try {
+    const title = decodeURIComponent(req.params.title);
+    await CustomQuestion.deleteMany({ testTitle: title });
+    res.json({ success: true, message: "Mock test deleted successfully!" });
   } catch (err) {
     res.status(500).json({ success: false });
   }
@@ -211,13 +219,14 @@ app.get('/api/tests', async (req, res) => {
 app.get('/api/tests/:title', async (req, res) => {
   try {
     const title = decodeURIComponent(req.params.title);
-    const questions = await CustomQuestion.find({ testTitle: title });
+    const questions = await CustomQuestion.find({ testTitle: title }).sort({ n: 1 });
     res.json({ success: true, questions });
   } catch (err) {
     res.status(500).json({ success: false });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
